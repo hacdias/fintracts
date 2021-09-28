@@ -30,4 +30,5 @@ _opam/
 
 # Project specific
 parser.ml
+parser.mli
 lexer.ml
