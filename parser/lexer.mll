@@ -1,5 +1,5 @@
 {
-  (* open Parser *)
+  open Parser
   exception Eof
 }
 
@@ -8,17 +8,28 @@ let w = ['a'-'z''A'-'Z']+
 
 rule token = parse
   | ws                          { token lexbuf }
-  | "The" ws* "parties" ws* ":" { print_endline "Enter parties"; parties lexbuf }
+  | "The" ws* "parties" ws* ":" { parties lexbuf }
+  | w as w { print_endline w; token lexbuf }
   | eof                         { raise Eof }
 
 and parties = parse
-  | ws                          { parties lexbuf }
-  | (w as name) ws* ',' ws*
-    "undermentioned" ws* "as" ws*
-    (w as nick)                 { print_endline name; print_endline nick; parties lexbuf }
-  | ';' ws* "and" ws*           { parties lexbuf }
-  | '.'                         { print_endline "Exit parties"; token lexbuf }
+  | ws                                        { parties lexbuf }
+  | "undermentioned" ws* "as" ws* (w as w) { PARTY_NICK(w) }
+  | w                                         {
+    let buf = Buffer.create 17 in
+      Buffer.add_string buf (Lexing.lexeme lexbuf);
+      name_until_comma (buf) lexbuf
+  }
+  | ';' ws* "and" ws*                         { parties lexbuf }
+  | '.'                                       { token lexbuf }
 
-and name_until_comma = parse 
-  | char                        { back lexbuf }
-  | w                           { print_endline w; parties lexbuf }
+and name_until_comma buf = parse 
+  | ','                                 { PARTY_NAME (Buffer.contents buf) }
+  | ws                                  {
+    Buffer.add_string buf (Lexing.lexeme lexbuf);
+      name_until_comma buf lexbuf
+    }
+  | w                            {
+    Buffer.add_string buf (Lexing.lexeme lexbuf);
+      name_until_comma buf lexbuf
+    }

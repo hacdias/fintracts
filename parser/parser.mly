@@ -2,24 +2,19 @@
   open Types
 %}
 
-%token <string> WORD
-%token THE_PARTIES
-%token COMMA SEMI_COL DOT
-%token UNDERMENTIONED
-%token AND
-
-%token <string> TPARTY
+%token <string> PARTY_NAME PARTY_NICK
+%token END_PARTIES
 
 %start main
 %type <contract> main
+%type <party list> parties
 
 %%
 
 main:
-  THE_PARTIES parties { { parties = $2 } }
+  parties { { parties = $1 } }
 ;
 
 parties
-  : WORD COMMA UNDERMENTIONED WORD SEMI_COL AND parties { { name = $1; identifier = $4 } :: $7 }
-  | WORD COMMA UNDERMENTIONED WORD DOT  { [{ name = $1; identifier = $4 }] }
+  : PARTY_NAME PARTY_NICK { [{ name = $1; identifier = $1 }] }
 ;
