@@ -7,8 +7,6 @@
   - [Currency Swap Transaction Agreement](#currency-swap-transaction-agreement)
   - [Other Agreements to Consider](#other-agreements-to-consider)
 - [BNF Definition](#bnf-definition)
-- [Tech Stack & Process](#tech-stack--process)
-  - [In The Very Case There's More Time](#in-the-very-case-theres-more-time)
 
 ## Contract Format
 
@@ -54,7 +52,7 @@ Contract types are just transaction types. Each contract refers to a different t
 
 - *Issuer*: the one who issues the bond.
 - *Underwriter:* the one who purchases the bond.
-- *Face value*: **the value of the bond.
+- *Face value*: the value of the bond.
 - *Issue price*: the price at which the bond issuer originally sells the bond.
 - *Maturity date*, the date the bond issuer will pay the bond holder the face value of the bond.
 - If there are coupons (can be defined in the agreement section).
@@ -69,16 +67,16 @@ Selling a discounted bond without coupons:
 ```
 The parties:
 
-	**Will Smith**, undermentioned as **WS**; and
-	**De Nederlandse Bank,** undermentioned as **DNB**.
+	Will Smith, undermentioned as WS; and
+	De National Bank, undermentioned as DNB.
 
-Hereby enter in a **Bond Purchase Agreement** defined as follows:
+Hereby enter in a Bond Purchase Agreement defined as follows:
 
-	The **DNB** agrees on issuing and selling a bond of **EUR 10,000.00** to **WS**
-	for **EUR 9,800.00**. The aforementioned bond reaches maturity on the
-	**1st of October 2025**.
+	The DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
+	for EUR 9,800.00. The aforementioned bond reaches maturity on the
+	1st of October 2025.
 
-Signed by **WS** and **DNB** on the **24th of September 2021**.
+Signed by WS and DNB on the 24th of September 2021.
 ```
 
 Selling a bond for its face value with coupons:
@@ -86,20 +84,20 @@ Selling a bond for its face value with coupons:
 ```
 The parties:
 
-	**Will Smith**, undermentioned as **WS**; and
-	**De Nederlandse Bank,** undermentioned as **DNB**.
+	Will Smith, undermentioned as WS; and
+	De national Bank, undermentioned as DNB.
 
-Hereby enter in a **Bond Purchase Agreement** defined as follows:
+Hereby enter in a Bond Purchase Agreement defined as follows:
 
-	The **DNB** agrees on issuing and selling a bond of **EUR 10,000.00** to **WS**
-	for **EUR 10,000.00**. The aforementioned bond reaches maturity on the
-	**1st of October 2025**.
+	The DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
+	for EUR 9,800.00. The aforementioned bond reaches maturity on the
+	1st of October 2025.
 
-	The bond has coupons with an interest rate of **1.2%** paid on the following
-	dates: **1st of October 2021,** **1st of October 2022**, **1st of October 2023**, **1st
-	of October 2024** and **1st of October 2025**.
+	The bond has coupons with an interest rate of 1.2% paid on the following
+	dates: 1st of October 2021, 1st of October 2022, 1st of October 2023, 1st
+	of October 2024 and 1st of October 2025.
 
-Signed by **WS** and **DNB** on the **24th of September 2021**.
+Signed by WS and DNB on the 24th of September 2021.
 ```
 
 ### Interest Rate Swap Transaction Agreement
@@ -108,8 +106,6 @@ Signed by **WS** and **DNB** on the **24th of September 2021**.
 
 - [https://www.investopedia.com/terms/i/interestrateswap.asp](https://www.investopedia.com/terms/i/interestrateswap.asp)
 - There are different types of swap: fixed to floating, floating to fixed, and floating to floating.
-
-[Interest Rate Swap Agreement.pdf](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/246001d3-de91-434d-9eb2-84caedd053f0/Interest_Rate_Swap_Agreement.pdf)
 
 #### Properties
 
@@ -132,25 +128,25 @@ Fixed to Floating Example
 ```
 The parties:
 
-	**Big USA Bank,** undermentioned as **BUSAB**; and
-	**Big German Bank,** undermentioned as **BGB**.
+	Big USA Bank, undermentioned as BUSAB; and
+	Big German Bank, undermentioned as BGB.
 
-Hereby enter in an **Interest Rate Swap Transaction Agreement** defined as follows:
+Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
 
 	The parties agree on an interest rate swap transaction over the notational
-	principal of **USD 10,000,000.00**, with an effective date as of the **1st of
-	October 2021** and termination on the **1st of October 2025**.
+	principal of USD 10,000,000.00, with an effective date as of the 1st of
+	October 2021 and termination on the 1st of October 2025.
 
-	****The **BUSAB** will pay a **fixed** rate interest of **3.5%** over the notational amount
-	on the following dates: **15th of October 2021,** **15th of October 2022**, **15th of
-	October 2023**, **15th of October 2024** and **15th of October 2025**.
+	The BUSAB will pay a fixed rate interest of 3.5% over the notational amount
+	on the following dates: 15th of October 2021, 15th of October 2022, 15th of
+	October 2023, 15th of October 2024 and 15th of October 2025.
 
-	The **BGB** will pay a **floating** rate interest, initially defined as **2.4%**, over
-	the notational amount on the following dates: **15th of October 2021,** **15th
-	of October 2022**, **15th of October 2023**, **15th of October 2024** and **15th of
-	October 2025**. The floating rate option is **USD-LIBOR.**
+	The BGB will pay a floating rate interest, initially defined as 2.4%, over
+	the notational amount on the following dates: 15th of October 2021, 15th
+	of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
+	October 2025. The floating rate option is USD-LIBOR.
 
-Signed by **BUSAB** and **BGB** on the **15th of September 2021**.
+Signed by BUSAB and BGB on the 15th of September 2021.
 ```
 
 ### Currency Swap Transaction Agreement
@@ -178,18 +174,18 @@ An example where the implied exchange rate USD/EUR is 1.25.
 ```
 The parties:
 
-	**Big USA Bank,** undermentioned as **BUSAB**; and
-	**Big German Bank,** undermentioned as **BGB**.
+	Big USA Bank, undermentioned as BUSAB; and
+	Big German Bank, undermentioned as BGB.
 
-Hereby enter in a **Currency Swap Transaction Agreement** defined as follows:
+Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 
 	The parties agree on a currency swap transaction effective as of the
-	**1st of October 2021** and termination on the **1st of October 2025**.
+	1st of October 2021 and termination on the 1st of October 2025.
 
-	The **BUSAB** will pay a principal amount of **USD 10,000,000.00,** and the
-	**BGB** will pay a principal ****amount of **EUR 12,500,000.00.**
+	The BUSAB will pay a principal amount of USD 10,000,000.00, and the
+	BGB will pay a principal amount of EUR 12,500,000.00.
 
-Signed by **BGB** and **BUSAB** on the **15th of September 2021**.
+Signed by BGB and BUSAB on the 15th of September 2021.
 ```
 
 With interest over the loans **and** an end exchange rate of USD/EUR 1.30:
@@ -197,30 +193,30 @@ With interest over the loans **and** an end exchange rate of USD/EUR 1.30:
 ```
 The parties:
 
-	**Big USA Bank,** undermentioned as **BUSAB**; and
-	**Big German Bank,** undermentioned as **BGB**.
+	Big USA Bank, undermentioned as BUSAB; and
+	Big German Bank, undermentioned as BGB.
 
-Hereby enter in a **Currency Swap Transaction Agreement** defined as follows:
+Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 
 	The parties agree on a currency swap transaction effective as of the
-	**1st of October 2021** and termination on the **1st of October 2025**.
+	1st of October 2021 and termination on the 1st of October 2025.
 
-	The **BUSAB** will pay a principal amount of **USD 10,000,000.00,** and the
-	**BGB** will pay a principal ****amount of **EUR 12,500,000.00.**
+	The BUSAB will pay a principal amount of USD 10,000,000.00, and the
+	BGB will pay a principal amount of EUR 12,500,000.00.
 	
-	The **BUSAB** will pay a **fixed** rate interest of **3.5%** over the notational amount
-	on the following dates: **15th of October 2021,** **15th of October 2022**, **15th of
-	October 2023**, **15th of October 2024** and **15th of October 2025**.
+	The BUSAB will pay a fixed rate interest of 3.5% over the notational amount
+	on the following dates: 15th of October 2021, 15th of October 2022, 15th of
+	October 2023, 15th of October 2024 and 15th of October 2025.
 
-	The **BGB** will pay a **floating** rate interest, initially defined as **2.4%**, over
-	the notational amount on the following dates: **15th of October 2021,** **15th
-	of October 2022**, **15th of October 2023**, **15th of October 2024** and **15th of
-	October 2025**. The floating rate option is **USD-LIBOR.**
+	The BGB will pay a floating rate interest, initially defined as 2.4%, over
+	the notational amount on the following dates: 15th of October 2021, 15th
+	of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
+	October 2025. The floating rate option is USD-LIBOR.
 
 	At maturity, the principal amounts shall be exchanged back with an interest
-	rate of **USD/EUR 1.30**.
+	rate of USD/EUR 1.30.
 
-****Signed by **BGB** and **BUSAB** on the **15th of September 2021**.
+Signed by BGB and BUSAB on the 15th of September 2021.
 ```
 
 ### Other Agreements to Consider
@@ -253,18 +249,3 @@ The formal definition of the language. This will help with the implementation.
 
 <Asset> ::= <Money> | <Stocks> | <CertificateOfDeposit> | <Bond>
 ```
-
-## Tech Stack & Process
-
-The idea would be to use Go to implement the parser. The parser only implements the first steps of a compiler:
-
-1. Lexical Analysis, to interpret the contract. Can use [https://github.com/alecthomas/participle](https://github.com/alecthomas/participle) to define the grammar and parse the language.
-    1. Instead, we can also try pattern matching. The texts structure is very clearly defined.
-2. Semantic Analysis, to make sure the contract makes sense. This is needed as the grammar definition by itself can lead to invalid interpretations. For example: we can write a certain contract type but the text refers to a different contract. This needs to be taken into account. It can also be embedded into the BNF formalization, but that may make it overly complex.
-3. Output to JSON
-
-Code: [https://github.com/hacdias/fintracts](https://github.com/hacdias/fintracts) (private repo for now)
-
-### In The Very Case There's More Time
-
-Build a simple GUI where we can copy the contract's text and visualize details around the contract, such as timeline of payments, type of contract, and entities. That'd be nice. 😄
