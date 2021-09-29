@@ -1,13 +1,17 @@
-%token <int> INT
+%{
+  open Types
+%}
+
 %token <string> WORD
-%token EOL
 %token THE_PARTIES
 %token COMMA SEMI_COL DOT
 %token UNDERMENTIONED
 %token AND
 
+%token <string> TPARTY
+
 %start main
-%type <Types.contract> main
+%type <contract> main
 
 %%
 
@@ -16,6 +20,6 @@ main:
 ;
 
 parties
-  : WORD COMMA UNDERMENTIONED WORD SEMI_COL AND parties { $1 :: $7 }
-  | WORD COMMA UNDERMENTIONED WORD DOT  { [$1] }
+  : WORD COMMA UNDERMENTIONED WORD SEMI_COL AND parties { { name = $1; identifier = $4 } :: $7 }
+  | WORD COMMA UNDERMENTIONED WORD DOT  { [{ name = $1; identifier = $4 }] }
 ;

@@ -4,5 +4,5 @@ type party = {
 } [@@deriving yojson]
 
 type contract = {
-  parties: string list
+  parties: party list
 } [@@deriving yojson]
