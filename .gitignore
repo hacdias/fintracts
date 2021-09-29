@@ -32,3 +32,4 @@ _opam/
 parser.ml
 parser.mli
 lexer.ml
+node_modules
