@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	fmt.Println(parser.String())
 	file, err := ioutil.ReadFile("./contract2.txt")
 	if err != nil {
 		log.Fatal(err)

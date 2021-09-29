@@ -1,0 +1,13 @@
+(ocamllex lexer)
+
+(menhir
+ (modules parser))
+
+(executable
+  (name fintracts)
+  (libraries yojson ppx_deriving_yojson.runtime)
+  (preprocess (pps ppx_deriving_yojson)))
+
+(env
+  (dev
+    (flags (:standard -w -39))))
