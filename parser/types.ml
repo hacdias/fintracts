@@ -1,8 +1,8 @@
-(* type party = {
+type party = {
   name: string;
   identifier: string
-} [@@deriving yojson] *)
+} [@@deriving yojson]
 
 type contract = {
-  parties: string
+  parties: string list
 } [@@deriving yojson]

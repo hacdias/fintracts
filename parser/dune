@@ -1,3 +1,6 @@
+(ocamllex lexer)
+(ocamlyacc parser)
+
 (executable
   (name fintracts)
   (libraries yojson ppx_deriving_yojson.runtime)

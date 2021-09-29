@@ -1,1 +1,4 @@
-The parties: name
+The parties:
+
+	Smith, undermentioned as WS; and
+  Smith, undermentioned as WS.
