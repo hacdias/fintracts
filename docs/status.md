@@ -6,6 +6,7 @@ I've been working with OCaml and with `ocamllex` in [../parser](../parser) (not 
 
 - Overly complicated for what we need to do.
 - Not simply to add new parts to the grammar.
+- Very limited support for regular expressions.
 - Limitation: once `ocamllex` returns a token, it automatically returns to the main entry point instead of going to the caller entry point. Losing this kind of context makes it very difficult to implement our grammar. [Read more.](https://medium.com/@huund/recipes-for-ocamllex-bb4efa0afe53)
 
 I also tried using Go with [`participle`](https://github.com/alecthomas/participle). We can define the syntax as a tag of our data structure and it automatically fills the data structure. See the files [parser.go](../parser-go/parser.go),  [types.go](../parser-go/types.go) and  [agreements.go](../parser-go/agreements.go) to understand what I mean. It would probably be very simple to add new contracts if we used Go. Advantages:
