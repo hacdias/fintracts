@@ -200,3 +200,5 @@ date
 ```
 
 Adding more things imply adding a lot new tokens and make the files barely readable. Besides, the ocamllex has a limit of tokens due to the automata reaching the maximum number of states. The alternative is to build a hash table but that also requires to separate words instead of constructions: for example "Signed by" (SIGNED_BY) would need to be separated in "Signed" (SIGNED) and "by" (BY). We'd need to almost manually define all the vocabulary. We can also generate the vocabulary from text templates: we give a text template and generate a table with all the words. It feels a bit painful, but possible.
+
+There's also the issue that we might want to differentiate "And" from "and", which would be harder if we have to define all tokens. We can also just convert to lower case and let the contract be case insensitive.
