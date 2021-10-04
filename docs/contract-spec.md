@@ -1,52 +1,56 @@
-# Language Specification
+# Contract Specification
 
-- [Contract Format](#contract-format)
-- [Contract Types](#contract-types)
-	- [Bond Purchase Agreement](#bond-purchase-agreement)
-	- [Interest Rate Swap Transaction Agreement](#interest-rate-swap-transaction-agreement)
-	- [Currency Swap Transaction Agreement](#currency-swap-transaction-agreement)
-	- [Other Agreements to Consider](#other-agreements-to-consider)
-- [BNF Definition](#bnf-definition)
+- [Format](#format)
+- [Parties](#parties)
+- [Signature](#signature)
+- [Agreement(s)](#agreements)
+	- [Bond Purchase](#bond-purchase)
+	- [Interest Rate Swap Transaction](#interest-rate-swap-transaction)
+	- [Currency Swap Transaction](#currency-swap-transaction)
+	- [Other Types to Consider](#other-types-to-consider)
 
-## Contract Format
+## Format
 
-The idea is to write a contract as naturally as possible. However, we have to take into account the limitations of text processing and parsing. For this project, we suggest a language that, even though looks natural and can be read, has a rigid grammar and structure.
+The idea is to be able to write a contract as naturally as possible. However, we have to take into account the limitations of text processing and parsing. Since we are not working with natural language processing, the best idea is to specify a format that, albeit natural looking, can be easily parsed and is rigid.
 
-All contracts must define:
+All contracts must be defined as:
 
-- The *parties* involved.
-- The *transaction* and the *assets* involved.
-- The *signature* and date.
+```
+<Parties>
+<Agreement>+
+<Signature>
+```
 
-Suggestion:
+## Parties
 
-1. Starting by defining the parties, where `Abbreviation` is the short name of the party that will be used on the rest of the contract. For example, the "Nasdaq Stock Market" could use NSM as abbreviation.
-2. The contract type and agreement details.
-3. The signature and date.
+Each party is composed by its name and abbreviation. There can be 2 or more parties. The abbreviation is used as a reference to the party in the rest of the contract.
 
 ```
 The parties:
 	
-	<Party Name>, undermentioned as <Abbreviation>; and
-	<Party Name>, undermentioned as <Abbreviation>.
-
-Hereby enter in (a|an) <Contract Type> defined as follows:
-
-	<Contract Type Dependent Text>
-
-Signed by <Party Abbreviation> and <Party Abbreviation> on <Date>.
+	[<Name>, undermentioned as <Abbreviation>; and]+
+	<Name>, undermentioned as <Abbreviation>.
 ```
 
-## Contract Types
+## Signature
 
-Contract types are just transaction types. Each contract refers to a different transaction. And each type of transaction has its own intrinsic properties.
+The contract must be signed by all parties and contain the date.
 
-### Bond Purchase Agreement
+```
+Signed by <Party Abbreviation> [, <Party Abbreviation>]+ and <Party Abbreviation> on <Date>.
+```
 
-#### Information
+## Agreement(s)
 
-- [https://www.investopedia.com/terms/b/bond.asp](https://www.investopedia.com/terms/b/bond.asp)
-- [https://www.investopedia.com/terms/b/bond-purchase-agreement.asp](https://www.investopedia.com/terms/b/bond-purchase-agreement.asp)
+A contract may have one or more agreements. An agreement is just a transaction type. All agreements are specified as below:
+
+```
+Hereby enter in (a|an) <Agreement Type> defined as follows:
+
+	<Agreement Text>
+```
+
+### Bond Purchase
 
 #### Properties
 
@@ -55,10 +59,21 @@ Contract types are just transaction types. Each contract refers to a different t
 - *Face value*: the value of the bond.
 - *Issue price*: the price at which the bond issuer originally sells the bond.
 - *Maturity date*, the date the bond issuer will pay the bond holder the face value of the bond.
-- If there are coupons (can be defined in the agreement section).
+- If there are coupons:
     - *Coupon interest rate*: the interest rate the bond issuer pays on the face value of the bond at the coupon dates.
     - *Coupon dates*: the dates at which the bond issuer pays the coupon interest rate.
-- *Withdraw conditions*: conditions in which the underwriter may withdraw. Should probably be free text conditions (not on examples yet).
+
+
+#### Format
+
+```
+The <Abbreviation> agrees on issuing and selling a bond of <Money> to
+<Abbreviation> for <Money>. The aforementioned bond reaches maturity
+on the <Date>.
+
+[The bond has coupons with an interest rate of <Float>% paid on the following
+dates: <Date> [, <Date>]* and <Date>.]
+```
 
 #### Examples
 
@@ -100,12 +115,12 @@ Hereby enter in a Bond Purchase Agreement defined as follows:
 Signed by WS and DNB on the 24th of September 2021.
 ```
 
-### Interest Rate Swap Transaction Agreement
-
 #### Information
 
-- [https://www.investopedia.com/terms/i/interestrateswap.asp](https://www.investopedia.com/terms/i/interestrateswap.asp)
-- There are different types of swap: fixed to floating, floating to fixed, and floating to floating.
+- [https://www.investopedia.com/terms/b/bond.asp](https://www.investopedia.com/terms/b/bond.asp)
+- [https://www.investopedia.com/terms/b/bond-purchase-agreement.asp](https://www.investopedia.com/terms/b/bond-purchase-agreement.asp)
+
+### Interest Rate Swap Transaction
 
 #### Properties
 
@@ -120,6 +135,22 @@ Signed by WS and DNB on the 24th of September 2021.
 - For **floating** rate **only**:
     - *Initial rate for calculation period:* the interest rate used during the initial calculations period.
     - *Interest rate option*: the derivative that tracks the exchange rate over time (e.g. `usd-libor-bba`).
+
+#### Format
+
+
+```
+The parties agree on an interest rate swap transaction over the notational
+principal of <Money>, with an effective date as of the <Date> and termination
+on the <Date>.
+
+[The <Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
+on the following dates: <Date> [, <Date>]* and <Date>.]*
+
+[The <Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
+the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
+rate option is <Option>.]*
+```
 
 #### Examples
 
@@ -149,12 +180,12 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
 Signed by BUSAB and BGB on the 15th of September 2021.
 ```
 
-### Currency Swap Transaction Agreement
-
 #### Information
 
-- [https://www.investopedia.com/terms/c/currencyswap.asp](https://www.investopedia.com/terms/c/currencyswap.asp)
-- [https://www.investopedia.com/ask/answers/051215/what-difference-between-currency-and-interest-rate-swap.asp](https://www.investopedia.com/ask/answers/051215/what-difference-between-currency-and-interest-rate-swap.asp) (Currency Swap vs. Interest Rate Swap)
+- [https://www.investopedia.com/terms/i/interestrateswap.asp](https://www.investopedia.com/terms/i/interestrateswap.asp)
+- There are different types of swap: fixed to floating, floating to fixed, and floating to floating.
+
+### Currency Swap Transaction
 
 #### Properties
 
@@ -166,6 +197,26 @@ Signed by BUSAB and BGB on the 15th of September 2021.
 - *Maturity Date*: the date at which both parties have to swap again at either the original implied exchange rate or another pre-agreed rate.
 - *(Optional) End Exchange Rate*: the pre-agreed rate to swap at maturity date. If non-specified, it is the implied exchange rate.
 - These transactions can also **involve** interest payouts during the agreement time, just like the Interest Rate Swap Transaction Agreement.
+
+#### Format
+
+```
+The parties agree on a currency swap transaction effective as of the
+<Date> and termination on the <Date>.
+
+The <Abbreviation> will pay a principal amount of <Money>, and the
+<Abbreviation> will pay a principal amount of <Money>.
+
+[The <Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
+on the following dates: <Date> [, <Date>]* and <Date>.]*
+
+[The <Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
+the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
+rate option is <Option>.]*
+
+At maturity, the principal amounts shall be exchanged back with an interest
+rate of <Rate>.
+```
 
 #### Examples
 
@@ -219,47 +270,14 @@ Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 Signed by BGB and BUSAB on the 15th of September 2021.
 ```
 
-### Other Agreements to Consider
+#### Information
+
+- [https://www.investopedia.com/terms/c/currencyswap.asp](https://www.investopedia.com/terms/c/currencyswap.asp)
+- [https://www.investopedia.com/ask/answers/051215/what-difference-between-currency-and-interest-rate-swap.asp](https://www.investopedia.com/ask/answers/051215/what-difference-between-currency-and-interest-rate-swap.asp) (Currency Swap vs. Interest Rate Swap)
+
+### Other Types to Consider
 
 - Spot Foreign Exchange Transaction Agreement
 - Foreign Currency Exchange Agreement
 - Equity (Stocks) Purchase Agreement
 - Certificate of Deposit Purchase Agreement
-
-## BNF Definition
-
-The formal definition of the language. This will help with the implementation.
-
-```
-<Digit>  ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-<Digits> ::= <Digit> | <Digits><Digit>
-<Number> ::= <Digits> . <Digits>
-<Letter> ::= A | B | C | D | E | F | G | H | I | J | K | L | M |
-	N | O | P | Q | R | S | T | U | V | W | X | Y | Z
-
-# Assets
-<Currency> ::= <Letter><Letter><Letter>
-<Money>    ::= <Currency> <Number>
-
-<Stocks>   ::=
-
-<CertificateOfDeposit> ::=
-
-<Bond> ::=
-
-<Asset> ::= <Money> | <Stocks> | <CertificateOfDeposit> | <Bond>
-```
-
-Generated by participle;
-
-```text
-Contract = "The" "parties" ":" Party ";" "and" (Party ";" "and")* Party "." Agreement+ Signature .
-Party = ~","+ "," "undermentioned" "as" <ident> .
-Agreement = "Hereby" "enter" "in" "a" ~"defined"+ "defined" "as" "follows" ":" (BondPurchase | ExamplePurchase) .
-BondPurchase = "Purchase" "of" "a" "bond" "," "provided" "by" <ident> "," "by" "a" "monetary" "amount" "of" Money "," "provided" "by" <ident> "." "The" "bond" "aforementioned" "has" "a" "face" "value" "of" Money "and" "reaches" "maturity" "on" "the" Date "." ("This" "bond" "shall" "pay" "coupons" "with" "an" Coupons)? .
-Money = <ident> <money> .
-Date = <integer> ("th" | "rd" | "st") "of" <ident> <integer> .
-Coupons = "interest" "rate" "of" (<float> | <integer>) "%" "on" "the" "following" "dates" ":" ((Date ",") | Date | ("and" Date))+ "." .
-ExamplePurchase = "The" "buyer" <ident> "buys" <ident> "from" <ident> "for" <ident> "." .
-Signature = "Signed" "by" <ident> ("," <ident>)* "and" <ident> "on" "the" Date "." .
-```
