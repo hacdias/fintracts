@@ -5,12 +5,11 @@
 %token <string> WORD
 %token <int> INT
 %token SIGNED_BY THE_PARTIES
-%token AND
-%token ON_THE
-%token DOT
-%token COMMA SEMICOLON
+%token AND OF
+%token COMMA SEMICOLON DOT
 %token DATE_SEP
-%token OF UNDERMENTIONED
+%token ON_THE
+%token UNDERMENTIONED
 
 %start main
 %type <contract> main

@@ -1,6 +1,15 @@
 {
   open Parser
   exception Eof
+
+  let keyword_table = Hashtbl.create 53
+  let _ =
+    List.iter (fun (kwd, tok) -> Hashtbl.add keyword_table kwd tok)
+      [ "and", AND;
+        "of", OF;
+        "st", DATE_SEP; 
+        "th", DATE_SEP; 
+        "rd", DATE_SEP ]
 }
 
 let ws = [' ' '\t' '\n' '\r']*
@@ -13,14 +22,12 @@ rule token = parse
   | "Signed" ws "by"            { SIGNED_BY }
   | "on" ws "the"               { ON_THE }
   | "undermentioned" ws "as"    { UNDERMENTIONED }
-  | "and"                       { AND }
-  | "st"                        { DATE_SEP }
-  | "th"                        { DATE_SEP }
-  | "rd"                        { DATE_SEP }
-  | "of"                        { OF }
   | ','                         { COMMA }
   | ';'                         { SEMICOLON }
   | '.'                         { DOT }
-  | word as w                   { WORD(w) }
+  | word as w                   { try
+                                    Hashtbl.find keyword_table w
+                                  with Not_found ->
+                                    WORD(w) }
   | int as i                    { INT(int_of_string i) }
   | eof                         { raise Eof }
