@@ -10,10 +10,3 @@ let main =
           print_endline (JSON.to_string yo);
   with Lexer.Eof ->
     exit 0
-
-(* let main =
-  let c = {
-    parties = [{ name = "Bank"; identifier = "B" }]
-  } in 
-    let yo = contract_to_yojson c in
-      print_endline (JSON.to_string yo); *)

@@ -3,33 +3,24 @@
   exception Eof
 }
 
-let ws = [' ' '\t' '\n' '\r']
-let w = ['a'-'z''A'-'Z']+
+let ws = [' ' '\t' '\n' '\r']*
+let word = ['a'-'z''A'-'Z']+
+let int = ['0'-'9']+
 
 rule token = parse
   | ws                          { token lexbuf }
-  | "The" ws* "parties" ws* ":" { parties lexbuf }
-  | w as w { print_endline w; token lexbuf }
+  | "The" ws "parties" ws ":"   { THE_PARTIES }
+  | "Signed" ws "by"            { SIGNED_BY }
+  | "on" ws "the"               { ON_THE }
+  | "undermentioned" ws "as"    { UNDERMENTIONED }
+  | "and"                       { AND }
+  | "st"                        { DATE_SEP }
+  | "th"                        { DATE_SEP }
+  | "rd"                        { DATE_SEP }
+  | "of"                        { OF }
+  | ','                         { COMMA }
+  | ';'                         { SEMICOLON }
+  | '.'                         { DOT }
+  | word as w                   { WORD(w) }
+  | int as i                    { INT(int_of_string i) }
   | eof                         { raise Eof }
-
-and parties = parse
-  | ws                                        { parties lexbuf }
-  | "undermentioned" ws* "as" ws* (w as w) { PARTY_NICK(w) }
-  | w                                         {
-    let buf = Buffer.create 17 in
-      Buffer.add_string buf (Lexing.lexeme lexbuf);
-      name_until_comma (buf) lexbuf
-  }
-  | ';' ws* "and" ws*                         { parties lexbuf }
-  | '.'                                       { token lexbuf }
-
-and name_until_comma buf = parse 
-  | ','                                 { PARTY_NAME (Buffer.contents buf) }
-  | ws                                  {
-    Buffer.add_string buf (Lexing.lexeme lexbuf);
-      name_until_comma buf lexbuf
-    }
-  | w                            {
-    Buffer.add_string buf (Lexing.lexeme lexbuf);
-      name_until_comma buf lexbuf
-    }
