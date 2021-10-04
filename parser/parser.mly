@@ -22,7 +22,7 @@
 %%
 
 main
-  : parties signature                                         { { parties = $1; signature = $2; } }
+  : parties signature                                         { { parties = $1; agreements = []; signature = $2; } }
 ;
 
 parties
