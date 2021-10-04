@@ -15,6 +15,7 @@
 let ws = [' ' '\t' '\n' '\r']*
 let word = ['a'-'z''A'-'Z']+
 let int = ['0'-'9']+
+let float = (['0'-'9']+['.'])['0'-'9']+
 
 rule token = parse
   | ws                          { token lexbuf }
@@ -25,9 +26,11 @@ rule token = parse
   | ','                         { COMMA }
   | ';'                         { SEMICOLON }
   | '.'                         { DOT }
+  | '%'                         { PERCENT }
   | word as w                   { try
                                     Hashtbl.find keyword_table w
                                   with Not_found ->
                                     WORD(w) }
   | int as i                    { INT(int_of_string i) }
+  | float as f                  { FLOAT(float_of_string f) }
   | eof                         { raise Eof }

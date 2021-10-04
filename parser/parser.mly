@@ -4,9 +4,10 @@
 
 %token <string> WORD
 %token <int> INT
+%token <float> FLOAT
 %token SIGNED_BY THE_PARTIES
 %token AND OF
-%token COMMA SEMICOLON DOT
+%token COMMA SEMICOLON DOT PERCENT
 %token DATE_SEP
 %token ON_THE
 %token UNDERMENTIONED
