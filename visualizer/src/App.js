@@ -1,15 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import PartiesForm from './PartiesForm'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Fintracts <code>src/App.js</code> and save to reload.
-        </p>
+    <div>
+      <header className='bg-blue pa3'>
+        <p className='ma0 white b'>Financial Contracts Generator</p>
       </header>
+      
+      <main className="pa3 mw7">
+
+        <PartiesForm />
+
+      </main>
     </div>
   );
 }
