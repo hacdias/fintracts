@@ -1,15 +1,15 @@
 # Status
 
-## 29 Sept 2021
+## 4th October 2021
 
-I've been working with OCaml and with `ocamllex` in [../parser](../parser) (not working right now). However, there's some issues:
+I've been trying to use OCaml with `ocamllex` to write the parser (see [../parser](../parser) - not currently working). However, I did not manage to make it work successfully. It seems to be:
 
-- Overly complicated for what we need to do.
-- Not simply to add new parts to the grammar.
-- Very limited support for regular expressions.
-- Limitation: once `ocamllex` returns a token, it automatically returns to the main entry point instead of going to the caller entry point. Losing this kind of context makes it very difficult to implement our grammar. [Read more.](https://medium.com/@huund/recipes-for-ocamllex-bb4efa0afe53)
+- Overcomplicated as we need a token per each word. We cannot match thing in the parser with string literals.
+- Not simple to add new grammar parts.
+- Very limited support for [regular expressions](https://ocaml.org/manual/lexyacc.html#ss:ocamllex-regexp).
+- Once `ocamllex` returns a token, it automatically returns to the main entry point instead of the caller entry point. Losing this context makes it more difficult to implement our grammar specifically. [Read more.](https://medium.com/@huund/recipes-for-ocamllex-bb4efa0afe53)
 
-I also tried using Go with [`participle`](https://github.com/alecthomas/participle). We can define the syntax as a tag of our data structure and it automatically fills the data structure. See the files [parser.go](../parser-go/parser.go),  [types.go](../parser-go/types.go) and  [agreements.go](../parser-go/agreements.go) to understand what I mean. It would probably be very simple to add new contracts if we used Go. Advantages:
+I tried using Go with [`participle`](https://github.com/alecthomas/participle). We can define the syntax as a tag of our data structure and it automatically fills the data structure. See the files [parser.go](../parser-go/parser.go),  [types.go](../parser-go/types.go) and  [agreements.go](../parser-go/agreements.go) to understand what I mean. It would probably be very simple to add new contracts if we used Go. Advantages:
 
 - It is a recursive descent parser with backtracking.
 - It works and I understand it, while the OCaml version is simply not working yet.
@@ -17,15 +17,26 @@ I also tried using Go with [`participle`](https://github.com/alecthomas/particip
 - It is simple to add new contract types. Easy syntax.
 - You annotate the parsing on the data structure, making it clear where the fields go.
 
-If we want to keep using OCaml, new alternatives must be found: I asked on a forum ([see post](https://discuss.ocaml.org/t/define-literals-on-parser-using-ocamlyacc-menhir/8541)) and I was suggested to look into scannerless parsers. Both of the mentioned libraries ([ocaml-earley](https://github.com/rlepigre/ocaml-earley) and [dypgen](http://dypgen.free.fr/)) are either old or don't have much documentation.
+### Ways to Go
 
-Another option is to implement our own parser. This parser would go word by word, ignoring whitespaces and recursively calling methods that'd parse specific bits. This would probably overcomplicate the code and I'm not fluent in OCaml. I can try, but I don't think it'd be necessarily the best idea :)
+#### Keep OCaml
+
+1. Use another parser. I asked on a forum [see post](https://discuss.ocaml.org/t/define-literals-on-parser-using-ocamlyacc-menhir/8541)), but both of the mentioned libraries ([ocaml-earley](https://github.com/rlepigre/ocaml-earley) and [dypgen](http://dypgen.free.fr/)) are either old or don't have much documentation. This would require investigating more the field. I could not find many options.
+2. Write our own parser. Probably over complicating things.
+3. Keep using `ocamllex`. In this case, we would have to add a token per each **word** (the, a, contract, this, by, ...) and make it case-insensitive (i.e., not differentiate "and" and "And", as both would yield the token 'AND'). That would be a lot of tokens and we'd need to be careful not to reach the maximum size of the generated automata. We could also try to generate the vocabulary from a text template. Even though this would make it easier for us to add new contracts, it won't help with the underlying issues.
+
+#### Use Go
+
+- It is much simpler.
+- Very easy to add new contract types.
+- Easy language to learn.
+- I already implemented it for the bond purchase agreement.
 
 ### Complexity Example
 
 I made an example to compare the parsing of:
 
-> Signed by <Name> (, <Name>)* on the <Date>.
+> Signed by \<Name\> (, \<Name\>)* on the <Date>.
 
 In both OCaml and Go using the libraries I found.
 
@@ -198,7 +209,3 @@ date
   : INT DATE_SEP OF WORD INT { { day = $1; month = $4; year = $5 }}
 ;
 ```
-
-Adding more things imply adding a lot new tokens and make the files barely readable. Besides, the ocamllex has a limit of tokens due to the automata reaching the maximum number of states. The alternative is to build a hash table but that also requires to separate words instead of constructions: for example "Signed by" (SIGNED_BY) would need to be separated in "Signed" (SIGNED) and "by" (BY). We'd need to almost manually define all the vocabulary. We can also generate the vocabulary from text templates: we give a text template and generate a table with all the words. It feels a bit painful, but possible.
-
-There's also the issue that we might want to differentiate "And" from "and", which would be harder if we have to define all tokens. We can also just convert to lower case and let the contract be case insensitive.
