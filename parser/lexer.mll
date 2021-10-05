@@ -12,6 +12,7 @@
         "as", AS;
         "agree", AGREE;
         "agrees", AGREES;
+        "agreement", AGREEMENT;
         "amount", AMOUNT;
         "aforementioned", AFOREMENTIONED;
         "by", BY;
@@ -42,6 +43,7 @@
         "option", OPTION;
         "parties", PARTIES;
         "paid", PAID;
+        "purchase", PURCHASE;
         "principal", PRINCIPAL;
         "pay", PAY;
         "rd", DATE_SEP;
@@ -70,9 +72,6 @@ let punctuation = [',''.'';'':''%']
 
 rule token = parse
   | ws                                                { token lexbuf }
-  | "Bond" ws "Purchase" ws "Agreement"               { BOND_PURCHASE_AGREEMENT }
-  | "Interest" ws "Rate" ws "Swap" ws "Transaction"
-    ws "Agreement"                                    { INTEREST_RATE_SWAP_AGREEMENT }
   | word as w                                         { try
                                                           Hashtbl.find keyword_table (String.lowercase_ascii w)
                                                         with Not_found ->

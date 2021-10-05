@@ -2,19 +2,15 @@
   open Types
 %}
 
-%token DATE_SEP
-%token BOND_PURCHASE_AGREEMENT
-%token INTEREST_RATE_SWAP_AGREEMENT
-
 %token <int> INT
 %token <float> FLOAT MONEY
 %token COMMA DOT COLON SEMICOLON PERCENT
 
 %token <string> WORD
-%token AND AS A AN AGREE AGREES AFOREMENTIONED AMOUNT
+%token AND AS A AN AGREE AGREES AGREEMENT AFOREMENTIONED AMOUNT
 %token BY BOND
 %token COUPONS
-%token DEFINED DATES DATE
+%token DEFINED DATES DATE DATE_SEP
 %token ENTER EFFECTIVE
 %token FOR FOLLOWS FOLLOWING FIXED FLOATING
 %token HEREBY HAS
@@ -22,7 +18,7 @@
 %token MATURITY
 %token NOTATIONAL
 %token OF ON OVER OPTION
-%token PARTIES PAID PRINCIPAL PAY
+%token PARTIES PAID PURCHASE PRINCIPAL PAY
 %token REACHES RATE
 %token SIGNED SELLING SWAP
 %token TO THE TRANSACTION TERMINATION
@@ -79,16 +75,16 @@ agreements
 ;
 
 agreement
-  : HEREBY ENTER IN A BOND_PURCHASE_AGREEMENT
+  : HEREBY ENTER IN A BOND PURCHASE AGREEMENT
     DEFINED AS FOLLOWS COLON bond_purchase_agreement                    { {
-                                                                            bondPurchase = $10;
+                                                                            bondPurchase = $12;
                                                                             interestRateSwap = None;
                                                                             currencySwap = None
                                                                         } }
-  | HEREBY ENTER IN AN INTEREST_RATE_SWAP_AGREEMENT
+  | HEREBY ENTER IN AN INTEREST RATE SWAP TRANSACTION AGREEMENT
     DEFINED AS FOLLOWS COLON interest_rate_swap_agreement               { {
                                                                             bondPurchase = None;
-                                                                            interestRateSwap = $10;
+                                                                            interestRateSwap = $14;
                                                                             currencySwap = None
                                                                         } }
 ;
