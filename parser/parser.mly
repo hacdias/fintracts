@@ -10,7 +10,7 @@
 %token COMMA SEMICOLON DOT PERCENT
 %token DATE_SEP
 %token UNDERMENTIONED_AS HEREBY_ENTER DEFINED_AS
-%token BOND_PURCHASE_AGREEMENT AGREE_BOND_OF MATURITY_ON
+%token BOND_PURCHASE_AGREEMENT AGREE_BOND_OF MATURITY_ON COUPONS_RATE_OF PAID_ON
 
 %start main
 %type <contract> main
@@ -20,6 +20,7 @@
 %type <string list> signature_parties parties_name
 %type <party list> parties 
 %type <bondPurchase option> bond_purchase_agreement 
+%type <coupons option> bond_coupons 
 %type <money> money 
 %type <agreement> agreement 
 %type <agreement list> agreements 
@@ -80,12 +81,18 @@ agreement
 ;
 
 bond_purchase_agreement
-  : WORD AGREE_BOND_OF money TO WORD FOR money DOT MATURITY_ON date DOT { Some {
+  : WORD AGREE_BOND_OF money TO WORD FOR money DOT
+    MATURITY_ON date DOT bond_coupons                                   { Some {
                                                                             seller = $1;
                                                                             payer = $5;
                                                                             issuePrice = $7;
                                                                             faceValue = $3;
                                                                             maturityDate = $10;
-                                                                            coupons = None
+                                                                            coupons = $12
                                                                         } }
+;
+
+bond_coupons
+  :                                                                     { None }
+  | COUPONS_RATE_OF FLOAT PERCENT PAID_ON dates DOT                     { Some { rate = $2; dates = $5 } }
 ;

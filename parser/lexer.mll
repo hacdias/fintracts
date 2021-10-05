@@ -35,6 +35,10 @@ rule token = parse
     ws "selling" ws "a" ws "bond" ws "of"             { AGREE_BOND_OF }
   | "The" ws "aforementioned" ws "bond" ws
     "reaches" ws "maturity" ws "on" ws "the"          { MATURITY_ON }
+  | "The" ws "bond" ws "has" ws "coupons" ws
+    "with" ws "an" ws "interest" ws "rate" ws "of"    { COUPONS_RATE_OF }
+  | "paid" ws "on" ws "the" ws "following" ws
+    "dates" ws ":"                                    { PAID_ON }
   | ','                                               { COMMA }
   | ';'                                               { SEMICOLON }
   | '.'                                               { DOT }

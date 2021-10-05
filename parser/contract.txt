@@ -9,4 +9,8 @@ Hereby enter in a Bond Purchase Agreement defined as follows:
 	for EUR 9,800.00. The aforementioned bond reaches maturity on the
 	1st of October 2025.
 
+	The bond has coupons with an interest rate of 1.2% paid on the following
+	dates: 1st of October 2021, 1st of October 2022, 1st of October 2023, 1st
+	of October 2024 and 1st of October 2025.
+
 Signed by BUSAB and BGB on the 24th of September 2021.
