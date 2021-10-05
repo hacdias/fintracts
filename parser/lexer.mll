@@ -11,6 +11,7 @@
         "and", AND;
         "as", AS;
         "agrees", AGREES;
+        "aforementioned", AFOREMENTIONED;
         "by", BY;
         "bond", BOND;
         "defined", DEFINED;
@@ -20,10 +21,12 @@
         "hereby", HEREBY;
         "in", IN;
         "issuing", ISSUING;
+        "maturity", MATURITY;
         "of", OF;
         "on", ON;
         "parties", PARTIES;
         "rd", DATE_SEP;
+        "reaches", REACHES;
         "signed", SIGNED;
         "selling", SELLING;
         "st", DATE_SEP;
@@ -52,8 +55,6 @@ let punctuation = [',''.'';'':''%']
 rule token = parse
   | ws                                                { token lexbuf }
   | "Bond" ws "Purchase" ws "Agreement"               { BOND_PURCHASE_AGREEMENT }
-  | "The" ws "aforementioned" ws "bond" ws
-    "reaches" ws "maturity" ws "on" ws "the"          { MATURITY_ON }
   | "The" ws "bond" ws "has" ws "coupons" ws
     "with" ws "an" ws "interest" ws "rate" ws "of"    { COUPONS_RATE_OF }
   | "paid" ws "on" ws "the" ws "following" ws

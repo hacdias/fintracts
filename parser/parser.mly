@@ -3,7 +3,7 @@
 %}
 
 %token DATE_SEP
-%token BOND_PURCHASE_AGREEMENT MATURITY_ON COUPONS_RATE_OF PAID_ON
+%token BOND_PURCHASE_AGREEMENT COUPONS_RATE_OF PAID_ON
 %token INTEREST_RATE_SWAP_AGREEMENT AGREE_INTEREST_RATE_SWAP_OVER WITH_EFFECTIVE_DATE AND_TERMINATION
 %token WILL_PAY FIXED_INTEREST FLOATING_INTEREST INITIALLY_DEFINED OVER_ON_DATES FLOATING_OPTION_IS
 
@@ -11,15 +11,17 @@
 %token <float> FLOAT MONEY
 
 %token <string> WORD
-%token AND AS A AN AGREES
+%token AND AS A AN AGREES AFOREMENTIONED
 %token BY BOND
 %token DEFINED
 %token ENTER
 %token FOR FOLLOWS
 %token HEREBY
 %token IN ISSUING
+%token MATURITY
 %token OF ON
 %token PARTIES
+%token REACHES
 %token SIGNED SELLING
 %token TO THE
 %token UNDERMENTIONED
@@ -109,13 +111,14 @@ agreement
 
 bond_purchase_agreement
   : WORD AGREES ON ISSUING AND SELLING A BOND OF money
-    TO WORD FOR money DOT MATURITY_ON date DOT bond_coupons            { Some {
+    TO WORD FOR money DOT THE AFOREMENTIONED BOND REACHES MATURITY
+    ON THE date DOT bond_coupons                                        { Some {
                                                                             seller = $1;
                                                                             payer = $12;
                                                                             issuePrice = $14;
                                                                             faceValue = $10;
-                                                                            maturityDate = $17;
-                                                                            coupons = $19
+                                                                            maturityDate = $23;
+                                                                            coupons = $25
                                                                         } }
 ;
 
