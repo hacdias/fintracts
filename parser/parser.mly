@@ -3,7 +3,7 @@
 %}
 
 %token DATE_SEP
-%token BOND_PURCHASE_AGREEMENT COUPONS_RATE_OF PAID_ON
+%token BOND_PURCHASE_AGREEMENT
 %token INTEREST_RATE_SWAP_AGREEMENT AGREE_INTEREST_RATE_SWAP_OVER WITH_EFFECTIVE_DATE AND_TERMINATION
 %token WILL_PAY FIXED_INTEREST FLOATING_INTEREST INITIALLY_DEFINED OVER_ON_DATES FLOATING_OPTION_IS
 
@@ -13,18 +13,20 @@
 %token <string> WORD
 %token AND AS A AN AGREES AFOREMENTIONED
 %token BY BOND
-%token DEFINED
+%token COUPONS
+%token DEFINED DATES
 %token ENTER
-%token FOR FOLLOWS
-%token HEREBY
-%token IN ISSUING
+%token FOR FOLLOWS FOLLOWING
+%token HEREBY HAS
+%token IN ISSUING INTEREST
 %token MATURITY
 %token OF ON
-%token PARTIES
-%token REACHES
+%token PARTIES PAID
+%token REACHES RATE
 %token SIGNED SELLING
 %token TO THE
 %token UNDERMENTIONED
+%token WITH
 
 %token <char> PUNCTUATION
 %token COMMA DOT COLON SEMICOLON PERCENT
@@ -124,7 +126,8 @@ bond_purchase_agreement
 
 bond_coupons
   :                                                                     { None }
-  | COUPONS_RATE_OF FLOAT PERCENT PAID_ON dates DOT                     { Some { rate = $2; dates = $5 } }
+  | THE BOND HAS COUPONS WITH AN INTEREST RATE OF
+    FLOAT PERCENT PAID ON THE FOLLOWING DATES COLON dates DOT           { Some { rate = $10; dates = $18 } }
 ;
 
 interest_rate_swap_agreement

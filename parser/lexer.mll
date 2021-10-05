@@ -14,18 +14,25 @@
         "aforementioned", AFOREMENTIONED;
         "by", BY;
         "bond", BOND;
+        "coupons", COUPONS;
         "defined", DEFINED;
+        "dates", DATES;
         "enter", ENTER;
         "for", FOR;
         "follows", FOLLOWS;
+        "following", FOLLOWING;
         "hereby", HEREBY;
+        "has", HAS;
         "in", IN;
         "issuing", ISSUING;
+        "interest", INTEREST;
         "maturity", MATURITY;
         "of", OF;
         "on", ON;
         "parties", PARTIES;
+        "paid", PAID;
         "rd", DATE_SEP;
+        "rate", RATE;
         "reaches", REACHES;
         "signed", SIGNED;
         "selling", SELLING;
@@ -33,7 +40,8 @@
         "th", DATE_SEP;
         "the", THE;
         "to", TO;
-        "undermentioned", UNDERMENTIONED ]
+        "undermentioned", UNDERMENTIONED;
+        "with", WITH ]
 
   let punctuation_table = Hashtbl.create 53
   let _ =
@@ -55,10 +63,6 @@ let punctuation = [',''.'';'':''%']
 rule token = parse
   | ws                                                { token lexbuf }
   | "Bond" ws "Purchase" ws "Agreement"               { BOND_PURCHASE_AGREEMENT }
-  | "The" ws "bond" ws "has" ws "coupons" ws
-    "with" ws "an" ws "interest" ws "rate" ws "of"    { COUPONS_RATE_OF }
-  | "paid" ws "on" ws "the" ws "following" ws
-    "dates" ws ":"                                    { PAID_ON }
   | "Interest" ws "Rate" ws "Swap" ws "Transaction"
     ws "Agreement"                                    { INTEREST_RATE_SWAP_AGREEMENT }
   | "The" ws "parties" ws "agree" ws "on" ws "an"
