@@ -4,14 +4,14 @@
 
 %token <int> INT
 %token <float> FLOAT MONEY
-%token COMMA DOT COLON SEMICOLON PERCENT
+%token COMMA DOT COLON SEMICOLON PERCENT SLASH
 
 %token <string> WORD
-%token AND AS A AN AGREE AGREES AGREEMENT AFOREMENTIONED AMOUNT
-%token BY BOND
-%token COUPONS
+%token AND AS A AN AGREE AGREES AGREEMENT AFOREMENTIONED AMOUNT AMOUNTS AT
+%token BY BOND BE BACK
+%token COUPONS CURRENCY
 %token DEFINED DATES DATE DATE_SEP
-%token ENTER EFFECTIVE
+%token ENTER EFFECTIVE EXCHANGED
 %token FOR FOLLOWS FOLLOWING FIXED FLOATING
 %token HEREBY HAS
 %token IN IS ISSUING INTEREST INITIALLY
@@ -20,7 +20,7 @@
 %token OF ON OVER OPTION
 %token PARTIES PAID PURCHASE PRINCIPAL PAY
 %token REACHES RATE
-%token SIGNED SELLING SWAP
+%token SIGNED SELLING SWAP SHALL
 %token TO THE TRANSACTION TERMINATION
 %token UNDERMENTIONED
 %token WITH WILL
@@ -87,6 +87,12 @@ agreement
                                                                             interestRateSwap = $14;
                                                                             currencySwap = None
                                                                         } }
+  | HEREBY ENTER IN A CURRENCY SWAP TRANSACTION AGREEMENT
+    DEFINED AS FOLLOWS COLON currency_swap_agreement                    { {
+                                                                            bondPurchase = None;
+                                                                            interestRateSwap = None;
+                                                                            currencySwap = $13
+                                                                        } }
 ;
 
 bond_purchase_agreement
@@ -143,3 +149,39 @@ interest_payment
                                                                             interestRateOption = $31
                                                                         } }
 ;
+
+optional_interest_payments
+  : interest_payments                                                   { $1 }
+  |                                                                     { [] }
+;
+
+currency_end_exchange
+  : AT MATURITY COMMA THE PRINCIPAL AMOUNTS SHALL BE EXCHANGED BACK
+    WITH AN INTEREST RATE OF WORD  SLASH WORD FLOAT DOT                 { Some {
+                                                                          baseCurrency = $16;
+                                                                          counterCurrency = $18;
+                                                                          rate = $19
+                                                                        } }
+  |                                                                     { None }
+;
+
+currency_swap_agreement
+  : THE PARTIES AGREE ON A CURRENCY SWAP TRANSACTION EFFECTIVE AS OF
+    THE date AND TERMINATION ON THE date DOT
+
+    WORD WILL PAY A PRINCIPAL AMOUNT OF money COMMA AND THE WORD WILL
+    PAY A PRINCIPAL AMOUNT OF money DOT
+
+    optional_interest_payments
+
+    currency_end_exchange                                               { Some {
+                                                                            principalA = $27;
+                                                                            principalB = $38;
+                                                                            payerA = $20;
+                                                                            payerB = $31;
+                                                                            effectiveDate = $13;
+                                                                            maturityDate = $18;
+                                                                            impliedExchangeRate = exchange_rate_of_money $27 $38;
+                                                                            endExchangeRate = $41;
+                                                                            interest = $40
+                                                                        } }

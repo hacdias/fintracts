@@ -196,7 +196,7 @@ Signed by BUSAB and BGB on the 15th of September 2021.
 - *Implied Exchange Rate*: implied exchange rate from *Principal A* and *Principal B*.
 - *Maturity Date*: the date at which both parties have to swap again at either the original implied exchange rate or another pre-agreed rate.
 - *(Optional) End Exchange Rate*: the pre-agreed rate to swap at maturity date. If non-specified, it is the implied exchange rate.
-- These transactions can also **involve** interest payouts during the agreement time, just like the Interest Rate Swap Transaction Agreement.
+- *(Optional) Interest Payouts* These transactions can also **involve** interest payouts during the agreement time, just like the Interest Rate Swap Transaction Agreement.
 
 #### Format
 
@@ -214,8 +214,8 @@ on the following dates: <Date> [, <Date>]* and <Date>.]*
 the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
 rate option is <Option>.]*
 
-At maturity, the principal amounts shall be exchanged back with an interest
-rate of <Rate>.
+[At maturity, the principal amounts shall be exchanged back with an interest
+rate of <Rate>.]
 ```
 
 #### Examples

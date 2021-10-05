@@ -10,19 +10,25 @@
         "an", AN;
         "and", AND;
         "as", AS;
+        "at", AT;
         "agree", AGREE;
         "agrees", AGREES;
         "agreement", AGREEMENT;
         "amount", AMOUNT;
+        "amounts", AMOUNTS;
         "aforementioned", AFOREMENTIONED;
         "by", BY;
+        "be", BE;
         "bond", BOND;
+        "back", BACK;
         "coupons", COUPONS;
+        "currency", CURRENCY;
         "defined", DEFINED;
         "date", DATE;
         "dates", DATES;
         "enter", ENTER;
         "effective", EFFECTIVE;
+        "exchanged", EXCHANGED;
         "for", FOR;
         "follows", FOLLOWS;
         "following", FOLLOWING;
@@ -52,6 +58,7 @@
         "signed", SIGNED;
         "selling", SELLING;
         "swap", SWAP;
+        "shall", SHALL;
         "st", DATE_SEP;
         "th", DATE_SEP;
         "the", THE;
@@ -76,12 +83,13 @@ rule token = parse
                                                           Hashtbl.find keyword_table (String.lowercase_ascii w)
                                                         with Not_found ->
                                                           WORD(w) }
+  | int as i                                          { INT(int_of_string i) }
+  | float as f                                        { FLOAT(float_of_string f) }
+  | money as m                                        { MONEY(float_of_money m) }
   | ','                                               { COMMA }
   | '.'                                               { DOT }
   | ';'                                               { SEMICOLON }
   | ':'                                               { COLON }
   | '%'                                               { PERCENT }
-  | money as m                                        { MONEY(float_of_money m) }
-  | int as i                                          { INT(int_of_string i) }
-  | float as f                                        { FLOAT(float_of_string f) }
+  | '/'                                               { SLASH }
   | eof                                               { raise Eof }

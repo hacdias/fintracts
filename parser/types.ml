@@ -49,8 +49,8 @@ type interestRateSwap = {
 } [@@deriving yojson]
 
 type exchangeRate = {
-  currencyTop: string;
-  currencyBottom: string;
+  baseCurrency: string;
+  counterCurrency: string;
   rate: float
 } [@@deriving yojson]
 
@@ -59,10 +59,11 @@ type currencySwap = {
   principalB: money;
   payerA: string;
   payerB: string;
+  effectiveDate: date;
   maturityDate: date;
   impliedExchangeRate: exchangeRate;
-  endExhcangeRate: exchangeRate;
-  interest: interestPayments list option
+  endExchangeRate: exchangeRate option;
+  interest: interestPayments list
 } [@@deriving yojson]
 
 type agreement = {
@@ -80,3 +81,10 @@ type contract = {
 let float_of_money money =
   let rep = Str.global_replace (Str.regexp "\\,") "" (money) in
     float_of_string rep
+
+let exchange_rate_of_money m1 m2 =
+  {
+    baseCurrency = m1.currency;
+    counterCurrency = m2.currency;
+    rate = Float.div m2.amount m1.amount
+  }
