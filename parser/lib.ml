@@ -33,7 +33,7 @@ let ensure_same_length l1 l2 =
 let rec ids_from_parties_rec parties ids =
   match parties with
     | [] -> ids
-    | p :: tail -> ids_from_parties_rec tail (p.identifier :: ids)
+    | p::tail -> ids_from_parties_rec tail (p.identifier :: ids)
 
 let ids_from_parties parties = ids_from_parties_rec parties []
 
@@ -49,8 +49,8 @@ let rec ensure_lists_equal l1 l2 =
 let validate contract =
   ensure_same_length contract.parties contract.signature.parties;
   let ids1 = ids_from_parties contract.parties in
-  let sids1 = List.sort ~compare:String.compare ids1 in
-  let sids2 = List.sort ~compare:String.compare contract.signature.parties in
-    ensure_lists_equal sids1 sids2;
+    let sids1 = List.sort ~compare:String.compare ids1 in
+      let sids2 = List.sort ~compare:String.compare contract.signature.parties in
+        ensure_lists_equal sids1 sids2;
   (* TODO: validate agreements *)
   ();
