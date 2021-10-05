@@ -59,15 +59,6 @@
         "undermentioned", UNDERMENTIONED;
         "with", WITH;
         "will", WILL ]
-
-  let punctuation_table = Hashtbl.create 53
-  let _ =
-    List.iter (fun (kwd, tok) -> Hashtbl.add punctuation_table kwd tok)
-      [ ',', COMMA;
-        '.', DOT;
-        ':', COLON;
-        ';', SEMICOLON;
-        '%', PERCENT ]
 }
 
 let ws = [' ' '\t' '\n' '\r']*
@@ -86,10 +77,11 @@ rule token = parse
                                                           Hashtbl.find keyword_table (String.lowercase_ascii w)
                                                         with Not_found ->
                                                           WORD(w) }
-  | punctuation as p                                  { try
-                                                          Hashtbl.find punctuation_table p
-                                                        with Not_found ->
-                                                          PUNCTUATION(p) }
+  | ','                                               { COMMA }
+  | '.'                                               { DOT }
+  | ';'                                               { SEMICOLON }
+  | ':'                                               { COLON }
+  | '%'                                               { PERCENT }
   | money as m                                        { MONEY(float_of_money m) }
   | int as i                                          { INT(int_of_string i) }
   | float as f                                        { FLOAT(float_of_string f) }

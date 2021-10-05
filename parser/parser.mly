@@ -8,6 +8,7 @@
 
 %token <int> INT
 %token <float> FLOAT MONEY
+%token COMMA DOT COLON SEMICOLON PERCENT
 
 %token <string> WORD
 %token AND AS A AN AGREE AGREES AFOREMENTIONED AMOUNT
@@ -28,27 +29,8 @@
 %token UNDERMENTIONED
 %token WITH WILL
 
-%token <char> PUNCTUATION
-%token COMMA DOT COLON SEMICOLON PERCENT
-
 %start main
 %type <contract> main
-
-%{
-  (* Maybe this is not needed *)
-%}
-
-%type <signature> signature
-%type <date> date
-%type <date list> dates
-%type <string list> signature_parties parties_name
-%type <party list> parties
-%type <bondPurchase option> bond_purchase_agreement
-%type <interestRateSwap option> interest_rate_swap_agreement
-%type <coupons option> bond_coupons
-%type <money> money
-%type <agreement> agreement
-%type <agreement list> agreements
 
 %%
 
