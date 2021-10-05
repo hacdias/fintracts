@@ -10,14 +10,17 @@
         "an", AN;
         "and", AND;
         "as", AS;
+        "agree", AGREE;
         "agrees", AGREES;
         "aforementioned", AFOREMENTIONED;
         "by", BY;
         "bond", BOND;
         "coupons", COUPONS;
         "defined", DEFINED;
+        "date", DATE;
         "dates", DATES;
         "enter", ENTER;
+        "effective", EFFECTIVE;
         "for", FOR;
         "follows", FOLLOWS;
         "following", FOLLOWING;
@@ -27,19 +30,25 @@
         "issuing", ISSUING;
         "interest", INTEREST;
         "maturity", MATURITY;
+        "notational", NOTATIONAL;
         "of", OF;
         "on", ON;
+        "over", OVER;
         "parties", PARTIES;
         "paid", PAID;
+        "principal", PRINCIPAL;
         "rd", DATE_SEP;
         "rate", RATE;
         "reaches", REACHES;
         "signed", SIGNED;
         "selling", SELLING;
+        "swap", SWAP;
         "st", DATE_SEP;
         "th", DATE_SEP;
         "the", THE;
         "to", TO;
+        "transaction", TRANSACTION;
+        "termination", TERMINATION;
         "undermentioned", UNDERMENTIONED;
         "with", WITH ]
 
@@ -65,13 +74,6 @@ rule token = parse
   | "Bond" ws "Purchase" ws "Agreement"               { BOND_PURCHASE_AGREEMENT }
   | "Interest" ws "Rate" ws "Swap" ws "Transaction"
     ws "Agreement"                                    { INTEREST_RATE_SWAP_AGREEMENT }
-  | "The" ws "parties" ws "agree" ws "on" ws "an"
-    ws "interest" ws "rate" ws "swap" ws
-    "transaction" ws "over" ws "the" ws "notational"
-    ws "principal" ws "of"                            { AGREE_INTEREST_RATE_SWAP_OVER }
-  | "," ws "with" ws "an" ws "effective" ws "date"
-    ws "as" ws "of" ws "the"                          { WITH_EFFECTIVE_DATE }
-  | "and" ws "termination"  ws "on" ws "the"          { AND_TERMINATION }
   | "will" ws "pay" ws "a"                            { WILL_PAY }
   | "fixed" ws "rate" ws "interest"                   { FIXED_INTEREST }
   | "floating" ws "rate" ws "interest"                { FLOATING_INTEREST }

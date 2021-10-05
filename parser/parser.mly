@@ -4,27 +4,28 @@
 
 %token DATE_SEP
 %token BOND_PURCHASE_AGREEMENT
-%token INTEREST_RATE_SWAP_AGREEMENT AGREE_INTEREST_RATE_SWAP_OVER WITH_EFFECTIVE_DATE AND_TERMINATION
+%token INTEREST_RATE_SWAP_AGREEMENT
 %token WILL_PAY FIXED_INTEREST FLOATING_INTEREST INITIALLY_DEFINED OVER_ON_DATES FLOATING_OPTION_IS
 
 %token <int> INT
 %token <float> FLOAT MONEY
 
 %token <string> WORD
-%token AND AS A AN AGREES AFOREMENTIONED
+%token AND AS A AN AGREE AGREES AFOREMENTIONED
 %token BY BOND
 %token COUPONS
-%token DEFINED DATES
-%token ENTER
+%token DEFINED DATES DATE
+%token ENTER EFFECTIVE
 %token FOR FOLLOWS FOLLOWING
 %token HEREBY HAS
 %token IN ISSUING INTEREST
 %token MATURITY
-%token OF ON
-%token PARTIES PAID
+%token NOTATIONAL
+%token OF ON OVER
+%token PARTIES PAID PRINCIPAL
 %token REACHES RATE
-%token SIGNED SELLING
-%token TO THE
+%token SIGNED SELLING SWAP
+%token TO THE TRANSACTION TERMINATION
 %token UNDERMENTIONED
 %token WITH
 
@@ -131,12 +132,13 @@ bond_coupons
 ;
 
 interest_rate_swap_agreement
-  : AGREE_INTEREST_RATE_SWAP_OVER money WITH_EFFECTIVE_DATE date
-    AND_TERMINATION date DOT interest_payments                                           { Some {
-                                                                            notationalAmount = $2;
-                                                                            effectiveDate =  $4;
-                                                                            maturityDate = $6;
-                                                                            interest = $8
+  : THE PARTIES AGREE ON AN INTEREST RATE SWAP TRANSACTION OVER
+    THE NOTATIONAL PRINCIPAL OF money COMMA WITH AN EFFECTIVE DATE
+    AS OF THE date AND TERMINATION ON THE date DOT interest_payments    { Some {
+                                                                            notationalAmount = $15;
+                                                                            effectiveDate =  $24;
+                                                                            maturityDate = $29;
+                                                                            interest = $31
                                                                         } }
 ;
 
