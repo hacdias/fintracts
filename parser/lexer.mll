@@ -39,6 +39,15 @@ rule token = parse
     "with" ws "an" ws "interest" ws "rate" ws "of"    { COUPONS_RATE_OF }
   | "paid" ws "on" ws "the" ws "following" ws
     "dates" ws ":"                                    { PAID_ON }
+  | "Interest" ws "Rate" ws "Swap" ws "Transaction"
+    ws "Agreement"                                    { INTEREST_RATE_SWAP_AGREEMENT }
+  | "The" ws "parties" ws "agree" ws "on" ws "an"
+    ws "interest" ws "rate" ws "swap" ws
+    "transaction" ws "over" ws "the" ws "notational"
+    ws "principal" ws "of"                            { AGREE_INTEREST_RATE_SWAP_OVER }
+  | "," ws "with" ws "an" ws "effective" ws "date"
+    ws "as" ws "of" ws "the"                          { WITH_EFFECTIVE_DATE }
+  | "and" ws "termination"  ws "on" ws "the"          { AND_TERMINATION }
   | ','                                               { COMMA }
   | ';'                                               { SEMICOLON }
   | '.'                                               { DOT }

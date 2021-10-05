@@ -11,15 +11,22 @@
 %token DATE_SEP
 %token UNDERMENTIONED_AS HEREBY_ENTER DEFINED_AS
 %token BOND_PURCHASE_AGREEMENT AGREE_BOND_OF MATURITY_ON COUPONS_RATE_OF PAID_ON
+%token INTEREST_RATE_SWAP_AGREEMENT AGREE_INTEREST_RATE_SWAP_OVER WITH_EFFECTIVE_DATE AND_TERMINATION
 
 %start main
 %type <contract> main
+
+%{
+  (* Maybe this is not needed *)
+%}
+
 %type <signature> signature
 %type <date> date
 %type <date list> dates
 %type <string list> signature_parties parties_name
 %type <party list> parties 
 %type <bondPurchase option> bond_purchase_agreement 
+%type <interestRateSwap option> interest_rate_swap_agreement 
 %type <coupons option> bond_coupons 
 %type <money> money 
 %type <agreement> agreement 
@@ -78,6 +85,12 @@ agreement
                                                                             interestRateSwap = None;
                                                                             currencySwap = None
                                                                         } }
+  | HEREBY_ENTER INTEREST_RATE_SWAP_AGREEMENT
+    DEFINED_AS interest_rate_swap_agreement                             { {
+                                                                            bondPurchase = None;
+                                                                            interestRateSwap = $4;
+                                                                            currencySwap = None
+                                                                        } }
 ;
 
 bond_purchase_agreement
@@ -95,4 +108,14 @@ bond_purchase_agreement
 bond_coupons
   :                                                                     { None }
   | COUPONS_RATE_OF FLOAT PERCENT PAID_ON dates DOT                     { Some { rate = $2; dates = $5 } }
+;
+
+interest_rate_swap_agreement
+  : AGREE_INTEREST_RATE_SWAP_OVER money WITH_EFFECTIVE_DATE date
+    AND_TERMINATION date DOT                                            { Some {
+                                                                            notationalAmount = $2;
+                                                                            effectiveDate =  $4;
+                                                                            maturityDate = $6;
+                                                                            interest = []
+                                                                        } }
 ;
