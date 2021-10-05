@@ -6,15 +6,36 @@
   let keyword_table = Hashtbl.create 53
   let _ =
     List.iter (fun (kwd, tok) -> Hashtbl.add keyword_table kwd tok)
-      [ "and", AND;
-        "of", OF;
-        "to", TO;
-        "on", ON;
-        "the", THE;
+      [ "a", A;
+        "an", AN;
+        "and", AND;
+        "as", AS;
+        "by", BY;
+        "defined", DEFINED;
+        "enter", ENTER;
         "for", FOR;
+        "follows", FOLLOWS;
+        "hereby", HEREBY;
+        "in", IN;
+        "of", OF;
+        "on", ON;
+        "parties", PARTIES;
+        "rd", DATE_SEP;
+        "signed", SIGNED;
         "st", DATE_SEP;
         "th", DATE_SEP;
-        "rd", DATE_SEP ]
+        "the", THE;
+        "to", TO;
+        "undermentioned", UNDERMENTIONED ]
+
+  let punctuation_table = Hashtbl.create 53
+  let _ =
+    List.iter (fun (kwd, tok) -> Hashtbl.add punctuation_table kwd tok)
+      [ ',', COMMA;
+        '.', DOT;
+        ':', COLON;
+        ';', SEMICOLON;
+        '%', PERCENT ]
 }
 
 let ws = [' ' '\t' '\n' '\r']*
@@ -22,14 +43,10 @@ let word = ['a'-'z''A'-'Z']+
 let int = ['0'-'9']+
 let float = (['0'-'9']+['.'])['0'-'9']+
 let money = ['0'-'9']?['0'-'9']?['0'-'9']?([',']['0'-'9']['0'-'9']['0'-'9'])*['.']['0'-'9']['0'-'9']
+let punctuation = [',''.'';'':''%']
 
 rule token = parse
   | ws                                                { token lexbuf }
-  | "The" ws "parties" ws ":"                         { THE_PARTIES }
-  | "Signed" ws "by"                                  { SIGNED_BY }
-  | "undermentioned" ws "as"                          { UNDERMENTIONED_AS }
-  | "Hereby" ws "enter" ws "in" ws ("a" | "an")       { HEREBY_ENTER }
-  | "defined" ws "as" ws "follows" ws ":"             { DEFINED_AS }
   | "Bond" ws "Purchase" ws "Agreement"               { BOND_PURCHASE_AGREEMENT }
   | "agrees" ws "on" ws "issuing" ws "and"
     ws "selling" ws "a" ws "bond" ws "of"             { AGREE_BOND_OF }
@@ -48,14 +65,21 @@ rule token = parse
   | "," ws "with" ws "an" ws "effective" ws "date"
     ws "as" ws "of" ws "the"                          { WITH_EFFECTIVE_DATE }
   | "and" ws "termination"  ws "on" ws "the"          { AND_TERMINATION }
-  | ','                                               { COMMA }
-  | ';'                                               { SEMICOLON }
-  | '.'                                               { DOT }
-  | '%'                                               { PERCENT }
+  | "will" ws "pay" ws "a"                            { WILL_PAY }
+  | "fixed" ws "rate" ws "interest"                   { FIXED_INTEREST }
+  | "floating" ws "rate" ws "interest"                { FLOATING_INTEREST }
+  | "," ws "initially" ws "defined" ws  "as"          { INITIALLY_DEFINED }
+  | "over" ws "the" ws "notational" ws "amount" ws
+    "on" ws "the" ws "following" ws "dates" ws ":"    { OVER_ON_DATES }
+  | "The" ws "floating" ws "rate" ws "option" ws "is" { FLOATING_OPTION_IS }
   | word as w                                         { try
-                                                          Hashtbl.find keyword_table w
+                                                          Hashtbl.find keyword_table (String.lowercase_ascii w)
                                                         with Not_found ->
                                                           WORD(w) }
+  | punctuation as p                                  { try
+                                                          Hashtbl.find punctuation_table p
+                                                        with Not_found ->
+                                                          PUNCTUATION(p) }
   | money as m                                        { MONEY(float_of_money m) }
   | int as i                                          { INT(int_of_string i) }
   | float as f                                        { FLOAT(float_of_string f) }
