@@ -145,11 +145,11 @@ principal of <Money>, with an effective date as of the <Date> and termination
 on the <Date>.
 
 [<Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
-on the following dates: <Date> [, <Date>]* and <Date>.]*
+on the following dates: <Date> [, <Date>]* and <Date>.]+
 
 [<Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
 the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
-rate option is <Option>.]*
+rate option is <Option>.]+
 ```
 
 #### Examples

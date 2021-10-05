@@ -33,11 +33,19 @@ type bondPurchase = {
   coupons: coupons option;
 } [@@deriving yojson]
 
+type interestPayments = {
+  payer: string;
+  dates: date list;
+  fixedRate: float;
+  initialRate: float;
+  interestRateOption: string;
+} [@@deriving yojson]
+
 type interestRateSwap = {
   notationalAmount: money;
   effectiveDate: date;
-  maturityDate: date
-  (* TODO: add interest *)
+  maturityDate: date;
+  interest: interestPayments list
 } [@@deriving yojson]
 
 type exchangeRate = {
@@ -53,8 +61,8 @@ type currencySwap = {
   payerB: string;
   maturityDate: date;
   impliedExchangeRate: exchangeRate;
-  endExhcangeRate: exchangeRate
-  (* TODO: add optional interest *)
+  endExhcangeRate: exchangeRate;
+  interest: interestPayments list option
 } [@@deriving yojson]
 
 type agreement = {
