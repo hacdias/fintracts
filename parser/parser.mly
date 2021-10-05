@@ -5,29 +5,28 @@
 %token DATE_SEP
 %token BOND_PURCHASE_AGREEMENT
 %token INTEREST_RATE_SWAP_AGREEMENT
-%token WILL_PAY FIXED_INTEREST FLOATING_INTEREST INITIALLY_DEFINED OVER_ON_DATES FLOATING_OPTION_IS
 
 %token <int> INT
 %token <float> FLOAT MONEY
 
 %token <string> WORD
-%token AND AS A AN AGREE AGREES AFOREMENTIONED
+%token AND AS A AN AGREE AGREES AFOREMENTIONED AMOUNT
 %token BY BOND
 %token COUPONS
 %token DEFINED DATES DATE
 %token ENTER EFFECTIVE
-%token FOR FOLLOWS FOLLOWING
+%token FOR FOLLOWS FOLLOWING FIXED FLOATING
 %token HEREBY HAS
-%token IN ISSUING INTEREST
+%token IN IS ISSUING INTEREST INITIALLY
 %token MATURITY
 %token NOTATIONAL
-%token OF ON OVER
-%token PARTIES PAID PRINCIPAL
+%token OF ON OVER OPTION
+%token PARTIES PAID PRINCIPAL PAY
 %token REACHES RATE
 %token SIGNED SELLING SWAP
 %token TO THE TRANSACTION TERMINATION
 %token UNDERMENTIONED
-%token WITH
+%token WITH WILL
 
 %token <char> PUNCTUATION
 %token COMMA DOT COLON SEMICOLON PERCENT
@@ -148,20 +147,21 @@ interest_payments
 ;
 
 interest_payment
-  : WORD WILL_PAY FIXED_INTEREST OF FLOAT PERCENT OVER_ON_DATES
-    dates DOT                                                           { {
+  : WORD WILL PAY A FIXED RATE INTEREST OF FLOAT PERCENT OVER THE
+    NOTATIONAL AMOUNT ON THE FOLLOWING DATES COLON dates DOT            { {
                                                                             payer = $1;
-                                                                            dates = $8;
-                                                                            fixedRate = $5;
+                                                                            dates = $20;
+                                                                            fixedRate = $9;
                                                                             initialRate = 0.0;
                                                                             interestRateOption = ""
                                                                         } }
-  | WORD WILL_PAY FLOATING_INTEREST INITIALLY_DEFINED FLOAT PERCENT
-    COMMA OVER_ON_DATES dates DOT FLOATING_OPTION_IS WORD DOT           { {
+  | WORD WILL PAY A FLOATING RATE INTEREST COMMA INITIALLY DEFINED AS
+    FLOAT PERCENT COMMA OVER THE NOTATIONAL AMOUNT ON THE FOLLOWING
+    DATES COLON dates DOT THE FLOATING RATE OPTION IS WORD DOT          { {
                                                                             payer = $1;
-                                                                            dates = $9;
+                                                                            dates = $24;
                                                                             fixedRate = 0.0;
-                                                                            initialRate = $5;
-                                                                            interestRateOption = $12
+                                                                            initialRate = $12;
+                                                                            interestRateOption = $31
                                                                         } }
 ;
