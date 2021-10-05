@@ -67,7 +67,7 @@ Hereby enter in (a|an) <Agreement Type> defined as follows:
 #### Format
 
 ```
-The <Abbreviation> agrees on issuing and selling a bond of <Money> to
+<Abbreviation> agrees on issuing and selling a bond of <Money> to
 <Abbreviation> for <Money>. The aforementioned bond reaches maturity
 on the <Date>.
 
@@ -87,7 +87,7 @@ The parties:
 
 Hereby enter in a Bond Purchase Agreement defined as follows:
 
-	The DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
+	DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
 	for EUR 9,800.00. The aforementioned bond reaches maturity on the
 	1st of October 2025.
 
@@ -104,7 +104,7 @@ The parties:
 
 Hereby enter in a Bond Purchase Agreement defined as follows:
 
-	The DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
+	DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
 	for EUR 9,800.00. The aforementioned bond reaches maturity on the
 	1st of October 2025.
 
@@ -144,10 +144,10 @@ The parties agree on an interest rate swap transaction over the notational
 principal of <Money>, with an effective date as of the <Date> and termination
 on the <Date>.
 
-[The <Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
+[<Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
 on the following dates: <Date> [, <Date>]* and <Date>.]*
 
-[The <Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
+[<Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
 the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
 rate option is <Option>.]*
 ```
@@ -168,11 +168,11 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
 	principal of USD 10,000,000.00, with an effective date as of the 1st of
 	October 2021 and termination on the 1st of October 2025.
 
-	The BUSAB will pay a fixed rate interest of 3.5% over the notational amount
+	BUSAB will pay a fixed rate interest of 3.5% over the notational amount
 	on the following dates: 15th of October 2021, 15th of October 2022, 15th of
 	October 2023, 15th of October 2024 and 15th of October 2025.
 
-	The BGB will pay a floating rate interest, initially defined as 2.4%, over
+	BGB will pay a floating rate interest, initially defined as 2.4%, over
 	the notational amount on the following dates: 15th of October 2021, 15th
 	of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
 	October 2025. The floating rate option is USD-LIBOR.
@@ -204,13 +204,13 @@ Signed by BUSAB and BGB on the 15th of September 2021.
 The parties agree on a currency swap transaction effective as of the
 <Date> and termination on the <Date>.
 
-The <Abbreviation> will pay a principal amount of <Money>, and the
+<Abbreviation> will pay a principal amount of <Money>, and the
 <Abbreviation> will pay a principal amount of <Money>.
 
-[The <Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
+[<Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
 on the following dates: <Date> [, <Date>]* and <Date>.]*
 
-[The <Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
+[<Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
 the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
 rate option is <Option>.]*
 
@@ -233,7 +233,7 @@ Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 	The parties agree on a currency swap transaction effective as of the
 	1st of October 2021 and termination on the 1st of October 2025.
 
-	The BUSAB will pay a principal amount of USD 10,000,000.00, and the
+	BUSAB will pay a principal amount of USD 10,000,000.00, and the
 	BGB will pay a principal amount of EUR 12,500,000.00.
 
 Signed by BGB and BUSAB on the 15th of September 2021.
@@ -252,14 +252,14 @@ Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 	The parties agree on a currency swap transaction effective as of the
 	1st of October 2021 and termination on the 1st of October 2025.
 
-	The BUSAB will pay a principal amount of USD 10,000,000.00, and the
+	BUSAB will pay a principal amount of USD 10,000,000.00, and the
 	BGB will pay a principal amount of EUR 12,500,000.00.
 	
-	The BUSAB will pay a fixed rate interest of 3.5% over the notational amount
+	BUSAB will pay a fixed rate interest of 3.5% over the notational amount
 	on the following dates: 15th of October 2021, 15th of October 2022, 15th of
 	October 2023, 15th of October 2024 and 15th of October 2025.
 
-	The BGB will pay a floating rate interest, initially defined as 2.4%, over
+	BGB will pay a floating rate interest, initially defined as 2.4%, over
 	the notational amount on the following dates: 15th of October 2021, 15th
 	of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
 	October 2025. The floating rate option is USD-LIBOR.

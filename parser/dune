@@ -5,5 +5,5 @@
 
 (executable
   (name fintracts)
-  (libraries yojson ppx_deriving_yojson.runtime)
+  (libraries yojson ppx_deriving_yojson.runtime str)
   (preprocess (pps ppx_deriving_yojson)))

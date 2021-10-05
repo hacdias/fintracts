@@ -68,3 +68,7 @@ type contract = {
   agreements: agreement list;
   signature: signature
 } [@@deriving yojson]
+
+let float_of_money money =
+  let rep = Str.global_replace (Str.regexp "\\,") "" (money) in
+    float_of_string rep
