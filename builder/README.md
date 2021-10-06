@@ -25,9 +25,25 @@ To build the app:
 npm run build
 ```
 
+The app will be built in a `build/` directory. It contains plain HTML, CSS and JS files and it can be served by any web server.
+
 ## Run With Docker
 
-*TODO*
+The Docker image runs the development server and expects the source code volume to be mounted at `/app`. Dependencies should be automatically installed. If there's any issues, please remove `node_modules` before running the image.
+
+```bash
+# Build image
+docker build . -t fintracts/builder
+
+# Run image
+docker run -it -p 3000:3000 -v $(pwd):/app fintracts/builder
+```
+
+You can also start a shell and run any other commands inside the container:
+
+```bash
+docker run -it -p 3000:3000 -v $(pwd):/app --entrypoint /bin/bash fintracts/builder
+```
 
 ## License
 
