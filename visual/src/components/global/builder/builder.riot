@@ -1,0 +1,24 @@
+<builder>
+  <div>
+    <parties onParties={onParties} />
+    <signatures parties={state.parties} />
+  </div>
+
+  <script>
+    import Parties from '../../includes/parties/parties.riot'
+    import Signatures from '../../includes/signatures/signatures.riot'
+
+    export default {
+      components: {
+        Parties,
+        Signatures
+      },
+      state: {
+        parties: []
+      },
+      onParties (parties) {
+        this.update({ parties })
+      }
+    }
+  </script>
+</builder>
