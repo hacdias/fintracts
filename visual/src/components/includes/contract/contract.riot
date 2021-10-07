@@ -1,0 +1,32 @@
+<contract>
+  <part title="Contract Copy">
+    <p class="mt1 b">The contract can have two or more parties.</p>
+  
+    <textarea class="w-100 h5 db mv2" value={text()} readonly></textarea>
+  </part>
+
+  <script>
+    import Part from '../part/part.riot'
+
+    export default {
+      components: {
+        Part
+      },
+      text() {
+        let contract = 'The parties:\n\n'
+
+        const parties = [...this.props.parties]
+        const lastParty = parties.pop()
+
+        for (const { name, identifier } of parties) {
+          contract += `    ${name}, undermentioned as ${identifier}; and\n`
+        }
+        if (lastParty) {
+          contract += `    ${lastParty.name}, undermentioned as ${lastParty.identifier}.\n`
+        }
+
+        return contract
+      }
+    }
+  </script>
+</contract>

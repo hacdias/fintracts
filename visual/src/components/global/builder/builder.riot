@@ -2,16 +2,20 @@
   <div>
     <parties onParties={onParties} />
     <signatures parties={state.parties} />
+    <contract parties={state.parties} />
+
   </div>
 
   <script>
     import Parties from '../../includes/parties/parties.riot'
     import Signatures from '../../includes/signatures/signatures.riot'
+    import Contract from '../../includes/contract/contract.riot'
 
     export default {
       components: {
         Parties,
-        Signatures
+        Signatures,
+        Contract
       },
       state: {
         parties: []
