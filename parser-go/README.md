@@ -11,7 +11,7 @@ Fintracts parser for the english grammar specification. Translates an [english c
 First, install the necessary dependencies:
 
 ```bash
-go get ./...
+go mod download
 ```
 
 Then, build the executable:
