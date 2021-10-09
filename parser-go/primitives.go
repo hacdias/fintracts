@@ -5,6 +5,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"go.uber.org/multierr"
 )
 
 // LongIdent is an identifier that spans across multiple token yieldings.
@@ -50,7 +52,7 @@ type Date struct {
 }
 
 func (d *Date) Validate() error {
-	day := strconv.Itoa(d.Day)
+	day := fmt.Sprintf("%02d", d.Day)
 	year := strconv.Itoa(d.Year)
 
 	date, err := time.Parse("02 January 2006", day+" "+d.Month+" "+year)
@@ -66,6 +68,10 @@ func (d *Date) MarshalJSON() ([]byte, error) {
 
 // Signature represents a signature parsed from the format
 // 'Signed by <Party>, [<Party>, ...] and <Party> on <Date>.'
+//
+// The signature does not need the parties per se. They are
+// only used to semantically validate the English text.
+// The marshalled output is a Date object.
 type Signature struct {
 	Parties []string `parser:"'Signed' 'by'  @Ident (',' @Ident)* 'and' @Ident" json:"parties"`
 	Date    *Date    `parser:"'on' 'the' @@ '.'" json:"date"`
@@ -73,6 +79,10 @@ type Signature struct {
 
 func (s *Signature) Validate() error {
 	return s.Date.Validate()
+}
+
+func (s *Signature) MarshalJSON() ([]byte, error) {
+	return s.Date.MarshalJSON()
 }
 
 // Party represents a party and its identifier.
@@ -83,19 +93,38 @@ type Party struct {
 
 // Contract represents a contract with parties, agreements and a signature.
 type Contract struct {
-	Parties    []Party     `parser:"'The' 'parties' ':' @@ ';' 'and' (@@ ';' 'and')* @@ '.'" json:"parties"`
-	Agreements []Agreement `parser:"@@+" json:"agreements"`
-	Signature  Signature   `parser:"@@" json:"signature"`
+	Parties    []Party      `parser:"'The' 'parties' ':' @@ ';' 'and' (@@ ';' 'and')* @@ '.'" json:"parties"`
+	Agreements []*Agreement `parser:"@@+" json:"agreements"`
+	SignedOn   Signature    `parser:"@@" json:"signedOn"`
 }
 
 func (c *Contract) Validate() error {
+	if len(c.Parties) != len(c.SignedOn.Parties) {
+		return fmt.Errorf("mentioned parties do not match signature")
+	}
 
-	return nil
+	// TODO: check if parties in C.Parties are the same as in c.SignedOn
+
+	var err error
+	for _, agreement := range c.Agreements {
+		err = multierr.Append(err, agreement.Validate())
+	}
+
+	err = multierr.Append(err, c.SignedOn.Validate())
+	return err
 }
 
 type Coupons struct {
 	Rate  float64 `parser:"'with' 'an' 'interest' 'rate' 'of' (@Float | @Integer) '%'" json:"rate"`
 	Dates []Date  `parser:"'paid' 'on' 'the' 'following' 'dates' ':' (@@ ',' | @@ | 'and' @@)+ '.'" json:"dates"`
+}
+
+func (c *Coupons) Validate() error {
+	var err error
+	for _, date := range c.Dates {
+		err = multierr.Append(err, date.Validate())
+	}
+	return err
 }
 
 type ExchangeRate struct {
@@ -110,6 +139,16 @@ type Agreement struct {
 	CurrencySwap     *CurrencySwap     `parser:"| 'a' 'Currency' 'Swap' 'Transaction' 'Agreement' 'defined' 'as' 'follows' ':' @@ )" json:"currencySwap,omitempty"`
 }
 
+func (a *Agreement) Validate() error {
+	if a.BondPurchase != nil {
+		return a.BondPurchase.Validate()
+	}
+	if a.InterestRateSwap != nil {
+		return a.InterestRateSwap.Validate()
+	}
+	return a.CurrencySwap.Validate()
+}
+
 type InterestPayment struct {
 	Payer              string    `parser:"@Ident 'will' 'pay' 'a'" json:"payer"`
 	FixedRate          float64   `parser:"( 'fixed' 'rate' 'interest' 'of' (@Float | @Integer) '%' " json:"fixedRate"`
@@ -118,7 +157,16 @@ type InterestPayment struct {
 	InterestRateOption LongIdent `parser:"('The' 'floating' 'rate' 'option' 'is' @(~'.')+ '.')?" json:"interestRateOption"`
 }
 
-func (i *InterestPayment) Validate() {
-	// TODO: make sure InterestRateOption only shows up with floating rate
+func (i *InterestPayment) Validate() error {
 	// TODO: check payer
+
+	if i.FixedRate != 0 && i.InterestRateOption != "" {
+		return fmt.Errorf("fixed rate cannot be used with an interest rate option")
+	}
+
+	if i.InitialRate != 0 && i.InterestRateOption == "" {
+		return fmt.Errorf("floating rate must have an interest rate option attached")
+	}
+
+	return nil
 }

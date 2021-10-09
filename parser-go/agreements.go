@@ -16,6 +16,7 @@ func (b *BondPurchase) Validate() error {
 
 	err := multierr.Combine(
 		b.MaturityDate.Validate(),
+		b.Coupons.Validate(),
 	)
 
 	return err
@@ -35,6 +36,10 @@ func (i *InterestRateSwap) Validate() error {
 		i.EffectiveDate.Validate(),
 		i.MaturityDate.Validate(),
 	)
+
+	for _, payment := range i.Interest {
+		err = multierr.Append(err, payment.Validate())
+	}
 
 	return err
 }
@@ -62,6 +67,10 @@ func (c *CurrencySwap) Validate() error {
 		c.EffectiveDate.Validate(),
 		c.MaturityDate.Validate(),
 	)
+
+	for _, payment := range c.Interest {
+		err = multierr.Append(err, payment.Validate())
+	}
 
 	return err
 }

@@ -25,5 +25,10 @@ var parser = participle.MustBuild(&Contract{},
 func Parse(contract []byte) (*Contract, error) {
 	ast := &Contract{}
 	err := parser.ParseBytes("", contract, ast)
+	if err != nil {
+		return nil, err
+	}
+
+	err = ast.Validate()
 	return ast, err
 }
