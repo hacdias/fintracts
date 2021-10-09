@@ -2,12 +2,15 @@ package parser
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
 
 	"go.uber.org/multierr"
 )
+
+type partyValidator func(string) error
 
 // LongIdent is an identifier that spans across multiple token yieldings.
 type LongIdent string
@@ -78,6 +81,7 @@ type Signature struct {
 }
 
 func (s *Signature) Validate() error {
+	sort.Strings(s.Parties)
 	return s.Date.Validate()
 }
 
@@ -99,15 +103,34 @@ type Contract struct {
 }
 
 func (c *Contract) Validate() error {
-	if len(c.Parties) != len(c.SignedOn.Parties) {
+	err := c.SignedOn.Validate()
+	if err != nil {
+		return err
+	}
+
+	parties := getIdentifiers(c.Parties)
+	sigParties := c.SignedOn.Parties
+
+	if len(parties) != len(sigParties) {
 		return fmt.Errorf("mentioned parties do not match signature")
 	}
 
-	// TODO: check if parties in C.Parties are the same as in c.SignedOn
+	if !equal(parties, sigParties) {
+		return fmt.Errorf("parties and signing parties must be the same")
+	}
 
-	var err error
+	validateParty := func(v string) error {
+		for _, p := range parties {
+			if p == v {
+				return nil
+			}
+		}
+
+		return fmt.Errorf("party %s not found", v)
+	}
+
 	for _, agreement := range c.Agreements {
-		err = multierr.Append(err, agreement.Validate())
+		err = multierr.Append(err, agreement.Validate(validateParty))
 	}
 
 	err = multierr.Append(err, c.SignedOn.Validate())
@@ -116,7 +139,7 @@ func (c *Contract) Validate() error {
 
 type Coupons struct {
 	Rate  float64 `parser:"'with' 'an' 'interest' 'rate' 'of' (@Float | @Integer) '%'" json:"rate"`
-	Dates []Date  `parser:"'paid' 'on' 'the' 'following' 'dates' ':' (@@ ',' | @@ | 'and' @@)+ '.'" json:"dates"`
+	Dates []*Date `parser:"'paid' 'on' 'the' 'following' 'dates' ':' (@@ ',' | @@ | 'and' @@)+ '.'" json:"dates"`
 }
 
 func (c *Coupons) Validate() error {
@@ -139,14 +162,14 @@ type Agreement struct {
 	CurrencySwap     *CurrencySwap     `parser:"| 'a' 'Currency' 'Swap' 'Transaction' 'Agreement' 'defined' 'as' 'follows' ':' @@ )" json:"currencySwap,omitempty"`
 }
 
-func (a *Agreement) Validate() error {
+func (a *Agreement) Validate(validateParty partyValidator) error {
 	if a.BondPurchase != nil {
-		return a.BondPurchase.Validate()
+		return a.BondPurchase.Validate(validateParty)
 	}
 	if a.InterestRateSwap != nil {
-		return a.InterestRateSwap.Validate()
+		return a.InterestRateSwap.Validate(validateParty)
 	}
-	return a.CurrencySwap.Validate()
+	return a.CurrencySwap.Validate(validateParty)
 }
 
 type InterestPayment struct {
@@ -157,9 +180,7 @@ type InterestPayment struct {
 	InterestRateOption LongIdent `parser:"('The' 'floating' 'rate' 'option' 'is' @(~'.')+ '.')?" json:"interestRateOption"`
 }
 
-func (i *InterestPayment) Validate() error {
-	// TODO: check payer
-
+func (i *InterestPayment) Validate(validateParty partyValidator) error {
 	if i.FixedRate != 0 && i.InterestRateOption != "" {
 		return fmt.Errorf("fixed rate cannot be used with an interest rate option")
 	}
@@ -168,5 +189,33 @@ func (i *InterestPayment) Validate() error {
 		return fmt.Errorf("floating rate must have an interest rate option attached")
 	}
 
-	return nil
+	var err error
+	for _, date := range i.Dates {
+		err = multierr.Append(err, date.Validate())
+	}
+
+	return multierr.Append(err, validateParty(i.Payer))
+}
+
+func getIdentifiers(parties []Party) []string {
+	ids := []string{}
+	for _, party := range parties {
+		ids = append(ids, party.Identifier)
+	}
+	sort.Strings(ids)
+	return ids
+}
+
+func equal(a, b []string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+
+	for i, v := range a {
+		if v != b[i] {
+			return false
+		}
+	}
+
+	return true
 }

@@ -11,10 +11,10 @@ type BondPurchase struct {
 	Coupons      *Coupons `parser:"('The' 'bond' 'pays' 'coupons' @@)?" json:"coupons,omitempty"`
 }
 
-func (b *BondPurchase) Validate() error {
-	// TODO: check seller and buyer validity
-
+func (b *BondPurchase) Validate(validateParty partyValidator) error {
 	err := multierr.Combine(
+		validateParty(b.Seller),
+		validateParty(b.Buyer),
 		b.MaturityDate.Validate(),
 		b.Coupons.Validate(),
 	)
@@ -29,16 +29,14 @@ type InterestRateSwap struct {
 	Interest         []*InterestPayment `parser:"@@+" json:"interest"`
 }
 
-func (i *InterestRateSwap) Validate() error {
-	// TODO: check seller and buyer validity
-
+func (i *InterestRateSwap) Validate(validateParty partyValidator) error {
 	err := multierr.Combine(
 		i.EffectiveDate.Validate(),
 		i.MaturityDate.Validate(),
 	)
 
 	for _, payment := range i.Interest {
-		err = multierr.Append(err, payment.Validate())
+		err = multierr.Append(err, payment.Validate(validateParty))
 	}
 
 	return err
@@ -56,20 +54,20 @@ type CurrencySwap struct {
 	Interest            []*InterestPayment `parser:"@@*" json:"interest,omitempty"`
 }
 
-func (c *CurrencySwap) Validate() error {
-	// TODO: check payerA, payerB
-
+func (c *CurrencySwap) Validate(validateParty partyValidator) error {
 	c.ImpliedExchangeRate.BaseCurrency = c.PrincipalA.Currency
 	c.ImpliedExchangeRate.CounterCurrency = c.PrincipalB.Currency
 	c.ImpliedExchangeRate.Rate = float64(c.PrincipalB.Amount) / float64(c.PrincipalA.Amount)
 
 	err := multierr.Combine(
+		validateParty(c.PayerA),
+		validateParty(c.PayerB),
 		c.EffectiveDate.Validate(),
 		c.MaturityDate.Validate(),
 	)
 
 	for _, payment := range c.Interest {
-		err = multierr.Append(err, payment.Validate())
+		err = multierr.Append(err, payment.Validate(validateParty))
 	}
 
 	return err
