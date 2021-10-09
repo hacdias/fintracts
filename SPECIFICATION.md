@@ -1,4 +1,4 @@
-# Contract Specification
+# English Contract Specification
 
 - [Format](#format)
 - [Parties](#parties)
@@ -71,7 +71,7 @@ Hereby enter in (a|an) <Agreement Type> defined as follows:
 <Abbreviation> for <Money>. The aforementioned bond reaches maturity
 on the <Date>.
 
-[The bond has coupons with an interest rate of <Float>% paid on the following
+[The bond pays coupons with an interest rate of <Float>% paid on the following
 dates: <Date> [, <Date>]* and <Date>.]
 ```
 
@@ -108,7 +108,7 @@ Hereby enter in a Bond Purchase Agreement defined as follows:
   for EUR 9,800.00. The aforementioned bond reaches maturity on the
   1st of October 2025.
 
-  The bond has coupons with an interest rate of 1.2% paid on the following
+  The bond pays coupons with an interest rate of 1.2% paid on the following
   dates: 1st of October 2021, 1st of October 2022, 1st of October 2023, 1st
   of October 2024 and 1st of October 2025.
 
