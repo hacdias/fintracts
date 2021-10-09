@@ -1,17 +1,17 @@
-# Fintracts Parser
+# Fintracts English Parser
+
+Fintracts parser for the english grammar specification. Translates an [english contract](SPECIFICATION.md) to the common [JSON format](../SPECIFICATION.md).
 
 - [Run Directly](#run-directly)
 - [Run With Docker](#run-with-docker)
-- [Known Limitations](#known-limitations)
 - [License](#license)
-
 
 ## Run Directly
 
 First, install the necessary dependencies:
 
 ```bash
-make install-deps
+go mod download
 ```
 
 Then, build the executable:
@@ -20,10 +20,10 @@ Then, build the executable:
 make build
 ```
 
-An executable can be found on `./fintracts.exe`, which can be executed:
+An executable can be found on `./parser`, which can be executed:
 
 ```
-./fintracts.exe < ./path/to/contract.txt
+./parser < ./path/to/contract.txt
 ```
 
 ## Run With Docker
@@ -39,11 +39,6 @@ You can now run the parser inside the docker image:
 ```bash
 docker run -i fintracts/parser < ./path/to/contract.txt
 ```
-
-## Known Limitations
-
-- The contract text is case-insensitive, i.e., "The parties" and "tHe PaRtIeS" are both valid.
-- Option does not support special characters yet, i.e., "USD-LIBOR" is not valid yet.
 
 ## License
 
