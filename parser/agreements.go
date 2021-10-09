@@ -15,16 +15,16 @@ type BondPurchase struct {
 	Coupons      *Coupons `parser:"('The' 'bond' 'pays' 'coupons' @@)?" json:"coupons,omitempty"`
 }
 
-func (b *BondPurchase) Validate(validateParty partyValidator) error {
+func (b *BondPurchase) validate(validateParty partyValidator) error {
 	err := multierr.Combine(
 		validateParty(b.Issuer),
 		validateParty(b.Underwriter),
-		b.MaturityDate.Validate(),
+		b.MaturityDate.validate(),
 		ensureDifferentParties(b.Issuer, b.Underwriter),
 	)
 
 	if b.Coupons != nil {
-		err = multierr.Append(err, b.Coupons.Validate())
+		err = multierr.Append(err, b.Coupons.validate())
 	}
 
 	return err
@@ -37,14 +37,14 @@ type InterestRateSwap struct {
 	Interest         []*InterestPayment `parser:"@@+" json:"interest"`
 }
 
-func (i *InterestRateSwap) Validate(validateParty partyValidator) error {
+func (i *InterestRateSwap) validate(validateParty partyValidator) error {
 	err := multierr.Combine(
-		i.EffectiveDate.Validate(),
-		i.MaturityDate.Validate(),
+		i.EffectiveDate.validate(),
+		i.MaturityDate.validate(),
 	)
 
 	for _, payment := range i.Interest {
-		err = multierr.Append(err, payment.Validate(validateParty))
+		err = multierr.Append(err, payment.validate(validateParty))
 	}
 
 	return err
@@ -62,7 +62,7 @@ type CurrencySwap struct {
 	Interest            []*InterestPayment `parser:"@@*" json:"interest,omitempty"`
 }
 
-func (c *CurrencySwap) Validate(validateParty partyValidator) error {
+func (c *CurrencySwap) validate(validateParty partyValidator) error {
 	c.ImpliedExchangeRate.BaseCurrency = c.PrincipalA.Currency
 	c.ImpliedExchangeRate.CounterCurrency = c.PrincipalB.Currency
 	c.ImpliedExchangeRate.Rate = float64(c.PrincipalB.Amount) / float64(c.PrincipalA.Amount)
@@ -70,13 +70,13 @@ func (c *CurrencySwap) Validate(validateParty partyValidator) error {
 	err := multierr.Combine(
 		validateParty(c.PayerA),
 		validateParty(c.PayerB),
-		c.EffectiveDate.Validate(),
-		c.MaturityDate.Validate(),
+		c.EffectiveDate.validate(),
+		c.MaturityDate.validate(),
 		ensureDifferentParties(c.PayerA, c.PayerB),
 	)
 
 	for _, payment := range c.Interest {
-		err = multierr.Append(err, payment.Validate(validateParty))
+		err = multierr.Append(err, payment.validate(validateParty))
 	}
 
 	return err

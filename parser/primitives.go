@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
 	"strconv"
@@ -54,7 +55,7 @@ type Date struct {
 	Year  int    `parser:"@Integer" json:"year"`
 }
 
-func (d *Date) Validate() error {
+func (d *Date) validate() error {
 	day := fmt.Sprintf("%02d", d.Day)
 	year := strconv.Itoa(d.Year)
 
@@ -80,9 +81,9 @@ type Signature struct {
 	Date    *Date    `parser:"'on' 'the' @@ '.'" json:"date"`
 }
 
-func (s *Signature) Validate() error {
+func (s *Signature) validate() error {
 	sort.Strings(s.Parties)
-	return s.Date.Validate()
+	return s.Date.validate()
 }
 
 func (s *Signature) MarshalJSON() ([]byte, error) {
@@ -102,8 +103,8 @@ type Contract struct {
 	SignedOn   Signature    `parser:"@@" json:"signedOn"`
 }
 
-func (c *Contract) Validate() error {
-	err := c.SignedOn.Validate()
+func (c *Contract) validate() error {
+	err := c.SignedOn.validate()
 	if err != nil {
 		return err
 	}
@@ -130,11 +131,16 @@ func (c *Contract) Validate() error {
 	}
 
 	for _, agreement := range c.Agreements {
-		err = multierr.Append(err, agreement.Validate(validateParty))
+		err = multierr.Append(err, agreement.validate(validateParty))
 	}
 
-	err = multierr.Append(err, c.SignedOn.Validate())
+	err = multierr.Append(err, c.SignedOn.validate())
 	return err
+}
+
+func (c *Contract) String() (string, error) {
+	bytes, err := json.MarshalIndent(c, "", "  ")
+	return string(bytes), err
 }
 
 type Coupons struct {
@@ -142,10 +148,10 @@ type Coupons struct {
 	Dates []*Date `parser:"'paid' 'on' 'the' 'following' 'dates' ':' (@@ ',' | @@ | 'and' @@)+ '.'" json:"dates"`
 }
 
-func (c *Coupons) Validate() error {
+func (c *Coupons) validate() error {
 	var err error
 	for _, date := range c.Dates {
-		err = multierr.Append(err, date.Validate())
+		err = multierr.Append(err, date.validate())
 	}
 	return err
 }
@@ -162,14 +168,14 @@ type Agreement struct {
 	CurrencySwap     *CurrencySwap     `parser:"| 'a' 'Currency' 'Swap' 'Transaction' 'Agreement' 'defined' 'as' 'follows' ':' @@ )" json:"currencySwap,omitempty"`
 }
 
-func (a *Agreement) Validate(validateParty partyValidator) error {
+func (a *Agreement) validate(validateParty partyValidator) error {
 	if a.BondPurchase != nil {
-		return a.BondPurchase.Validate(validateParty)
+		return a.BondPurchase.validate(validateParty)
 	}
 	if a.InterestRateSwap != nil {
-		return a.InterestRateSwap.Validate(validateParty)
+		return a.InterestRateSwap.validate(validateParty)
 	}
-	return a.CurrencySwap.Validate(validateParty)
+	return a.CurrencySwap.validate(validateParty)
 }
 
 type InterestPayment struct {
@@ -180,7 +186,7 @@ type InterestPayment struct {
 	RateOption  LongIdent `parser:"('The' 'floating' 'rate' 'option' 'is' @(~'.')+ '.')?" json:"rateOption"`
 }
 
-func (i *InterestPayment) Validate(validateParty partyValidator) error {
+func (i *InterestPayment) validate(validateParty partyValidator) error {
 	if i.FixedRate != 0 && i.RateOption != "" {
 		return fmt.Errorf("fixed rate cannot be used with an interest rate option")
 	}
@@ -191,7 +197,7 @@ func (i *InterestPayment) Validate(validateParty partyValidator) error {
 
 	var err error
 	for _, date := range i.Dates {
-		err = multierr.Append(err, date.Validate())
+		err = multierr.Append(err, date.validate())
 	}
 
 	return multierr.Append(err, validateParty(i.Payer))

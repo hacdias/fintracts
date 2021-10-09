@@ -22,6 +22,9 @@ var parser = participle.MustBuild(&Contract{},
 	participle.UseLookahead(100),
 )
 
+// Parse parses the contract in English to an internal specification.
+// You can call .String() on the result to get the common JSON spec
+// format.
 func Parse(contract []byte) (*Contract, error) {
 	ast := &Contract{}
 	err := parser.ParseBytes("", contract, ast)
@@ -29,6 +32,6 @@ func Parse(contract []byte) (*Contract, error) {
 		return nil, err
 	}
 
-	err = ast.Validate()
+	err = ast.validate()
 	return ast, err
 }

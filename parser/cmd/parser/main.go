@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"encoding/json"
 	"fmt"
 	"io"
 	"os"
@@ -34,10 +33,10 @@ func main() {
 	contract, err := parser.Parse(bytes)
 	checkErr(err)
 
-	bytes, err = json.MarshalIndent(contract, "", "  ")
+	text, err := contract.String()
 	checkErr(err)
 
-	fmt.Println(string(bytes))
+	fmt.Println(text)
 }
 
 func checkErr(err error) {
