@@ -7,9 +7,9 @@ import (
 )
 
 type BondPurchase struct {
-	Seller       string   `parser:"@Ident 'agrees' 'on' 'issuing' 'and' 'selling'" json:"seller"`
+	Issuer       string   `parser:"@Ident 'agrees' 'on' 'issuing' 'and' 'selling'" json:"issuer"`
 	FaceValue    Money    `parser:"'a' 'bond' 'of' @@" json:"faceValue"`
-	Buyer        string   `parser:"'to' @Ident" json:"buyer"`
+	Underwriter  string   `parser:"'to' @Ident" json:"underwriter"`
 	IssuePrice   Money    `parser:"'for' @@ '.'" json:"issuePrice"`
 	MaturityDate *Date    `parser:"'The' 'aforementioned' 'bond' 'reaches' 'maturity' 'on' 'the' @@ '.'" json:"maturityDate"`
 	Coupons      *Coupons `parser:"('The' 'bond' 'pays' 'coupons' @@)?" json:"coupons,omitempty"`
@@ -17,11 +17,11 @@ type BondPurchase struct {
 
 func (b *BondPurchase) Validate(validateParty partyValidator) error {
 	err := multierr.Combine(
-		validateParty(b.Seller),
-		validateParty(b.Buyer),
+		validateParty(b.Issuer),
+		validateParty(b.Underwriter),
 		b.MaturityDate.Validate(),
 		b.Coupons.Validate(),
-		ensureDifferentParties(b.Seller, b.Buyer),
+		ensureDifferentParties(b.Issuer, b.Underwriter),
 	)
 
 	return err

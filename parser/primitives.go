@@ -173,19 +173,19 @@ func (a *Agreement) Validate(validateParty partyValidator) error {
 }
 
 type InterestPayment struct {
-	Payer              string    `parser:"@Ident 'will' 'pay' 'a'" json:"payer"`
-	FixedRate          float64   `parser:"( 'fixed' 'rate' 'interest' 'of' (@Float | @Integer) '%' " json:"fixedRate"`
-	InitialRate        float64   `parser:"| 'floating' 'rate' 'interest' ',' 'initially' 'defined' 'as' (@Float | @Integer) '%' ',' ) " json:"initialRate"`
-	Dates              []*Date   `parser:"'over' 'the' 'notational' 'amount' 'on' 'the' 'following' 'dates' ':' (@@ ',' | @@ | 'and' @@)+ '.'" json:"dates"`
-	InterestRateOption LongIdent `parser:"('The' 'floating' 'rate' 'option' 'is' @(~'.')+ '.')?" json:"interestRateOption"`
+	Payer       string    `parser:"@Ident 'will' 'pay' 'a'" json:"payer"`
+	FixedRate   float64   `parser:"( 'fixed' 'rate' 'interest' 'of' (@Float | @Integer) '%' " json:"fixedRate"`
+	InitialRate float64   `parser:"| 'floating' 'rate' 'interest' ',' 'initially' 'defined' 'as' (@Float | @Integer) '%' ',' ) " json:"initialRate"`
+	Dates       []*Date   `parser:"'over' 'the' 'notational' 'amount' 'on' 'the' 'following' 'dates' ':' (@@ ',' | @@ | 'and' @@)+ '.'" json:"dates"`
+	RateOption  LongIdent `parser:"('The' 'floating' 'rate' 'option' 'is' @(~'.')+ '.')?" json:"rateOption"`
 }
 
 func (i *InterestPayment) Validate(validateParty partyValidator) error {
-	if i.FixedRate != 0 && i.InterestRateOption != "" {
+	if i.FixedRate != 0 && i.RateOption != "" {
 		return fmt.Errorf("fixed rate cannot be used with an interest rate option")
 	}
 
-	if i.InitialRate != 0 && i.InterestRateOption == "" {
+	if i.InitialRate != 0 && i.RateOption == "" {
 		return fmt.Errorf("floating rate must have an interest rate option attached")
 	}
 

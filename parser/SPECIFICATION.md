@@ -56,12 +56,12 @@ Hereby enter in (a|an) <Agreement Type> defined as follows:
 
 - *Issuer*: the one who issues the bond.
 - *Underwriter:* the one who purchases the bond.
-- *Face value*: the value of the bond.
-- *Issue price*: the price at which the bond issuer originally sells the bond.
-- *Maturity date*, the date the bond issuer will pay the bond holder the face value of the bond.
+- *Face Value*: the value of the bond.
+- *Issue Price*: the price at which the bond issuer originally sells the bond.
+- *Maturity Date*, the date the bond issuer will pay the bond holder the face value of the bond.
 - If there are coupons:
-    - *Coupon interest rate*: the interest rate the bond issuer pays on the face value of the bond at the coupon dates.
-    - *Coupon dates*: the dates at which the bond issuer pays the coupon interest rate.
+    - *Coupon Interest Rate*: the interest rate the bond issuer pays on the face value of the bond at the coupon dates.
+    - *Coupon Dates*: the dates at which the bond issuer pays the coupon interest rate.
 
 
 #### Format
@@ -124,17 +124,17 @@ Signed by WS and DNB on the 24th of September 2021.
 
 #### Properties
 
-- *Notational* *Principal Amount:* the principal over which the interest amount is calculated. In these types of agreements, the principal is never exchanged, only the interest.
+- *Notational Amount:* the principal over which the interest amount is calculated. In these types of agreements, the principal is never exchanged, only the interest.
 - *Effective Date*: the date the agreement starts.
 - *Maturity Date*: the date of the end of the agreement.
 - For **both** types of rates:
     - *Payer*: who will pay that interest rate.
     - *Payment Dates*: the dates in which the payer pays out the interest rate over the principal amount.
 - For **fixed** rate **only**:
-    - *Interest rate*: the agreed fixed interest rate.
+    - *Interest Rate*: the agreed fixed interest rate.
 - For **floating** rate **only**:
-    - *Initial rate for calculation period:* the interest rate used during the initial calculations period.
-    - *Interest rate option*: the derivative that tracks the exchange rate over time (e.g. `usd-libor-bba`).
+    - *Initial Interest Rate:* the interest rate used during the initial calculations period.
+    - *Interest Rate Option*: the derivative that tracks the exchange rate over time (e.g. `usd-libor-bba`).
 
 #### Format
 
