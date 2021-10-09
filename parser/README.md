@@ -1,5 +1,9 @@
 # Fintracts English Parser
 
+[![Build](https://img.shields.io/github/workflow/status/hacdias/fintracts/ci?style=flat-square)](https://github.com/hacdias/fintracts/actions/workflows/ci.yaml)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hacdias/fintracts/parser?style=flat-square)](https://goreportcard.com/report/github.com/hacdias/fintracts/parser)
+[![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/hacdias/fintracts/parser)
+
 Fintracts parser for the english grammar specification. Translates an [english contract](SPECIFICATION.md) to the common [JSON format](../SPECIFICATION.md).
 
 - [Run Directly](#run-directly)
