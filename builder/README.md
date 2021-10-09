@@ -1,4 +1,4 @@
-# Fintracts Visual
+# Fintracts Builder
 
 - [Run Directly](#run-directly)
 - [Run With Docker](#run-with-docker)

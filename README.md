@@ -1,7 +1,7 @@
 # Fintracts - Easy Financial Contracts
 
 - [Contract Language Specification](SPECIFICATION.md)
-- [Fintracts Visual](visual/)
+- [Fintracts Builder](builder/)
 - [Fintracts Parser](parser/)
 
 ## License

@@ -1,7 +1,7 @@
 {
-  "name": "fintracts-visual",
+  "name": "fintracts-builder",
   "version": "1.0.0",
-  "description": "Fintracts Visual Interface",
+  "description": "Fintracts Builder Interface",
   "main": "index.js",
   "scripts": {
     "test": "nyc --require esm --require jsdom-global/register --require @riotjs/register mocha src/**/*.spec.js",
