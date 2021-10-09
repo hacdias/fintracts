@@ -1,0 +1,69 @@
+{
+  "parties": [
+    {
+      "name": "The Bank 1",
+      "identifier": "TB1"
+    },
+    {
+      "name": "The Bank 2",
+      "identifier": "TB2"
+    }
+  ],
+  "agreements": [
+    {
+      "currencySwap": {
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-01T00:00:00Z",
+        "payerA": "TB1",
+        "principalA": {
+          "currency": "USD",
+          "amount": 10000000
+        },
+        "payerB": "TB2",
+        "principalB": {
+          "currency": "EUR",
+          "amount": 12500000
+        },
+        "impliedExchangeRate": {
+          "baseCurrency": "USD",
+          "counterCurrency": "EUR",
+          "rate": 1.25
+        },
+        "endExchangeRate": {
+          "baseCurrency": "USD",
+          "counterCurrency": "EUR",
+          "rate": 1.45
+        },
+        "interest": [
+          {
+            "payer": "TB2",
+            "fixedRate": 3.5,
+            "initialRate": 0,
+            "dates": [
+              "2021-10-15T00:00:00Z",
+              "2022-10-15T00:00:00Z",
+              "2023-10-15T00:00:00Z",
+              "2024-10-15T00:00:00Z",
+              "2025-10-15T00:00:00Z"
+            ],
+            "rateOption": ""
+          },
+          {
+            "payer": "TB1",
+            "fixedRate": 0,
+            "initialRate": 2.4,
+            "dates": [
+              "2021-10-15T00:00:00Z",
+              "2022-10-15T00:00:00Z",
+              "2023-10-15T00:00:00Z",
+              "2024-10-15T00:00:00Z",
+              "2025-10-15T00:00:00Z"
+            ],
+            "rateOption": "USD - LIBOR"
+          }
+        ]
+      }
+    }
+  ],
+  "signedOn": "2021-09-15T00:00:00Z"
+}

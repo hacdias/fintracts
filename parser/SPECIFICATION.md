@@ -83,15 +83,15 @@ Selling a discounted bond without coupons:
 The parties:
 
   Will Smith, undermentioned as WS; and
-  De National Bank, undermentioned as DNB.
+  The Bank, undermentioned as TB.
 
 Hereby enter in a Bond Purchase Agreement defined as follows:
 
-  DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
+  TB agrees on issuing and selling a bond of EUR 10,000.00 to WS
   for EUR 9,800.00. The aforementioned bond reaches maturity on the
   1st of October 2025.
 
-Signed by WS and DNB on the 24th of September 2021.
+Signed by WS and TB on the 24th of September 2021.
 ```
 
 Selling a bond for its face value with coupons:
@@ -100,11 +100,11 @@ Selling a bond for its face value with coupons:
 The parties:
 
   Will Smith, undermentioned as WS; and
-  De national Bank, undermentioned as DNB.
+  The Bank, undermentioned as TB.
 
 Hereby enter in a Bond Purchase Agreement defined as follows:
 
-  DNB agrees on issuing and selling a bond of EUR 10,000.00 to WS
+  TB agrees on issuing and selling a bond of EUR 10,000.00 to WS
   for EUR 9,800.00. The aforementioned bond reaches maturity on the
   1st of October 2025.
 
@@ -112,7 +112,7 @@ Hereby enter in a Bond Purchase Agreement defined as follows:
   dates: 1st of October 2021, 1st of October 2022, 1st of October 2023, 1st
   of October 2024 and 1st of October 2025.
 
-Signed by WS and DNB on the 24th of September 2021.
+Signed by WS and TB on the 24th of September 2021.
 ```
 
 #### Information
@@ -159,8 +159,8 @@ Fixed to Floating Example
 ```
 The parties:
 
-  Big USA Bank, undermentioned as BUSAB; and
-  Big German Bank, undermentioned as BGB.
+  The Bank 1, undermentioned as TB1; and
+  The Bank 2, undermentioned as TB2.
 
 Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
 
@@ -168,16 +168,16 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
   principal of USD 10,000,000.00, with an effective date as of the 1st of
   October 2021 and termination on the 1st of October 2025.
 
-  BUSAB will pay a fixed rate interest of 3.5% over the notational amount
+  TB1 will pay a fixed rate interest of 3.5% over the notational amount
   on the following dates: 15th of October 2021, 15th of October 2022, 15th of
   October 2023, 15th of October 2024 and 15th of October 2025.
 
-  BGB will pay a floating rate interest, initially defined as 2.4%, over
+  TB2 will pay a floating rate interest, initially defined as 2.4%, over
   the notational amount on the following dates: 15th of October 2021, 15th
   of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
   October 2025. The floating rate option is USD-LIBOR.
 
-Signed by BUSAB and BGB on the 15th of September 2021.
+Signed by TB1 and TB2 on the 15th of September 2021.
 ```
 
 #### Information
@@ -223,18 +223,18 @@ An example where the implied exchange rate USD/EUR is 1.25.
 ```
 The parties:
 
-  Big USA Bank, undermentioned as BUSAB; and
-  Big German Bank, undermentioned as BGB.
+  The Bank 1, undermentioned as TB1; and
+  The Bank 2, undermentioned as TB2.
 
 Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 
   The parties agree on a currency swap transaction effective as of the
   1st of October 2021 and termination on the 1st of October 2025.
 
-  BUSAB will pay a principal amount of USD 10,000,000.00, and the
-  BGB will pay a principal amount of EUR 12,500,000.00.
+  TB1 will pay a principal amount of USD 10,000,000.00, and the
+  TB2 will pay a principal amount of EUR 12,500,000.00.
 
-Signed by BGB and BUSAB on the 15th of September 2021.
+Signed by TB1 and TB2 on the 15th of September 2021.
 ```
 
 With interest over the loans **and** an end exchange rate of USD/EUR 1.30:
@@ -242,29 +242,29 @@ With interest over the loans **and** an end exchange rate of USD/EUR 1.30:
 ```
 The parties:
 
-  Big USA Bank, undermentioned as BUSAB; and
-  Big German Bank, undermentioned as BGB.
+  The Bank 1, undermentioned as TB1; and
+  The Bank 2, undermentioned as TB2.
 
 Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 
   The parties agree on a currency swap transaction effective as of the
   1st of October 2021 and termination on the 1st of October 2025.
 
-  BUSAB will pay a principal amount of USD 10,000,000.00, and the
-  BGB will pay a principal amount of EUR 12,500,000.00. At maturity,
+  TB1 will pay a principal amount of USD 10,000,000.00, and the
+  TB2 will pay a principal amount of EUR 12,500,000.00. At maturity,
   the principal amounts shall be exchanged back with an interest
-  rate of USD/EUR 1.30.
+  rate of USD/EUR 1.45.
 
-  BUSAB will pay a fixed rate interest of 3.5% over the notational amount
+  TB2 will pay a fixed rate interest of 3.5% over the notational amount
   on the following dates: 15th of October 2021, 15th of October 2022, 15th of
   October 2023, 15th of October 2024 and 15th of October 2025.
 
-  BGB will pay a floating rate interest, initially defined as 2.4%, over
+  TB1 will pay a floating rate interest, initially defined as 2.4%, over
   the notational amount on the following dates: 15th of October 2021, 15th
   of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
   October 2025. The floating rate option is USD-LIBOR.
 
-Signed by BGB and BUSAB on the 15th of September 2021.
+Signed by TB1 and TB2 on the 15th of September 2021.
 ```
 
 #### Information

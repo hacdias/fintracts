@@ -1,0 +1,30 @@
+{
+  "parties": [
+    {
+      "name": "Will Smith",
+      "identifier": "WS"
+    },
+    {
+      "name": "The Bank",
+      "identifier": "TB"
+    }
+  ],
+  "agreements": [
+    {
+      "bondPurchase": {
+        "issuer": "TB",
+        "faceValue": {
+          "currency": "EUR",
+          "amount": 10000
+        },
+        "underwriter": "WS",
+        "issuePrice": {
+          "currency": "EUR",
+          "amount": 9800
+        },
+        "maturityDate": "2025-10-01T00:00:00Z"
+      }
+    }
+  ],
+  "signedOn": "2021-09-24T00:00:00Z"
+}

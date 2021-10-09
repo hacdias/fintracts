@@ -1,0 +1,97 @@
+{
+  "parties": [
+    {
+      "name": "The Bank",
+      "identifier": "TB"
+    },
+    {
+      "name": "Will Smith",
+      "identifier": "WS"
+    },
+    {
+      "name": "The Bank 1",
+      "identifier": "TB1"
+    },
+    {
+      "name": "The Bank 2",
+      "identifier": "TB2"
+    }
+  ],
+  "agreements": [
+    {
+      "bondPurchase": {
+        "issuer": "TB",
+        "faceValue": {
+          "currency": "EUR",
+          "amount": 10000
+        },
+        "underwriter": "WS",
+        "issuePrice": {
+          "currency": "EUR",
+          "amount": 9800
+        },
+        "maturityDate": "2025-10-01T00:00:00Z"
+      }
+    },
+    {
+      "currencySwap": {
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-01T00:00:00Z",
+        "payerA": "TB1",
+        "principalA": {
+          "currency": "USD",
+          "amount": 10000000
+        },
+        "payerB": "TB2",
+        "principalB": {
+          "currency": "EUR",
+          "amount": 12500000
+        },
+        "impliedExchangeRate": {
+          "baseCurrency": "USD",
+          "counterCurrency": "EUR",
+          "rate": 1.25
+        }
+      }
+    },
+    {
+      "interestRateSwap": {
+        "notationalAmount": {
+          "currency": "USD",
+          "amount": 10000000
+        },
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-01T00:00:00Z",
+        "interest": [
+          {
+            "payer": "TB1",
+            "fixedRate": 3.5,
+            "initialRate": 0,
+            "dates": [
+              "2021-10-15T00:00:00Z",
+              "2022-10-15T00:00:00Z",
+              "2023-10-15T00:00:00Z",
+              "2024-10-15T00:00:00Z",
+              "2025-10-15T00:00:00Z"
+            ],
+            "rateOption": ""
+          },
+          {
+            "payer": "TB2",
+            "fixedRate": 4,
+            "initialRate": 0,
+            "dates": [
+              "2021-10-15T00:00:00Z",
+              "2022-10-15T00:00:00Z",
+              "2023-10-15T00:00:00Z",
+              "2024-10-15T00:00:00Z",
+              "2025-10-15T00:00:00Z"
+            ],
+            "rateOption": ""
+          }
+        ]
+      }
+    }
+  ],
+  "signedOn": "2021-09-24T00:00:00Z"
+}

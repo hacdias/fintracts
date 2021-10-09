@@ -20,9 +20,12 @@ func (b *BondPurchase) Validate(validateParty partyValidator) error {
 		validateParty(b.Issuer),
 		validateParty(b.Underwriter),
 		b.MaturityDate.Validate(),
-		b.Coupons.Validate(),
 		ensureDifferentParties(b.Issuer, b.Underwriter),
 	)
+
+	if b.Coupons != nil {
+		err = multierr.Append(err, b.Coupons.Validate())
+	}
 
 	return err
 }

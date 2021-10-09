@@ -42,7 +42,7 @@ func (b *MoneyAmount) Capture(values []string) error {
 // Money represents a monetary amount of a certain currency.
 type Money struct {
 	Currency string      `parser:"@Ident" json:"currency"`
-	Amount   MoneyAmount `parser:"@Money" json:"amount"`
+	Amount   MoneyAmount `parser:"(@Money | @Float)" json:"amount"`
 }
 
 // Date is a date in the format '1st of September 2022'. It marshals

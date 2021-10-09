@@ -6,8 +6,8 @@ import (
 )
 
 var basicLexer = lexer.MustSimple([]lexer.Rule{
-	{"Money", `\d{1,3}(?:,?\d{3})*\.\d{2}`, nil},
-	{"Float", `[0-9]*[.][0-9]+`, nil},
+	{"Money", `\d{1,3}(?:,?\d{3})+\.\d{2}`, nil},
+	{"Float", `\d+[.]\d+`, nil},
 	{"Integer", `[-+]?(\d*\.)?\d+`, nil},
 	{"Ident", `[a-zA-Z_]\w*`, nil},
 	{"Punct", `[-[!@#$%^&*()+_={}\|:;"'<,>.?/]|]`, nil},
@@ -19,7 +19,7 @@ var basicLexer = lexer.MustSimple([]lexer.Rule{
 
 var parser = participle.MustBuild(&Contract{},
 	participle.Lexer(basicLexer),
-	participle.UseLookahead(20),
+	participle.UseLookahead(100),
 )
 
 func Parse(contract []byte) (*Contract, error) {
