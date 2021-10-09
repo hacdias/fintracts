@@ -1,39 +1,55 @@
 {
-  "name": "visualizer",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "tachyons": "^4.12.0",
-    "web-vitals": "^1.1.2"
-  },
+  "name": "fintracts-builder",
+  "version": "1.0.0",
+  "description": "Fintracts Builder Interface",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "nyc --require esm --require jsdom-global/register --require @riotjs/register mocha src/**/*.spec.js",
+    "cov": "nyc report --reporter=text-lcov",
+    "cov-html": "nyc report --reporter=html",
+    "build": "webpack --mode production",
+    "prepublishOnly": "npm test",
+    "start": "webpack serve --mode development --hot"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hacdias/fintracts.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "keywords": [
+    "fintracts",
+    "contracts",
+    "finance",
+    "smart",
+    "contracts"
+  ],
+  "author": "Henrique Dias <hacdias@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hacdias/fintracts/issues"
+  },
+  "homepage": "https://github.com/hacdias/fintracts#readme",
+  "devDependencies": {
+    "@riotjs/compiler": "^6.0.1",
+    "@riotjs/register": "^5.0.0",
+    "@riotjs/webpack-loader": "^6.0.0",
+    "chai": "^4.3.4",
+    "css-loader": "^6.2.0",
+    "esm": "^3.2.25",
+    "html-webpack-plugin": "^5.3.2",
+    "jsdom": "^16.6.0",
+    "jsdom-global": "^3.0.2",
+    "mini-css-extract-plugin": "^2.1.0",
+    "mocha": "^8.4.0",
+    "nyc": "^15.1.0",
+    "webpack": "^5.47.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@riotjs/hot-reload": "^6.0.0",
+    "@riotjs/lazy": "^2.0.1",
+    "@riotjs/route": "^8.0.0",
+    "riot": "^6.0.2",
+    "tachyons": "^4.12.0"
   }
 }

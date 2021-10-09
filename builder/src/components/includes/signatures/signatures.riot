@@ -1,0 +1,35 @@
+<parties>
+  <part title="Signature">
+    <p class="mt1 b">Signed by:</p>
+
+    <ul>
+      <li each={ party in props.parties }>{party.name} ({party.identifier})</li>
+    </ul>
+
+    <p class="mt1 mb0 b">on: <input type="date" class="ml1" onchange={updateDate} value={state.date} /></p>
+  </part>
+
+  <script>
+    import Part from '../part/part.riot'
+
+    const newParty = () => ({
+      name: '',
+      identifier: ''
+    })
+
+    export default {
+      state: {
+        date: ''
+      },
+      components: {
+        Part
+      },
+      updateDate (event) {
+        this.update({ date: event.target.value })
+      },
+      onUpdated () {
+        // this.props.onParties(this.state.parties)
+      }
+    }
+  </script>
+</parties>
