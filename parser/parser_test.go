@@ -10,6 +10,7 @@ import (
 
 var (
 	successPath = "./contracts/success"
+	failurePath = "./contracts/failures"
 )
 
 func TestSuccess(t *testing.T) {
@@ -49,6 +50,26 @@ func TestSuccess(t *testing.T) {
 
 		if expected != string(result) {
 			t.Errorf("expected output did not match for %s", f.Name())
+		}
+	}
+}
+
+func TestFailures(t *testing.T) {
+	files, err := ioutil.ReadDir(failurePath)
+	if err != nil {
+		t.Error(err)
+		return
+	}
+
+	for _, f := range files {
+		bytes, err := os.ReadFile(filepath.Join(failurePath, f.Name()))
+		if err != nil {
+			t.Error(err)
+		}
+
+		_, err = Parse(bytes)
+		if err == nil {
+			t.Errorf("expected error for %s", f.Name())
 		}
 	}
 }
