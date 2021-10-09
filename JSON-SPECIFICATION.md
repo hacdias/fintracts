@@ -1,6 +1,6 @@
-# JSON Specification
+# JSON Contract Specification
 
-This is the JSON specification of the contracts format. It goes well along with the [English Contract Specification](./parser/SPECIFICATION.md), as the latter explains the meaning of each field.
+This is the JSON specification of the contracts format. It goes well along with the [English Contract Specification](./ENGLISH-SPECIFICATION.md), as the latter explains the meaning of each field.
 
 - [Primitives](#primitives)
   - [Date](#date)
@@ -24,7 +24,7 @@ A Date is represented by a string on the [RFC 3339](https://datatracker.ietf.org
 
 ### Party
 
-```json
+```
 {
   "name": "The Party Name",
   "identifier": "TPN"
@@ -33,7 +33,7 @@ A Date is represented by a string on the [RFC 3339](https://datatracker.ietf.org
 
 ### Money
 
-```json
+```
 {
   "currency": "SYMBOL",
   "amount": 1234.5
@@ -42,7 +42,7 @@ A Date is represented by a string on the [RFC 3339](https://datatracker.ietf.org
 
 ### Coupons
 
-```json
+```
 {
   "rate": 1.5,
   "dates": [ Date... ]
@@ -51,7 +51,7 @@ A Date is represented by a string on the [RFC 3339](https://datatracker.ietf.org
 
 ### Exchange Rate
 
-```json
+```
 {
   "baseCurrency": "EUR",
   "counterCurrency": "USD",
@@ -63,7 +63,7 @@ A Date is represented by a string on the [RFC 3339](https://datatracker.ietf.org
 
 For floating rate interest:
 
-```json
+```
 {
   "payer": "ID1",
   "dates": [ Date... ],
@@ -74,7 +74,7 @@ For floating rate interest:
 
 For fixed rate interest:
 
-```json
+```
 {
   "payer": "ID1",
   "dates": [ Date... ],
@@ -86,7 +86,7 @@ For fixed rate interest:
 
 An agreement has a key indicating the type of the agreement and its object as value. Only one type of agreement is permitted per agreement object. Other keys can be omitted or have `null` values.
 
-```json
+```
 {
   "bondPurchase": Bond Purchase | null,
   "currencySwap": Currency Swap | null,
@@ -96,7 +96,7 @@ An agreement has a key indicating the type of the agreement and its object as va
 
 ### Contract
 
-```json
+```
 {
   "parties": [ Party... ],
   "agreements": [ Agreement... ],
@@ -108,7 +108,7 @@ An agreement has a key indicating the type of the agreement and its object as va
 
 ### Bond Purchase
 
-```json
+```
 {
   "issuer": "ID1",
   "underwriter": "ID2",
@@ -120,7 +120,7 @@ An agreement has a key indicating the type of the agreement and its object as va
 ```
 ### Interest Rate Swap
 
-```json
+```
 {
   "notationalAmount": Money,
   "effectiveDate": Date,
@@ -131,7 +131,7 @@ An agreement has a key indicating the type of the agreement and its object as va
 
 ### Currency Swap
 
-```json
+```
 {
   "payerA": "IDA",
   "principalA": Money,
