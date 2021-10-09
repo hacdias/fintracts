@@ -1,0 +1,24 @@
+<contract>
+  <part title="Contract">
+    <p class="mt1 b">The contract JSON according to specification.</p>
+  
+    <textarea class="w-100 h5 db mv2" value={text()} readonly></textarea>
+  </part>
+
+  <script>
+    import Part from '../part/part.riot'
+
+    export default {
+      components: {
+        Part
+      },
+      text() {
+        const contract = {
+          parties: this.props.parties
+        }
+
+        return JSON.stringify(contract, null, '    ')
+      }
+    }
+  </script>
+</contract>

@@ -25,7 +25,7 @@ To build the app:
 npm run build
 ```
 
-The app will be built in a `build/` directory. It contains plain HTML, CSS and JS files and it can be served by any web server.
+The app will be built in a `dist/` directory. It contains plain HTML, CSS and JS files and it can be served by any web server.
 
 ## Run With Docker
 

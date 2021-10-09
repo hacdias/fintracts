@@ -1,0 +1,62 @@
+<parties>
+  <part title="Parties Involved">
+    <p class="mt1 b">The contract can have two or more parties.</p>
+
+    <div each={ (party, index) in state.parties } class="mv2">
+      <label class="mr3">
+        Full Name
+        <input type="text" placeholder="e.g. The Big Bank" class="ml1" data-i={index} data-key="name" onchange={updateParty} value={party.name} />
+      </label>
+      <label>
+        Identifier
+        <input type="text" placeholder="e.g. TBB" data-i={index} class="ml1" data-key="identifier" onchange={updateParty} value={party.identifier} />
+      </label>
+
+      <button if={state.parties.length > 2} data-i={index} onclick={deleteParty} class="ml3" >Remove</button>
+    </div>
+
+    <button onclick={addParty}>Add</button>
+  </part>
+
+  <script>
+    import Part from '../part/part.riot'
+
+    const newParty = () => ({
+      name: '',
+      identifier: ''
+    })
+
+    export default {
+      state: {
+        parties: [
+          newParty(),
+          newParty()
+        ]
+      },
+      components: {
+        Part
+      },
+      addParty () {
+        this.update({
+          parties: [...this.state.parties, newParty()]
+        })
+      },
+      updateParty (event) {
+        const i = event.target.dataset.i
+        const key = event.target.dataset.key
+        const parties = [...this.state.parties]
+        parties[i][key] = event.target.value
+        this.update({ parties })
+      },
+      deleteParty (event) {
+        const i = event.target.dataset.i
+        const parties = [...this.state.parties]
+        parties.splice(i, 1)
+        this.update({ parties })
+      },
+      onUpdated () {
+        this.props.onParties(this.state.parties)
+      }
+    }
+  </script>
+</parties>
