@@ -1,6 +1,10 @@
 package parser
 
-import "go.uber.org/multierr"
+import (
+	"fmt"
+
+	"go.uber.org/multierr"
+)
 
 type BondPurchase struct {
 	Seller       string   `parser:"@Ident 'agrees' 'on' 'issuing' 'and' 'selling'" json:"seller"`
@@ -17,6 +21,7 @@ func (b *BondPurchase) Validate(validateParty partyValidator) error {
 		validateParty(b.Buyer),
 		b.MaturityDate.Validate(),
 		b.Coupons.Validate(),
+		ensureDifferentParties(b.Seller, b.Buyer),
 	)
 
 	return err
@@ -64,6 +69,7 @@ func (c *CurrencySwap) Validate(validateParty partyValidator) error {
 		validateParty(c.PayerB),
 		c.EffectiveDate.Validate(),
 		c.MaturityDate.Validate(),
+		ensureDifferentParties(c.PayerA, c.PayerB),
 	)
 
 	for _, payment := range c.Interest {
@@ -71,4 +77,12 @@ func (c *CurrencySwap) Validate(validateParty partyValidator) error {
 	}
 
 	return err
+}
+
+func ensureDifferentParties(a, b string) error {
+	if a != b {
+		return nil
+	}
+
+	return fmt.Errorf("expected '%s' and '%s' to be different parties", a, b)
 }
