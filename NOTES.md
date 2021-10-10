@@ -1,14 +1,16 @@
-# Fintracts: Background Research
+# Fintracts: Research Notes
 
-- [Background and Motivation](#background-and-motivation)
+- [How the Project Started](#how-the-project-started)
+- [What Is the Current Goal](#what-is-the-current-goal)
 - [State of the Art](#state-of-the-art)
+  - [Existent Tools](#existent-tools)
 - [Proposed Solution](#proposed-solution)
 - [Raw Research Notes](#raw-research-notes)
   - [Papers](#papers)
   - [Tools](#tools)
   - [Others](#others)
 
-## Background and Motivation
+## How the Project Started
 
 Technological advances in economy and society have led to more complex transactions and contract systems. Contracts which are often complex and not easily understood, or that leave room for different interpretations. It is important to find a sustainable, yet secure, trusted and verifiable way of designing contracts. This is where blockchain technology and smart contracts come into play.
 
@@ -24,84 +26,79 @@ The goal is to design a domain specific language (DSL), targeted into the financ
 
 In later stages, the DSL can be compiled to any other language and verified. From there, a compiler to the Ethereum Virtual Machine (EVM) byte code can be built in order to be able to execute the actual contract.
 
+## What Is the Current Goal
+
+The current goal has shifted from the initial goal, but the motivation remains. The current goal is to build an ecosystem of tools surrounding a common JSON contract format. This tools can be used to parse contracts to and from English, or from English to a functional smart contract in Solidity, or, perhaps, in EVM. Read more about it on the [README](./README.md).
+
+Nevertheless, the research done on this file regards the current state of the art of formal verification of smart contracts and the different techniques to achieve such goal.
+
 ## State of the Art
 
-*TODO*
+This section will be written in bullet points for briefness:
 
-More in [Raw Research Notes](#raw-research-notes).
+- Most contracts are written in [specific languages](https://ethereum.org/en/developers/docs/smart-contracts/languages/), being the most popular Solidity, which compiles down to EVM byte code.
+- Regarding F*:
+  - F* is a prominent language to verify Solidity smart contracts and there's some research done. However, the tools from the research are mostly closed source and not maintained; and F* is not yet mature enough to be considered as a real solution. It is currently lacking documentation and a manual.
+  - Most of the tools presented in the papers are outdated because they were strictly built for the research of those papers and never updated afterwards.
+- Most common smart contract vulnerabilities:
+  - Integer Underflow and Overflow
+  - Reentrancy Attacks
+  - Greedy Contracts
+  - More in https://dasp.co/
+  - More in [The Vulnerabilities in Smart Contracts: A Survey](#the-vulnerabilities-in-smart-contracts-a-survey)
+- Existing tools:
+  - See table in ["A comprehensive survey on smart contract construction and execution: paradigms, tools, and systems"](#a-comprehensive-survey-on-smart-contract-construction-and-execution-paradigms-tools-and-systems)
+  - Section 6 of ["solc-verify: A Modular Verifier for Solidity Smart Contracts"](#solc-verify-a-modular-verifier-for-solidity-smart-contracts)
+  - See https://github.com/leonardoalt/ethereum_formal_verification_overview
 
-<!--
+### Existent Tools
 
-- Most contracts nowadays are written in [specific languages](https://ethereum.org/en/developers/docs/smart-contracts/languages/). Most popular is Solidity, which then compiles down to EVM bytecode.
-- There's some research in F* but mostly closed source or from Solidity to a verification language (such as F*) and not the opposite direction. Thus, those tools probably don't help much. Celestial seems to be a good tool using F*, not open-source, can contact authors.
-- There's formalizations of EVM in F*, but not Solidity. There's tools to convert from Solidity to F*, but they're not open source. If our language domain is small, it could be feasible to write a compiler from DSL to F* and use this formalization to EVM to verify the contract. However, that'd probably require a lot of work as I'd need to learn how the entire EVM works. Also, if we're assuming that the EVM is correct, there's no point in verifying the EVM.
-- Many of the tools in the papers are outdated because Solidity is ever changing.
-- The solc (solidity compiler) outputs an AST. Can be useful.
-- Majority of F*-related DSLs are embedded within F*.
-
-#### Common Vulnerabilities
-
-Are we supposed to look at this kind of vulnerabilities? They seem to be either at Solidity level or at the EVM level. We will end up using either - if not both - of the languages during our translation process.
-
-I think we should **stay at contract level logic** (yes), but still relay on some third party tools to verify the contracts against common vulnerabilities and incorporate them in the tool/workflow.
-
-- Integer Underflow and Overflow
-- Reentrancy Attacks
-- Greedy Contract
-
-Other vulnerabilities: [https://dasp.co/](https://dasp.co/)
-
-More in [The Vulnerabilities in Smart Contracts: A Survey](https://www.notion.so/The-Vulnerabilities-in-Smart-Contracts-A-Survey-6c675e3f494349879dcb14ccbc69945b).
-
-#### Existing Tools
-
-Check:
-
-- Table in "A comprehensive survey on smart contract construction and execution: paradigms, tools, and systems'
-- Section 6 of "solc-verify: A Modular Verifier for Solidity Smart Contracts"
-- [https://github.com/leonardoalt/ethereum_formal_verification_overview](https://github.com/leonardoalt/ethereum_formal_verification_overview)
-
-##### Vulnerability Pattern-Based Approaches
+#### Vulnerability Pattern-Based Approaches
 
 - **Oyente**: symbolic execution tool, checks for various patterns (incl. transaction ordering dependency, timestamp dependency, mishandled exceptions and reentrancy). Verifies important bugs, incomplete, may contain false-positives.
-- **Maian**: "symbolic analysis with concrete validation over a sequence of invocations to detect fund locking, fund leaking and contracts that can be killed."
-- **Mythril**: "symbolic analysis to detect a variety of security vulnerabilities"
-- **Slyther**: "static analysis framework with dedicated vulnerability checkers"
+- **Maian**: "symbolic analysis with concrete validation over a sequence of invocations to detect fund locking, fund leaking and contracts that can be killed.".
+- **Mythril**: "symbolic analysis to detect a variety of security vulnerabilities".
+- **Slyther**: "static analysis framework with dedicated vulnerability checkers".
 - **Solidity, EVM**: type and effect system to check for vulnerable patterns and gas boundedness.
 
-##### Theorem Prover-Based Approaches
+#### Theorem Prover-Based Approaches
 
-- **Kevm**: "is an executable formal semantics of EVM based on the K framework including a deductive program verifier to check contracts against given specifications"
+- **Kevm**: "is an executable formal semantics of EVM based on the K framework including a deductive program verifier to check contracts against given specifications".
 - **Hirai**: formalization of the EVM in Lem.
 - **Scilla**: intermediate language between smart contracts and bytecode which uses Coq.
 
-##### Automata-Based Approaches
+#### Automata-Based Approaches
 
 - **FSolidM**: specific targeted vulnerabilities.
 
-##### SMT-Based Approaches (Satisfiability Modulo Theories)
+#### SMT-Based Approaches (Satisfiability Modulo Theories)
 
 - **Zeus**: translates Solidity to LLVM bytecode. Requires user specified policy in XACML-like file.
 - **VeriSol**: targets a limited amount of vulnerabilities and supports limited functionality.
 - **solc-verify**: verified smart contracts given written in Solidity annotated with their specifications. Does not need specifications, but then verification is limited. Checks common vulnerabilities.
 
-##### Other Tools
+#### Other Tools
 
 - SmartBugs: aggregator of many other Solidity verification tools through Docker images: [https://github.com/smartbugs/smartbugs](https://github.com/smartbugs/smartbugs)
 
--->
+---
+
+More in [Raw Research Notes](#raw-research-notes).
 
 ## Proposed Solution
 
-We propose designing a DSL targeted to the financial domain, mainly to exchange of assets by any other assets. This language should be as human readable as possible, while keeping a strict and rigid grammar. This allows it to be easily processed by a computer.
-
-**Phases:** (make image for this)
+The initial proposed solution was to design a DSL targeted to the financial domain, mainly to exchange of assets by any other assets. This language would be as human readable as possible, while keeping a strict and rigid grammar, allowing it to be processed by a computer easily. A possible use case with this DSL would be:
 
 1. Lawyer writes contract in DSL.
 2. Contract is parsed and validated.
 3. A implicit risk is calculated from the contract.
 4. While adding the contract to the block on the blockchain, verify if adding the new contract does not increase the systematic risk by a pre-defined threshold.
 5. Contract in blockchain!
+
+The proposed solution has evolved into what this repository currently contains: an ecosystem of tools surrounding a common format. With the right tools built, the same goals can be achieved. For the initial steps of this projects, we will build:
+
+1. A tool to parse from an English contract to the common JSON format.
+2. A web GUI generate a contract in the JSON format.
 
 ## Raw Research Notes
 
@@ -161,8 +158,6 @@ Proposes a translation algorithm of Solidity contracts into colored petri nets f
 Eth2Vec is a static analysis tool based on ML that identifies vulnerabilities in smart contracts by learning smart contract code via their EVM bytecode, assembly code and AST. Seems to have high throughput and accuracy, resistant to code rewrites.
 
 Quite interesting, but not formal verification.
-
-
 
 #### Solidifier: bounded model checking solidity using lazy contract deployment and precise memory modeling
 

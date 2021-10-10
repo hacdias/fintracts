@@ -22,6 +22,10 @@ Fintracts aims to be an ecosystem of tools to make it easy to write financial, r
 - Tool to verify certain financial properties, such as if both parties are able to carry on the contracts according to their portfolios.
 - A tool that converts a contract in JSON to French. This way, someone can write a contract in English, then use the English parser and then convert it to French. This would help translation of financial contracts through a common format.
 
+## Research Notes
+
+This project was started at [TU Eindhoven](https://tue.nl/). Read more about the motivation and research notes [here](NOTES.md).
+
 ## License
 
 [MIT © Henrique Dias](LICENSE)
