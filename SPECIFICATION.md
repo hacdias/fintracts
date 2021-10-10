@@ -69,10 +69,10 @@ Represents a monetary amount of a certain currency.
 
 **Properties**
 
-| Name       | Type           | Description                                     |
-|------------|----------------|-------------------------------------------------|
-| `currency` | `string`       | A string representing the currency. E.g. `EUR`. |
-| `amount`   | `float \| int` | The amount of `currency`.                       |
+| Name       | Type              | Description                                     |
+|------------|-------------------|-------------------------------------------------|
+| `currency` | `string`          | A string representing the currency. E.g. `EUR`. |
+| `amount`   | `float`  \| `int` | The amount of `currency`.                       |
 
 **Format Example**
 
@@ -161,11 +161,11 @@ An **agreement** has a key indicating the type of the agreement and its object a
 
 **Properties**
 
-| Name               | Type                         | Description                                             |
-|--------------------|------------------------------|---------------------------------------------------------|
-| `bondPurchase`     | `Bond Purchase \| null`      | A [Bond Purchase](#bond-purchase) agreement.            |
-| `currencySwap`     | `Currency Swap \| null`      | A [Currency Swap](#currency-swap) agreement.            |
-| `interestRateSwap` | `Interest Rate Swap \| null` | An [Interest Rate Swap](#interest-rate-swap) agreement. |
+| Name               | Type                                                  | Description                      |
+|--------------------|-------------------------------------------------------|----------------------------------|
+| `bondPurchase`     | [`Bond Purchase`](#bond-purchase) \| `null`           | A Bond Purchase agreement.       |
+| `currencySwap`     | [`Currency Swap`](#currency-swap) \| `null`           | A Currency Swap agreement.       |
+| `interestRateSwap` | [`Interest Rate Swap`](#interest-rate-swap) \| `null` | An Interest Rate Swap agreement. |
 
 **Format Example**
 
@@ -186,14 +186,14 @@ Represents a Bond Purchase Agreement. More information on the links below:
 
 **Properties**
 
-| Name           | Type              | Description                                                                            |
-|----------------|-------------------|----------------------------------------------------------------------------------------|
-| `issuer`       | `string`          | The identifier of the party that issues the bond.                                      |
-| `underwriter`  | `string`          | The identifier of the party that receives the bond.                                    |
-| `faceValue`    | [`Money`](#money) | The value of the bond.                                                                 |
-| `issuePrice`   | [`Money`](#money) | The price at which the bond issuer is selling the bond.                                |
-| `maturityDate` | [`Date`](#date)   | The date at which the bond issuer will pay the bond holder the face value of the bond. |
-| `coupons`      | `Coupons \| null` | The [coupons](#coupons) of the bond, if there are any.                                 |
+| Name           | Type                            | Description                                                                            |
+|----------------|---------------------------------|----------------------------------------------------------------------------------------|
+| `issuer`       | `string`                        | The identifier of the party that issues the bond.                                      |
+| `underwriter`  | `string`                        | The identifier of the party that receives the bond.                                    |
+| `faceValue`    | [`Money`](#money)               | The value of the bond.                                                                 |
+| `issuePrice`   | [`Money`](#money)               | The price at which the bond issuer is selling the bond.                                |
+| `maturityDate` | [`Date`](#date)                 | The date at which the bond issuer will pay the bond holder the face value of the bond. |
+| `coupons`      | [`Coupons`](#coupons) \| `null` | The coupons of the bond, if there are any.                                             |
 
 **Format Example**
 
@@ -264,16 +264,16 @@ Represents a Currency Swap agreement. More information on the links below:
 
 **Properties**
 
-| Name                  | Type                                | Description                                                                                      |
-|-----------------------|-------------------------------------|--------------------------------------------------------------------------------------------------|
-| `payerA`              | `string`                            | The identifier of the party A.                                                                   |
-| `principalA`          | [`Money`](#money)                   | The principal provided by `payerA`.                                                              |
-| `payerB`              | `string`                            | The identifier of the party B.                                                                   |
-| `principalB`          | [`Money`](#money)                   | The principal provided by `payerB`.                                                              |
-| `impliedExchangeRate` | [`Exchange Rate`](#exchange-rate)   | The implied exchange rate from `principalA` to `principalB`.                                     |
-| `endExchangeRate`     | `Exchange Rate \| null`             | The pre-agreed rate to swap at maturity date. If non-specified, it is the `impliedExchangeRate`. |
-| `maturityDate`        | [`Date`](#date)                     | The date at which both parties have to swap the principals again at the `endExchangeRate`.       |
-| `interest`            | Array of `Interest Payment \| null` | The agreement may have [Interest Payments](#interest-payment).                                   |
+| Name                  | Type                                                       | Description                                                                                      |
+|-----------------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| `payerA`              | `string`                                                   | The identifier of the party A.                                                                   |
+| `principalA`          | [`Money`](#money)                                          | The principal provided by `payerA`.                                                              |
+| `payerB`              | `string`                                                   | The identifier of the party B.                                                                   |
+| `principalB`          | [`Money`](#money)                                          | The principal provided by `payerB`.                                                              |
+| `impliedExchangeRate` | [`Exchange Rate`](#exchange-rate)                          | The implied exchange rate from `principalA` to `principalB`.                                     |
+| `endExchangeRate`     | [`Exchange Rate`](#exchange-rate) \| `null`                | The pre-agreed rate to swap at maturity date. If non-specified, it is the `impliedExchangeRate`. |
+| `maturityDate`        | [`Date`](#date)                                            | The date at which both parties have to swap the principals again at the `endExchangeRate`.       |
+| `interest`            | Array of [`Interest Payment`](#interest-payment) \| `null` | The agreement may have Interest Payments.                                                        |
 
 **Format Example**
 
