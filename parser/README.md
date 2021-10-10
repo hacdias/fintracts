@@ -4,7 +4,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/hacdias/fintracts/parser?style=flat-square)](https://goreportcard.com/report/github.com/hacdias/fintracts/parser)
 [![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/hacdias/fintracts/parser)
 
-Fintracts parser for the english grammar specification. Translates an [english contract](../ENGLISH-SPECIFICATION.md) to the common [JSON format](../JSON-SPECIFICATION.md).
+Fintracts parser for the english grammar specification. Translates an [english contract](./SPECIFICATION.md) to the common [JSON format](../SPECIFICATION.md).
 
 - [Run Directly](#run-directly)
 - [Run With Docker](#run-with-docker)

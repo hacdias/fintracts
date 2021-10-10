@@ -1,5 +1,7 @@
 # English Contract Specification
 
+This specification implies knowledge from the [JSON contract specification](../SPECIFICATION.md) and the available agreement types.
+
 - [Format](#format)
 - [Parties](#parties)
 - [Signature](#signature)
@@ -7,7 +9,6 @@
   - [Bond Purchase](#bond-purchase)
   - [Interest Rate Swap Transaction](#interest-rate-swap-transaction)
   - [Currency Swap Transaction](#currency-swap-transaction)
-  - [Other Types to Consider](#other-types-to-consider)
 
 ## Format
 
@@ -51,18 +52,6 @@ Hereby enter in (a|an) <Agreement Type> defined as follows:
 ```
 
 ### Bond Purchase
-
-#### Properties
-
-- *Issuer*: the one who issues the bond.
-- *Underwriter:* the one who purchases the bond.
-- *Face Value*: the value of the bond.
-- *Issue Price*: the price at which the bond issuer originally sells the bond.
-- *Maturity Date*, the date the bond issuer will pay the bond holder the face value of the bond.
-- If there are coupons:
-    - *Coupon Interest Rate*: the interest rate the bond issuer pays on the face value of the bond at the coupon dates.
-    - *Coupon Dates*: the dates at which the bond issuer pays the coupon interest rate.
-
 
 #### Format
 
@@ -115,29 +104,9 @@ Hereby enter in a Bond Purchase Agreement defined as follows:
 Signed by WS and TB on the 24th of September 2021.
 ```
 
-#### Information
-
-- [https://www.investopedia.com/terms/b/bond.asp](https://www.investopedia.com/terms/b/bond.asp)
-- [https://www.investopedia.com/terms/b/bond-purchase-agreement.asp](https://www.investopedia.com/terms/b/bond-purchase-agreement.asp)
-
 ### Interest Rate Swap Transaction
 
-#### Properties
-
-- *Notational Amount:* the principal over which the interest amount is calculated. In these types of agreements, the principal is never exchanged, only the interest.
-- *Effective Date*: the date the agreement starts.
-- *Maturity Date*: the date of the end of the agreement.
-- For **both** types of rates:
-    - *Payer*: who will pay that interest rate.
-    - *Payment Dates*: the dates in which the payer pays out the interest rate over the principal amount.
-- For **fixed** rate **only**:
-    - *Interest Rate*: the agreed fixed interest rate.
-- For **floating** rate **only**:
-    - *Initial Interest Rate:* the interest rate used during the initial calculations period.
-    - *Interest Rate Option*: the derivative that tracks the exchange rate over time (e.g. `usd-libor-bba`).
-
 #### Format
-
 
 ```
 The parties agree on an interest rate swap transaction over the notational
@@ -180,23 +149,7 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
 Signed by TB1 and TB2 on the 15th of September 2021.
 ```
 
-#### Information
-
-- [https://www.investopedia.com/terms/i/interestrateswap.asp](https://www.investopedia.com/terms/i/interestrateswap.asp)
-- There are different types of swap: fixed to floating, floating to fixed, and floating to floating.
-
 ### Currency Swap Transaction
-
-#### Properties
-
-- *Principal A:* principal provided by Payer A.
-    - *Payer:* who provides the principal.
-- *Principal B*: principal provided by Payer B.
-    - *Payer*: who provides the principal.
-- *Implied Exchange Rate*: implied exchange rate from *Principal A* and *Principal B*.
-- *Maturity Date*: the date at which both parties have to swap again at either the original implied exchange rate or another pre-agreed rate.
-- *(Optional) End Exchange Rate*: the pre-agreed rate to swap at maturity date. If non-specified, it is the implied exchange rate.
-- *(Optional) Interest Payouts* These transactions can also **involve** interest payouts during the agreement time, just like the Interest Rate Swap Transaction Agreement.
 
 #### Format
 
@@ -266,15 +219,3 @@ Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 
 Signed by TB1 and TB2 on the 15th of September 2021.
 ```
-
-#### Information
-
-- [https://www.investopedia.com/terms/c/currencyswap.asp](https://www.investopedia.com/terms/c/currencyswap.asp)
-- [https://www.investopedia.com/ask/answers/051215/what-difference-between-currency-and-interest-rate-swap.asp](https://www.investopedia.com/ask/answers/051215/what-difference-between-currency-and-interest-rate-swap.asp) (Currency Swap vs. Interest Rate Swap)
-
-### Other Types to Consider
-
-- Spot Foreign Exchange Transaction Agreement
-- Foreign Currency Exchange Agreement
-- Equity (Stocks) Purchase Agreement
-- Certificate of Deposit Purchase Agreement
