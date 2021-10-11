@@ -81,7 +81,9 @@
           this.state.parties.reduce((valid, { name, identifier }) => name && identifier && valid, true)
       },
       submit () {
-        this.props.onPartiesSig(this.state.parties, this.state.date)
+        const parties = this.state.parties
+        const date = `${this.state.date}T00:00:00Z`
+        this.props.onPartiesSig(parties, date)
       }
     }
   </script>
