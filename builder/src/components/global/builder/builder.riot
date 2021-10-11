@@ -1,27 +1,73 @@
 <builder>
   <div>
-    <parties onParties={onParties} />
-    <signatures parties={state.parties} />
-    <contract parties={state.parties} />
+    <parties
+      if={!state.parties && !state.ready}
+      onPartiesSig={onPartiesSig} />
 
+    <agreements
+      if={state.parties && !state.ready}
+      parties={this.state.parties}
+      onAgreement={onAgreement} />
+  
+    <contract if={state.ready} contract={contract} />
+
+    <hr />
+
+    <div class="flex items-center justify-between">
+      <button class="bg-red br1 pv2 ph3" onclick={reset}>Reset</button>
+      <button class="bg-blue br1 pv2 ph3" onclick={generate} if={canGenerate}>Generate</button>
+    </div>
   </div>
 
   <script>
     import Parties from '../../includes/parties/parties.riot'
-    import Signatures from '../../includes/signatures/signatures.riot'
+    import Agreements from '../../includes/agreements/agreements.riot'
     import Contract from '../../includes/contract/contract.riot'
+
+    const emptyState = () => ({
+      ready: false,
+      parties: null,
+      agreements: null,
+      signedOn: null
+    })
 
     export default {
       components: {
         Parties,
-        Signatures,
+        Agreements,
         Contract
       },
-      state: {
-        parties: []
+      state: emptyState(),
+      onPartiesSig (parties, signedOn) {
+        this.update({ parties, signedOn })
       },
-      onParties (parties) {
-        this.update({ parties })
+      onAgreement (agreement) {
+        this.update({
+          agreements: [
+            ...this.agreements,
+            agreement
+          ]
+        })
+      },
+      get contract () {
+        return {
+          parties: this.state.parties,
+          agreements: this.state.agreements,
+          signedOn: this.state.signedOn
+        }
+      },
+      get canGenerate () {
+        return this.state.parties &&
+          this.state.agreements &&
+          this.state.signedOn
+      },
+      generate () {
+        this.update({
+          ready: true
+        })
+      },
+      reset ()  {
+        this.update(emptyState())
       }
     }
   </script>

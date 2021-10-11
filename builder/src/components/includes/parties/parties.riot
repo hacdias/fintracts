@@ -1,21 +1,38 @@
 <parties>
-  <part title="Parties Involved">
-    <p class="mt1 b">The contract can have two or more parties.</p>
+  <part title="Parties and Signature">
+    <p class="mt1 mb3 i">The contract can have two or more parties.</p>
 
-    <div each={ (party, index) in state.parties } class="mv2">
-      <label class="mr3">
-        Full Name
-        <input type="text" placeholder="e.g. The Big Bank" class="ml1" data-i={index} data-key="name" onchange={updateParty} value={party.name} />
-      </label>
+    <div each={ (party, index) in state.parties } class="party mv3 pa3 relative ba b--black-20">
       <label>
-        Identifier
-        <input type="text" placeholder="e.g. TBB" data-i={index} class="ml1" data-key="identifier" onchange={updateParty} value={party.identifier} />
+        <span class="b mr1">Full Name</span>
+        <input type="text" placeholder="e.g. The Big Bank" data-i={index} data-key="name" onchange={updateParty} value={party.name} />
       </label>
 
-      <button if={state.parties.length > 2} data-i={index} onclick={deleteParty} class="ml3" >Remove</button>
+      <label class="mt2">
+        <span class="b mr1">Identifier</span>
+        <input type="text" placeholder="e.g. TBB" data-i={index} data-key="identifier" onchange={updateParty} value={party.identifier} />
+      </label>
+
+      <button
+        if={state.parties.length > 2}
+        data-i={index}
+        onclick={deleteParty}
+        title="Remove Party"
+        alt="Remove Party"
+        class="bg-red br-100 w2 h2">X</button>
     </div>
 
-    <button onclick={addParty}>Add</button>
+    <div class="mv3 pa3 ba b--black-20">
+      <button class="center db bg-green br1 pv2 ph3" onclick={addParty}>Add Party</button>
+    </div>
+
+    <div class="mv3 pa3 ba b--black-20">
+      <p class="mv0 b">Signed on: <input type="date" class="ml1" onchange={updateDate} value={state.date}/></p>
+    </div>
+
+    <div class="flex items-center justify-end" if={canNext}>
+      <button class="bg-blue br1 pv2 ph3" onclick={submit}>Next</button>
+    </div>
   </part>
 
   <script>
@@ -31,7 +48,8 @@
         parties: [
           newParty(),
           newParty()
-        ]
+        ],
+        date: ''
       },
       components: {
         Part
@@ -54,8 +72,16 @@
         parties.splice(i, 1)
         this.update({ parties })
       },
-      onUpdated () {
-        this.props.onParties(this.state.parties)
+      updateDate (event) {
+        console.log(event.target.value)
+        this.update({ date: event.target.value })
+      },
+      get canNext () {
+        return this.state.date &&
+          this.state.parties.reduce((valid, { name, identifier }) => name && identifier && valid, true)
+      },
+      submit () {
+        this.props.onPartiesSig(this.state.parties, this.state.date)
       }
     }
   </script>

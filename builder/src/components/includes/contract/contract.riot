@@ -13,11 +13,7 @@
         Part
       },
       text() {
-        const contract = {
-          parties: this.props.parties
-        }
-
-        return JSON.stringify(contract, null, '    ')
+        return JSON.stringify(this.props.contract, null, '    ')
       }
     }
   </script>

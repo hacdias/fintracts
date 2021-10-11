@@ -1,0 +1,29 @@
+button {
+  border: 0;
+  cursor: pointer;
+  color: white;
+  background-color: black;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+  margin: 1.2em auto;
+}
+
+.party label {
+  display: grid;
+  grid-template-columns: 8rem auto;
+}
+
+.party button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  height: 1.5rem;
+  width: 1.5rem;
+  line-height: 0.8rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
