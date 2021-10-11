@@ -1,10 +1,17 @@
-<parties>
+<agreements>
   <part title="Agreements">
-    <p class="mt1 b">Signed by:</p>
+    <p class="mt1 i">A contract can have one or more agreements.</p>
 
-    <ul>
-      <li each={ party in props.parties }>{party.name} ({party.identifier})</li>
-    </ul>
+    <div class="mv3 pa3 relative ba b--black-20" onchange={onAgreementType}>
+      <p class="b mt0 mb3">Agreement Type</p>
+      <div each={ (key) in types } class="mt2">
+        <input type="radio" class="mr1" value={key.id} checked={state.type === key.id} name="agreementType" /> {key.title}
+      </div>
+    </div>
+
+    <div>
+      
+    </div>
   </part>
 
   <script>
@@ -16,18 +23,24 @@
     })
 
     export default {
+      types: [
+        { id: 'bondPurchase', title: 'Bond Purchase' },
+        { id: 'interestRateSwap', title: 'Interest Rate Swap' },
+        { id: 'currencySwap', title: 'Currency Swap' }
+      ],
       state: {
-        date: ''
+        type: '',
       },
       components: {
         Part
       },
-      updateDate (event) {
-        this.update({ date: event.target.value })
+      onAgreement (agreement) {
+        this.props.onAgreement(agreement)
+        this.update({ type: '' })
       },
-      onUpdated () {
-        // this.props.onParties(this.state.parties)
+      onAgreementType (event) {
+        this.update({ type: event.target.value })
       }
     }
   </script>
-</parties>
+</agreements>
