@@ -42,9 +42,11 @@
         this.update({ parties, signedOn })
       },
       onAgreement (agreement) {
+        const agreements = this.state.agreements || []
+
         this.update({
           agreements: [
-            ...this.agreements,
+            ...agreements,
             agreement
           ]
         })
