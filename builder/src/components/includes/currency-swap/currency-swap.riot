@@ -59,7 +59,11 @@
       principalA: null,
       payerB: null,
       principalB: null,
-      impliedExchangeRate: null, // TODO
+      impliedExchangeRate: {
+        baseCurrency: '',
+        counterCurrency: '',
+        rate: 1.0
+      },
       endExchangeRate: null, // TODO: can be optional
       interest: null, // TODO: can be optional
       effectiveDate: null,
@@ -85,6 +89,19 @@
         return (value) => {
           const agreement = this.agreement
           agreement[field] = value
+
+          if (agreement.principalA && agreement.principalB) {
+            const principalA = agreement.principalA
+            const principalB = agreement.principalB
+            
+            agreement.impliedExchangeRate.baseCurrency = principalA.currency
+            agreement.impliedExchangeRate.counterCurrency = principalB.currency
+
+            if (principalA.amount !== 0 && principalB.amount !== 0) {
+              agreement.impliedExchangeRate.rate = principalB.amount / principalA.amount
+            }
+          }
+
           this.props.onChange({ currencySwap: agreement })
         }
       }
