@@ -1,12 +1,10 @@
-name: Build and Deploy Builder
-
 on:
   push:
     branches:
       - master
 
 jobs:
-  build-and-deploy:
+  deploy-builder:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
