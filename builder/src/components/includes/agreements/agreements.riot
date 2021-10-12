@@ -15,7 +15,11 @@
         agreement={agreement}
         onChange={onAgreement(index)} />
 
-      <h2 if={agreement.currencySwap}>Currency Swap (Not implemented)</h2>
+      <currency-swap
+        if={agreement.currencySwap}
+        parties={props.parties}
+        agreement={agreement}
+        onChange={onAgreement(index)} />
     </div>
 
     <div class="mv3 pa3 relative ba b--black-20" onchange={onAgreementType}>
@@ -36,6 +40,7 @@
     import Part from '../part/part.riot'
     import BondPurchase from '../bond-purchase/bond-purchase.riot'
     import InterestRateSwap from '../interest-rate-swap/interest-rate-swap.riot'
+    import CurrencySwap from '../currency-swap/currency-swap.riot'
 
     const newParty = () => ({
       name: '',
@@ -54,7 +59,8 @@
       components: {
         Part,
         BondPurchase,
-        InterestRateSwap
+        InterestRateSwap,
+        CurrencySwap
       },
       get agreements () {
         return this.props.agreements || []

@@ -4,7 +4,6 @@
 
     <label class="mt2">
       <span class="b mr1">Issuer</span>
-
       <party-select
         parties={props.parties}
         onParty={onChange('issuer')}
@@ -13,7 +12,6 @@
 
     <label class="mt2">
       <span class="b mr1">Underwriter</span>
-
       <party-select
         parties={props.parties}
         onParty={onChange('underwriter')}
@@ -22,25 +20,21 @@
 
     <label class="mt2">
       <span class="b mr1">Face Value</span>
-
       <money value={agreement.faceValue} onMoney={onChange('faceValue')} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Issue Price</span>
-
       <money value={agreement.issuePrice} onMoney={onChange('issuePrice')} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Maturity Date</span>
-
       <date value={agreement.maturityDate} onDate={onChange('maturityDate')} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Coupons</span>
-
       <span>TODO</span>
     </label>
   </div>
