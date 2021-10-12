@@ -16,7 +16,7 @@
       onAgreementsDone={onAgreementsDone} />
   
     <contract
-      if={state.state === 'Conmtract'}
+      if={state.state === 'Contract'}
       contract={contract} />
 
     <hr />
@@ -61,6 +61,7 @@
         this.update({ state: State.Agreements })
       },
       onAgreements (agreements) {
+        console.log(agreements)
         this.update({ agreements })
       },
       onAgreementsDone () {

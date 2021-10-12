@@ -1,0 +1,15 @@
+<party-select>
+  <select onchange={onChange}>
+    <option disabled selected value>Select a Party</option>
+    <option each={ party in props.parties } value={party.identifier} selected={props.selected === party.identifier}>{party.name} ({party.identifier})</option>
+  </select>
+
+  <script>
+    export default {
+      onChange (event) {
+        const party = event.target.value
+        this.props.onParty(party)
+      }
+    }
+  </script>
+</party-select>

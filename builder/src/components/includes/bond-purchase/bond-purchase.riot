@@ -1,0 +1,86 @@
+<bondPurchase>
+  <div class="mv3 pa3 relative ba b--black-20 party">
+    <p class="b mt0 mb3">Bond Purchase Agreement</p>
+
+    <label class="mt2">
+      <span class="b mr1">Issuer</span>
+
+      <party-select
+        parties={props.parties}
+        onParty={onChange('issuer')}
+        selected={agreement.issuer} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Underwriter</span>
+
+      <party-select
+        parties={props.parties}
+        onParty={onChange('underwriter')}
+        selected={agreement.underwriter} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Face Value</span>
+
+      <money value={agreement.faceValue} onMoney={onChange('faceValue')} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Issue Price</span>
+
+      <money value={agreement.issuePrice} onMoney={onChange('issuePrice')} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Maturity Date</span>
+
+      <date value={agreement.maturityDate} onDate={onChange('maturityDate')} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Coupons</span>
+
+      <span>TODO</span>
+    </label>
+  </div>
+
+  <script>
+    import PartySelect from '../party-select/party-select.riot'
+    import Date from '../date/date.riot'
+    import Money from '../money/money.riot'
+
+    const emptyState = () => ({
+      issuer: '',
+      underwriter: '',
+      faceValue: null,
+      issuePrice: null,
+      maturityDate: '',
+      coupons: null
+    })
+
+    export default {
+      components: {
+        PartySelect,
+        Date,
+        Money
+      },
+      get agreement () {
+        const agreement = this.props.agreement || {}
+        const bondPurchase = agreement.bondPurchase || {}
+
+        return {
+          ...emptyState(),
+          ...bondPurchase
+        }
+      },
+      onChange (field) {
+        return (value) => {
+          const agreement = this.agreement
+          agreement[field] = value
+          this.props.onChange({ bondPurchase: agreement })
+        }
+      }
+    }
+  </script>
+</bondPurchase>

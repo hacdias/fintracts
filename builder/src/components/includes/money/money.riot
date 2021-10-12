@@ -1,0 +1,32 @@
+<money>
+  <input type="text" maxlength="3" minlength="3" placeholder="CUR" class="mr1 w3" value={value.currency} onchange={onChange} />
+  <input type="number" step="any" placeholder="Amount" class="w5" value={value.amount} onchange={onChange} />
+  
+  <script>
+    const emptyValue = () => ({
+      currency: '',
+      amount: null
+    })
+
+    export default {
+      get value () {
+        const value = this.props.value || {}
+        return {
+          ...emptyValue(),
+          ...value
+        }
+      },
+      onChange (event) {
+        const type = event.target.type
+        const value = this.value
+        if (type === 'text') {
+          value.currency = event.target.value.toUpperCase()
+        } else {
+          value.amount = event.target.value
+        }
+
+        this.props.onMoney(value)
+      }
+    }
+  </script>
+</money>
