@@ -1,7 +1,7 @@
 .PHONY: build clean
 
 clean:
-	rm -f parser
+	rm -f fintracts
 
 build:
-	go build -o parser cmd/parser/main.go
+	go build -o fintracts cmd/fintracts/main.go

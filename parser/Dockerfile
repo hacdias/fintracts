@@ -8,6 +8,6 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o /parser cmd/parser/main.go
+RUN go build -o /fintracts cmd/fintracts/main.go
 
-CMD [ "/parser" ]
+CMD [ "/fintracts" ]
