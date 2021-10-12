@@ -6,9 +6,18 @@
 
 Fintracts parser for the english grammar specification. Translates an [english contract](./SPECIFICATION.md) to the common [JSON format](../SPECIFICATION.md).
 
+- [Install With Go](#install-with-go)
 - [Run Directly](#run-directly)
 - [Run With Docker](#run-with-docker)
 - [License](#license)
+
+## Install With Go
+
+If you have Go installed, you can simply run:
+
+```bash
+go install github.com/hacdias/fintracts/parser/cmd/fintracts
+```
 
 ## Run Directly
 
