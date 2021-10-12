@@ -1,0 +1,16 @@
+<date>
+  <input type="date" class={props.class} onchange={onChange} value={value}/></p>
+
+  <script>
+    export default {
+      get value () {
+        if (this.props.value) return this.props.value.split('T')[0]
+        return ''
+      },
+      onChange (event) {
+        const date = event.target.value
+        this.props.onDate(`${date}T00:00:00Z`)
+      }
+    }
+  </script>
+</date>

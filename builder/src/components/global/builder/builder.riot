@@ -1,21 +1,28 @@
 <builder>
   <div>
     <parties
-      if={!state.parties && !state.ready}
-      onPartiesSig={onPartiesSig} />
+      if={state.state === 'Parties'}
+      parties={state.parties}
+      onParties={onParties}
+      signedOn={state.signedOn}
+      onSignedOn={onSignedOn}
+      onPartiesSigDone={onPartiesSigDone} />
 
     <agreements
-      if={state.parties && !state.ready}
-      parties={this.state.parties}
-      onAgreement={onAgreement} />
+      if={state.state === 'Agreements'}
+      parties={state.parties}
+      agreements={state.agreements}
+      onAgreements={onAgreements}
+      onAgreementsDone={onAgreementsDone} />
   
-    <contract if={state.ready} contract={contract} />
+    <contract
+      if={state.state === 'Conmtract'}
+      contract={contract} />
 
     <hr />
 
-    <div class="flex items-center justify-between">
+    <div>
       <button class="bg-red br1 pv2 ph3" onclick={reset}>Reset</button>
-      <button class="bg-blue br1 pv2 ph3" onclick={generate} if={canGenerate}>Generate</button>
     </div>
   </div>
 
@@ -24,8 +31,14 @@
     import Agreements from '../../includes/agreements/agreements.riot'
     import Contract from '../../includes/contract/contract.riot'
 
+    const State = {
+      Parties: 'Parties',
+      Agreements: 'Agreements',
+      Contract: 'Contract'
+    }
+
     const emptyState = () => ({
-      ready: false,
+      state: State.Parties,
       parties: null,
       agreements: null,
       signedOn: null
@@ -38,18 +51,20 @@
         Contract
       },
       state: emptyState(),
-      onPartiesSig (parties, signedOn) {
-        this.update({ parties, signedOn })
+      onSignedOn (signedOn) {
+        this.update({ signedOn })
       },
-      onAgreement (agreement) {
-        const agreements = this.state.agreements || []
-
-        this.update({
-          agreements: [
-            ...agreements,
-            agreement
-          ]
-        })
+      onParties (parties) {
+        this.update({ parties })
+      },
+      onPartiesSigDone () {
+        this.update({ state: State.Agreements })
+      },
+      onAgreements (agreements) {
+        this.update({ agreements })
+      },
+      onAgreementsDone () {
+        this.update({ state: State.Contract })
       },
       get contract () {
         return {
@@ -57,16 +72,6 @@
           agreements: this.state.agreements,
           signedOn: this.state.signedOn
         }
-      },
-      get canGenerate () {
-        return this.state.parties &&
-          this.state.agreements &&
-          this.state.signedOn
-      },
-      generate () {
-        this.update({
-          ready: true
-        })
       },
       reset ()  {
         this.update(emptyState())

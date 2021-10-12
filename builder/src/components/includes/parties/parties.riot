@@ -2,7 +2,7 @@
   <part title="Parties and Signature">
     <p class="mt1 mb3 i">The contract can have two or more parties.</p>
 
-    <div each={ (party, index) in state.parties } class="party mv3 pa3 relative ba b--black-20">
+    <div each={ (party, index) in parties } class="party mv3 pa3 relative ba b--black-20">
       <label>
         <span class="b mr1">Full Name</span>
         <input type="text" placeholder="e.g. The Big Bank" data-i={index} data-key="name" onchange={updateParty} value={party.name} />
@@ -14,7 +14,7 @@
       </label>
 
       <button
-        if={state.parties.length > 2}
+        if={parties.length > 2}
         data-i={index}
         onclick={deleteParty}
         title="Remove Party"
@@ -27,7 +27,7 @@
     </div>
 
     <div class="mv3 pa3 ba b--black-20">
-      <p class="mv0 b">Signed on: <input type="date" class="ml1" onchange={updateDate} value={state.date}/></p>
+      <p class="mv0 b">Signed on: <date class="ml1" value={props.signedOn} onDate={updateSignedOn} /> </p>
     </div>
 
     <div class="flex items-center justify-end" if={canNext}>
@@ -37,6 +37,7 @@
 
   <script>
     import Part from '../part/part.riot'
+    import Date from '../date/date.riot'
 
     const newParty = () => ({
       name: '',
@@ -44,45 +45,48 @@
     })
 
     export default {
-      state: {
-        parties: [
+      components: {
+        Part,
+        Date
+      },
+      get parties () {
+        const parties = this.props.parties
+        if (Array.isArray(parties)) {
+          if (parties.length >= 2) return parties
+          else if (parties.length >= 1) return [...parties, newParty()]
+        }
+
+        return [
           newParty(),
           newParty()
-        ],
-        date: ''
-      },
-      components: {
-        Part
+        ]
       },
       addParty () {
-        this.update({
-          parties: [...this.state.parties, newParty()]
-        })
+        this.props.onParties([...this.parties, newParty()])
       },
       updateParty (event) {
         const i = event.target.dataset.i
         const key = event.target.dataset.key
-        const parties = [...this.state.parties]
+        const parties = this.parties
         parties[i][key] = event.target.value
-        this.update({ parties })
+        this.props.onParties(parties)
       },
       deleteParty (event) {
         const i = event.target.dataset.i
-        const parties = [...this.state.parties]
+        const parties = this.parties
         parties.splice(i, 1)
-        this.update({ parties })
+        this.props.onParties(parties)
       },
-      updateDate (event) {
-        this.update({ date: event.target.value })
+      updateSignedOn (date) {
+        this.props.onSignedOn(date)
       },
       get canNext () {
-        return this.state.date &&
-          this.state.parties.reduce((valid, { name, identifier }) => name && identifier && valid, true)
+        return this.props.signedOn &&
+          this.props.parties &&
+          this.props.parties.reduce((valid, { name, identifier }) => name && identifier && valid, true)
       },
       submit () {
-        const parties = this.state.parties
-        const date = `${this.state.date}T00:00:00Z`
-        this.props.onPartiesSig(parties, date)
+        this.props.onPartiesSigDone()
       }
     }
   </script>
