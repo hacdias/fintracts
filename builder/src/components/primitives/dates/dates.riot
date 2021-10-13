@@ -1,0 +1,51 @@
+<dates>
+  <div>
+    <div each={ (date, index) in value } class="mb2 flex items-center">
+      <date value={date} onValue={onDate(index)} />
+      <button
+        onclick={removeDate(index)}
+        title="Remove Date"
+        alt="Remove Date"
+        class="bg-red round ml2">X</button>
+    </div>
+
+    <button
+      title="Add Date"
+      alt="Add Date"
+      class="db bg-green br1 pv2 ph3"
+      onclick={addDate}>Add Date</button> 
+  </div>
+
+  <script>
+    import Date from '../date/date.riot'
+
+    const emptyState = () => []
+
+    export default {
+      components: {
+        Date
+      },
+      get value () {
+        return this.props.value || []
+      },
+      onDate (index) {
+        return (value) => {
+          const dates = this.value
+          dates[index] = value
+          this.props.onValue(dates)
+        }
+      },
+      addDate () {
+        const dates = [...this.value, '']
+        this.props.onValue(dates)
+      },
+      removeDate (index) {
+        return () => {
+          const dates = this.value
+          dates.splice(index, 1)
+          this.props.onValue(dates)
+        }
+      }
+    }
+  </script>
+</dates>

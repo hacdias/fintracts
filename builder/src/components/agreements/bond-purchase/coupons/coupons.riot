@@ -10,28 +10,15 @@
     <label class="mt2">
       <span class="b mr1">Dates</span>
 
-      <div>
-        <div each={ (date, index) in coupons.dates } class="mb2 flex items-center">
-          <date value={date} onValue={onDate(index)} />
-          <button
-            onclick={removeDate(index)}
-            title="Remove Date"
-            alt="Remove Date"
-            class="bg-red round ml2">X</button>
-        </div>
-
-        <button
-          title="Add Date"
-          alt="Add Date"
-          class="db bg-green br1 pv2 ph3"
-          onclick={addDate}>Add Date</button> 
-      </div>
+      <dates
+        value={coupons.dates}
+        onValue={onDates} />
     </label>
   </frame-box>
 
   <script>
     import FrameBox from '../../../frame-box/frame-box.riot'
-    import Date from '../../../primitives/date/date.riot'
+    import Dates from '../../../primitives/dates/dates.riot'
 
     const emptyState = () => ({
       rate: null,
@@ -41,7 +28,7 @@
     export default {
       components: {
         FrameBox,
-        Date
+        Dates
       },
       get coupons () {
         const coupons = this.props.coupons || {}
@@ -54,26 +41,13 @@
       onRate (event) {
         const coupons = this.coupons
         coupons.rate = event.target.value
+        console.log(coupons.rate)
         this.props.onCoupons(coupons)
       },
-      onDate (index) {
-        return (value) => {
-          const coupons = this.coupons
-          coupons.dates[index] = value
-          this.props.onCoupons(coupons)
-        }
-      },
-      addDate () {
+      onDates (value) {
         const coupons = this.coupons
-        coupons.dates = [...coupons.dates, '']
+        coupons.dates = value
         this.props.onCoupons(coupons)
-      },
-      removeDate (index) {
-        return () => {
-          const coupons = this.coupons
-          coupons.dates.splice(index, 1)
-          this.props.onCoupons(coupons)
-        }
       },
       removeCoupons () {
         this.props.onCoupons(null)
