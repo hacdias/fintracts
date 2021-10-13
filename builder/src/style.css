@@ -13,7 +13,7 @@ hr {
 
 .frame label {
   display: grid;
-  grid-template-columns: 8rem auto;
+  grid-template-columns: 10rem auto;
 }
 
 button.floating {

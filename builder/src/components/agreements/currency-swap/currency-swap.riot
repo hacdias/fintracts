@@ -29,6 +29,11 @@
     </label>
 
     <label class="mt2">
+      <span class="b mr1">Exchange Rate</span>
+      <exchange-rate value={agreement.impliedExchangeRate} disabled={true} />
+    </label>
+
+    <label class="mt2">
       <span class="b mr1">Effective Date</span>
       <date value={agreement.effectiveDate} onDate={onChange('effectiveDate')} />
     </label>
@@ -38,10 +43,26 @@
       <date value={agreement.maturityDate} onDate={onChange('maturityDate')} />
     </label>
 
-    <label class="mt2">
-      <span class="b mr1">End Interest Rate</span>
-      <span>TODO (can be optional)</span>
+    <label class="mt2" if={agreement.endExchangeRate}>
+      <span class="b mr1">End Exchange Rate</span>
+      <span>
+        <exchange-rate value={agreement.endExchangeRate} onExchangeRate={onChange('endExchangeRate')} />
+        <button
+          id="remove-end-exchange-rate"
+          onclick={removeEndExchageRate}
+          title="Remove End Exchange Rate"
+          alt="Remove End Exchange Rate"
+          class="bg-red round ml2">X</button>
+      </span>
     </label>
+
+    <button
+      if={!agreement.endExchangeRate}
+      id="add-end-exchange-rate"
+      title="Add End Exchangeest Rate"
+      alt="Add End Exchange Rate"
+      class="db bg-green br1 pv2 ph3 mt2"
+      onclick={addEndExchangeRate}>Add End Exchange Rate</button>
 
     <label class="mt2">
       <span class="b mr1">Interest</span>
@@ -53,6 +74,7 @@
     import PartySelect from '../../primitives/party-select/party-select.riot'
     import Date from '../../primitives/date/date.riot'
     import Money from '../../primitives/money/money.riot'
+    import ExchangeRate from '../../primitives/exchange-rate/exchange-rate.riot'
     import FrameBox from '../../frame-box/frame-box.riot'
 
     const emptyState = () => ({
@@ -76,6 +98,7 @@
         PartySelect,
         Date,
         Money,
+        ExchangeRate,
         FrameBox
       },
       get agreement () {
@@ -87,6 +110,14 @@
           ...currencySwap
         }
       },
+      addEndExchangeRate () {
+        console.log('add')
+        this.onChange('endExchangeRate')({})
+      },
+      removeEndExchageRate () {
+        console.log('remove')
+        this.onChange('endExchangeRate')(null)
+      },
       onChange (field) {
         return (value) => {
           const agreement = this.agreement
@@ -95,7 +126,7 @@
           if (agreement.principalA && agreement.principalB) {
             const principalA = agreement.principalA
             const principalB = agreement.principalB
-            
+
             agreement.impliedExchangeRate.baseCurrency = principalA.currency
             agreement.impliedExchangeRate.counterCurrency = principalB.currency
 

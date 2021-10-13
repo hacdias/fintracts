@@ -1,0 +1,30 @@
+<exchange-rate>
+  <input onchange={onChange('baseCurrency')} disabled={props.disabled} type="text" maxlength="3" minlength="3" value={exchangeRate.baseCurrency} placeholder="CUR" class="mr1 w3" /> /
+  <input onchange={onChange('counterCurrency')} disabled={props.disabled} type="text" maxlength="3" minlength="3" value={exchangeRate.counterCurrency} placeholder="CUR" class="mr1 w3"  />
+  <input onchange={onChange('rate')} disabled={props.disabled} type="number" step="any" value={exchangeRate.rate} placeholder="Rate" class="w3"  />
+
+  <script>
+    const emptyState = () => ({
+      baseCurrency: '',
+      counterCurrency: '',
+      rate: null
+    })
+
+    export default {
+      get exchangeRate () {
+        const er = this.props.value || {}
+        return {
+          ...emptyState(),
+          ...er
+        }
+      },
+      onChange (field) {
+        return (event) => {
+          const er = this.exchangeRate
+          er[field] = event.target.value
+          this.props.onExchangeRate(er)
+        }
+      }
+    }
+  </script>
+</exchange-rate>
