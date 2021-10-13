@@ -6,26 +6,26 @@
       <span class="b mr1">Payer A</span>
       <party-select
         parties={props.parties}
-        onParty={onChange('payerA')}
+        onValue={onChange('payerA')}
         selected={agreement.payerA} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Principal A</span>
-      <money value={agreement.principalA} onMoney={onChange('principalA')} />
+      <money value={agreement.principalA} onValue={onChange('principalA')} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Payer B</span>
       <party-select
         parties={props.parties}
-        onParty={onChange('payerB')}
+        onValue={onChange('payerB')}
         selected={agreement.payerB} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Principal B</span>
-      <money value={agreement.principalB} onMoney={onChange('principalB')} />
+      <money value={agreement.principalB} onValue={onChange('principalB')} />
     </label>
 
     <label class="mt2">
@@ -35,12 +35,12 @@
 
     <label class="mt2">
       <span class="b mr1">Effective Date</span>
-      <date value={agreement.effectiveDate} onDate={onChange('effectiveDate')} />
+      <date value={agreement.effectiveDate} onValue={onChange('effectiveDate')} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Maturity Date</span>
-      <date value={agreement.maturityDate} onDate={onChange('maturityDate')} />
+      <date value={agreement.maturityDate} onValue={onChange('maturityDate')} />
     </label>
 
     <label class="mt2" if={agreement.endExchangeRate}>

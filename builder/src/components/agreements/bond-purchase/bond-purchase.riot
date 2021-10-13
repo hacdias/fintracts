@@ -6,7 +6,7 @@
       <span class="b mr1">Issuer</span>
       <party-select
         parties={props.parties}
-        onParty={onChange('issuer')}
+        onValue={onChange('issuer')}
         selected={agreement.issuer} />
     </label>
 
@@ -14,23 +14,23 @@
       <span class="b mr1">Underwriter</span>
       <party-select
         parties={props.parties}
-        onParty={onChange('underwriter')}
+        onValue={onChange('underwriter')}
         selected={agreement.underwriter} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Face Value</span>
-      <money value={agreement.faceValue} onMoney={onChange('faceValue')} />
+      <money value={agreement.faceValue} onValue={onChange('faceValue')} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Issue Price</span>
-      <money value={agreement.issuePrice} onMoney={onChange('issuePrice')} />
+      <money value={agreement.issuePrice} onValue={onChange('issuePrice')} />
     </label>
 
     <label class="mt2">
       <span class="b mr1">Maturity Date</span>
-      <date value={agreement.maturityDate} onDate={onChange('maturityDate')} />
+      <date value={agreement.maturityDate} onValue={onChange('maturityDate')} />
     </label>
 
     <button

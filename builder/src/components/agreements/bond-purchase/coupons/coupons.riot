@@ -12,7 +12,7 @@
 
       <div>
         <div each={ (date, index) in coupons.dates } class="mb2 flex items-center">
-          <date value={date} onDate={onDate(index)} />
+          <date value={date} onValue={onDate(index)} />
           <button
             onclick={removeDate(index)}
             title="Remove Date"
