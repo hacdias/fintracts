@@ -7,18 +7,21 @@
         if={agreement.bondPurchase}
         parties={props.parties}
         agreement={agreement}
+        onRemove={onRemoveAgreement(index)}
         onChange={onAgreement(index)} />
 
       <interest-rate-swap
         if={agreement.interestRateSwap}
         parties={props.parties}
         agreement={agreement}
+        onRemove={onRemoveAgreement(index)}
         onChange={onAgreement(index)} />
 
       <currency-swap
         if={agreement.currencySwap}
         parties={props.parties}
         agreement={agreement}
+        onRemove={onRemoveAgreement(index)}
         onChange={onAgreement(index)} />
     </div>
 
@@ -69,6 +72,13 @@
         return (agreement) => {
           const agreements = this.agreements
           agreements[index] = agreement
+          this.props.onAgreements(agreements)
+        }
+      },
+      onRemoveAgreement (index) {
+        return () => {
+          const agreements = this.agreements
+          agreements.splice(index, 1)
           this.props.onAgreements(agreements)
         }
       },

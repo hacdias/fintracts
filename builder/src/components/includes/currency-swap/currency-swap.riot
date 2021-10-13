@@ -1,5 +1,5 @@
 <currencySwap>
-  <div class="mv3 pa3 relative ba b--black-20 party">
+  <frame-box remove="Remove Agreement" onRemove={props.onRemove} >
     <p class="b mt0 mb3">Currency Swap</p>
 
     <label class="mt2">
@@ -47,12 +47,13 @@
       <span class="b mr1">Interest</span>
       <span>TODO (can be optional)</span>
     </label>
-  </div>
+  </frame-box>
 
   <script>
     import PartySelect from '../party-select/party-select.riot'
     import Date from '../date/date.riot'
     import Money from '../money/money.riot'
+    import FrameBox from '../../frame-box/frame-box.riot'
 
     const emptyState = () => ({
       payerA: null,
@@ -74,7 +75,8 @@
       components: {
         PartySelect,
         Date,
-        Money
+        Money,
+        FrameBox
       },
       get agreement () {
         const agreement = this.props.agreement || {}

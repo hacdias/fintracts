@@ -2,7 +2,10 @@
   <part title="Parties and Signature">
     <p class="mt1 mb3 i">The contract can have two or more parties.</p>
 
-    <div each={ (party, index) in parties } class="party mv3 pa3 relative ba b--black-20">
+    <frame-box
+      each={ (party, index) in parties }
+      remove="Remove Party"
+      onRemove={parties.length > 2 ? deleteParty(index) : null} >
       <label>
         <span class="b mr1">Full Name</span>
         <input type="text" placeholder="e.g. The Big Bank" data-i={index} data-key="name" onchange={updateParty} value={party.name} />
@@ -12,15 +15,7 @@
         <span class="b mr1">Identifier</span>
         <input type="text" placeholder="e.g. TBB" data-i={index} data-key="identifier" onchange={updateParty} value={party.identifier} />
       </label>
-
-      <button
-        if={parties.length > 2}
-        data-i={index}
-        onclick={deleteParty}
-        title="Remove Party"
-        alt="Remove Party"
-        class="bg-red round floating">X</button>
-    </div>
+    </frame-box>
 
     <div class="mv3 pa3 ba b--black-20">
       <button class="center db bg-green br1 pv2 ph3" onclick={addParty}>Add Party</button>
@@ -38,6 +33,7 @@
   <script>
     import Part from '../part/part.riot'
     import Date from '../date/date.riot'
+    import FrameBox from '../../frame-box/frame-box.riot'
 
     const newParty = () => ({
       name: '',
@@ -47,7 +43,8 @@
     export default {
       components: {
         Part,
-        Date
+        Date,
+        FrameBox
       },
       get parties () {
         const parties = this.props.parties
@@ -71,11 +68,13 @@
         parties[i][key] = event.target.value
         this.props.onParties(parties)
       },
-      deleteParty (event) {
-        const i = event.target.dataset.i
-        const parties = this.parties
-        parties.splice(i, 1)
-        this.props.onParties(parties)
+      deleteParty (index) {
+        return () => {
+          console.log(index)
+          const parties = this.parties
+          parties.splice(index, 1)
+          this.props.onParties(parties)
+        } 
       },
       updateSignedOn (date) {
         this.props.onSignedOn(date)

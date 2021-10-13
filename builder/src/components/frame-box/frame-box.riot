@@ -1,0 +1,12 @@
+<frame-box>
+  <div class="mv3 pa3 relative ba b--black-20 frame">
+    <button
+      if={props.onRemove}
+      onclick={props.onRemove}
+      title={props.remove}
+      alt={props.remove}
+      class="bg-red round floating">X</button>
+
+    <slot/>
+  </div>
+</frame-box>

@@ -11,7 +11,7 @@ hr {
   margin: 1.2em auto;
 }
 
-.party label {
+.frame label {
   display: grid;
   grid-template-columns: 8rem auto;
 }
