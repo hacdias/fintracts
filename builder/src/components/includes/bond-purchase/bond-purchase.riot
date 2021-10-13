@@ -33,12 +33,15 @@
       <date value={agreement.maturityDate} onDate={onChange('maturityDate')} />
     </label>
 
-    <label class="mt2">
-      <span class="b mr1">Coupons</span>
-      <span>TODO (can be optional)</span>
-    </label>
+    <button
+      if={!agreement.coupons}
+      title="Add Coupons"
+      alt="Add Coupons"
+      class="db bg-green br1 pv2 ph3 mt2"
+      onclick={addCoupons}>Add Coupons</button>
 
     <coupons
+      if={agreement.coupons}
       coupons={agreement.coupons}
       onCoupons={onChange('coupons')} />
   </div>
@@ -80,6 +83,11 @@
           agreement[field] = value
           this.props.onChange({ bondPurchase: agreement })
         }
+      },
+      addCoupons () {
+        const agreement = this.agreement
+        agreement.coupons = {}
+        this.props.onChange({ bondPurchase: agreement })
       }
     }
   </script>
