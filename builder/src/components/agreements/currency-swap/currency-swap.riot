@@ -46,7 +46,7 @@
     <label class="mt2" if={agreement.endExchangeRate}>
       <span class="b mr1">End Exchange Rate</span>
       <span>
-        <exchange-rate value={agreement.endExchangeRate} onExchangeRate={onChange('endExchangeRate')} />
+        <exchange-rate value={agreement.endExchangeRate} onValue={onChange('endExchangeRate')} />
         <button
           id="remove-end-exchange-rate"
           onclick={removeEndExchageRate}
