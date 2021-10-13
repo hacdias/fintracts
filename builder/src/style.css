@@ -16,14 +16,18 @@ hr {
   grid-template-columns: 8rem auto;
 }
 
-.party button {
+.party button.floating {
   position: absolute;
   top: 0;
   right: 0;
   transform: translate(50%, -50%);
+}
+
+button.round {
   height: 1.5rem;
   width: 1.5rem;
   line-height: 0.8rem;
   font-size: 0.8rem;
   font-weight: bold;
+  border-radius: 100%;
 }

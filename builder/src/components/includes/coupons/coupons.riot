@@ -1,0 +1,78 @@
+<coupons>
+  <div class="mv3 pa3 relative ba b--black-20 ">
+    <p class="b mt0 mb3">Coupons</p>
+
+    <label class="mt2">
+      <span class="b mr1">Rate</span>
+      <input type="number" step="any" placeholder="Rate" class="w3" value={coupons.rate} onchange={onRate} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Dates</span>
+
+      <div>
+        <div each={ (date, index) in coupons.dates } class="mb2 flex items-center">
+          <date value={date} onDate={onDate(index)} />
+          <button
+            onclick={deleteDate(index)}
+            title="Remove Date"
+            alt="Remove Date"
+            class="bg-red round ml2">X</button>
+        </div>
+
+        <button
+          title="Add Date"
+          alt="Add Date"
+          class="db bg-green br1 pv2 ph3"
+          onclick={addDate}>Add Date</button> 
+      </div>
+    </label>
+  </div>
+
+  <script>
+    import Date from '../date/date.riot'
+
+    const emptyState = () => ({
+      rate: null,
+      dates: []
+    })
+
+    export default {
+      components: {
+        Date
+      },
+      get coupons () {
+        const coupons = this.props.coupons || {}
+
+        return {
+          ...emptyState(),
+          ...coupons
+        }
+      },
+      onRate (event) {
+        const coupons = this.coupons
+        coupons.rate = event.target.value
+        this.props.onCoupons(coupons)
+      },
+      onDate (index) {
+        return (value) => {
+          const coupons = this.coupons
+          coupons.dates[index] = value
+          this.props.onCoupons(coupons)
+        }
+      },
+      addDate () {
+        const coupons = this.coupons
+        coupons.dates = [...coupons.dates, '']
+        this.props.onCoupons(coupons)
+      },
+      deleteDate (index) {
+        return () => {
+          const coupons = this.coupons
+          coupons.dates.splice(index, 1)
+          this.props.onCoupons(coupons)
+        }
+      }
+    }
+  </script>
+</coupons>
