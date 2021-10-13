@@ -87,9 +87,7 @@
         }
       },
       addCoupons () {
-        const agreement = this.agreement
-        agreement.coupons = {}
-        this.props.onChange({ bondPurchase: agreement })
+        this.onChange('coupons')({})
       }
     }
   </script>
