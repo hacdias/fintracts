@@ -1,16 +1,16 @@
 <contract>
-  <part title="Contract">
+  <screen title="Contract">
     <p class="mt1 b">The contract JSON according to specification.</p>
   
     <textarea class="w-100 h5 db mv2" value={text()} readonly></textarea>
-  </part>
+  </screen>
 
   <script>
-    import Part from '../part/part.riot'
+    import Screen from '../screen/screen.riot'
 
     export default {
       components: {
-        Part
+        Screen
       },
       text() {
         return JSON.stringify(this.props.contract, null, '    ')

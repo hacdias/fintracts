@@ -1,5 +1,5 @@
 <agreements>
-  <part title="Agreements">
+  <screen title="Agreements">
     <p class="mt1 i">A contract can have one or more agreements.</p>
 
     <div each={ (agreement, index) in agreements }>
@@ -37,13 +37,13 @@
     <div class="flex items-center justify-end" if={canNext}>
       <button class="bg-blue br1 pv2 ph3" onclick={submit}>Next</button>
     </div>
-  </part>
+  </screen>
 
   <script>
-    import Part from '../part/part.riot'
-    import BondPurchase from '../bond-purchase/bond-purchase.riot'
-    import InterestRateSwap from '../interest-rate-swap/interest-rate-swap.riot'
-    import CurrencySwap from '../currency-swap/currency-swap.riot'
+    import Screen from '../screen/screen.riot'
+    import BondPurchase from '../../agreements/bond-purchase/bond-purchase.riot'
+    import InterestRateSwap from '../../agreements/interest-rate-swap/interest-rate-swap.riot'
+    import CurrencySwap from '../../agreements/currency-swap/currency-swap.riot'
 
     const newParty = () => ({
       name: '',
@@ -60,7 +60,7 @@
         type: '',
       },
       components: {
-        Part,
+        Screen,
         BondPurchase,
         InterestRateSwap,
         CurrencySwap

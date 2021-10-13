@@ -1,5 +1,5 @@
 <parties>
-  <part title="Parties and Signature">
+  <screen title="Parties and Signature">
     <p class="mt1 mb3 i">The contract can have two or more parties.</p>
 
     <frame-box
@@ -28,12 +28,12 @@
     <div class="flex items-center justify-end" if={canNext}>
       <button class="bg-blue br1 pv2 ph3" onclick={submit}>Next</button>
     </div>
-  </part>
+  </screen>
 
   <script>
-    import Part from '../part/part.riot'
-    import Date from '../date/date.riot'
     import FrameBox from '../../frame-box/frame-box.riot'
+    import Screen from '../screen/screen.riot'
+    import Date from '../../primitives/date/date.riot'
 
     const newParty = () => ({
       name: '',
@@ -42,7 +42,7 @@
 
     export default {
       components: {
-        Part,
+        Screen,
         Date,
         FrameBox
       },
