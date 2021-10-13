@@ -1,5 +1,5 @@
 <coupons>
-  <div class="mv3 pa3 relative ba b--black-20 ">
+  <frame-box remove="Remove Coupons" onRemove={removeCoupons} >
     <p class="b mt0 mb3">Coupons</p>
 
     <label class="mt2">
@@ -27,15 +27,10 @@
           onclick={addDate}>Add Date</button> 
       </div>
     </label>
-
-    <button
-      title="Remove Coupons"
-      alt="Remove Coupons"
-      class="bg-red round floating"
-      onclick={removeCoupons}>X</button> 
-  </div>
+  </frame-box>
 
   <script>
+    import FrameBox from '../../../frame-box/frame-box.riot'
     import Date from '../../../primitives/date/date.riot'
 
     const emptyState = () => ({
@@ -45,6 +40,7 @@
 
     export default {
       components: {
+        FrameBox,
         Date
       },
       get coupons () {
