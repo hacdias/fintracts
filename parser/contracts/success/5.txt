@@ -19,4 +19,5 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
   of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
   October 2025. The floating rate option is USD-LIBOR.
 
-Signed by TB1 and TB2 on the 15th of September 2021.
+Signed by TB1 on the 15th of September 2021.
+Signed by TB2 on the 19th of September 2021.
