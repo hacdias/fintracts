@@ -6,6 +6,7 @@ This is the specification of the common JSON contract format. All the tools that
 - [Primitives](#primitives)
   - [Date](#date)
   - [Party](#party)
+  - [Signature](#signature)
   - [Money](#money)
   - [Exchange Rate](#exchange-rate)
   - [Interest Payment](#interest-payment)
@@ -25,7 +26,7 @@ The idea is that the contract is composed by the definition of parties, the agre
 |--------------|-------------------------------------|-------------------------------------------------------------------------|
 | `parties`    | Array of [`Party`](#party)          | The parties mentioned in the contract. Must have two or more elements.  |
 | `agreements` | Array of [`Agreement`](#agreements) | The list of agreements in the contract. Must have one or more elements. |
-| `signedOn`   | [Date](#date)                       | The date in which the contract is signed.                               |
+| `signatures` | Array of [`Signature`](#signature)  | The signatures of the parties of the contract.                          |
 
 **Format Example**
 
@@ -33,7 +34,7 @@ The idea is that the contract is composed by the definition of parties, the agre
 {
   "parties": [ Party... ],
   "agreements": [ Agreement... ],
-  "signedOn": Date
+  "signatures": [ Signature... ]
 }
 ```
 
@@ -60,6 +61,24 @@ A Date is a `string` in the [RFC 3339](https://datatracker.ietf.org/doc/html/rfc
 {
   "name": "The Party Name",
   "identifier": "TPN"
+}
+```
+
+### Signature
+
+**Properties**
+
+| Name      | Type              | Description                                                        |
+|-----------|-------------------|--------------------------------------------------------------------|
+| `date`    | [`Date`](#date)   | The date of the signature.                                         |
+| `parties` | Array of `string` | An array with the identifiers of parties that signed on this date. |
+
+**Format Example**
+
+```
+{
+  "date": "2020-05-16T00:00:00Z",
+  "parties": ["TPN", "WS"]
 }
 ```
 
