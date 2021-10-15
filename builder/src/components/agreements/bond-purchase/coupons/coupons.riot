@@ -40,8 +40,7 @@
       },
       onRate (event) {
         const coupons = this.coupons
-        coupons.rate = event.target.value
-        console.log(coupons.rate)
+        coupons.rate = Number.parseFloat(event.target.value)
         this.props.onCoupons(coupons)
       },
       onDates (value) {

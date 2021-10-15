@@ -83,7 +83,13 @@
       onChange (field, isValue) {
         return (eventOrValue) => {
           const value = this.value
-          value[field] = isValue? eventOrValue : eventOrValue.target.value
+          if (isValue) {
+            value[field] = eventOrValue
+          } else if (event.target.type === 'number') {
+            value[field] = Number.parseFloat(event.target.value)
+          } else {
+            value[field] = event.target.value
+          }
           this.props.onValue(value)
         }
       }

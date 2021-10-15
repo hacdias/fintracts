@@ -21,7 +21,11 @@
       onChange (field) {
         return (event) => {
           const value = this.value
-          value[field] = event.target.value
+          if (event.target.type === 'number') {
+            value[field] = Number.parseFloat(event.target.value)
+          } else {
+            value[field] = event.target.value
+          }
           this.props.onValue(value)
         }
       }

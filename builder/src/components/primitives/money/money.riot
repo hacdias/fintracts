@@ -22,9 +22,8 @@
         if (type === 'text') {
           value.currency = event.target.value.toUpperCase()
         } else {
-          value.amount = event.target.value
+          value.amount = Number.parseFloat(event.target.value)
         }
-
         this.props.onValue(value)
       }
     }
