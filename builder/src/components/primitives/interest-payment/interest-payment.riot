@@ -1,0 +1,92 @@
+<interest-payment>
+  <frame-box remove="Remove Payment" onRemove={removeCoupons} remove={props.remove} onRemove={props.onRemove}>
+    <label class="mt2">
+      <span class="b mr1">Payer</span>
+      <party-select
+        parties={props.parties}
+        onValue={onChange('payer', true)}
+        selected={value.payer} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Type</span>
+      <div onchange={onRateType}>
+        <div><input type="radio" class="mr1" value="floating" checked={isFloating} /> Floating Type</div>
+        <div><input type="radio" class="mr1" value="fixed" checked={!isFloating} /> Fixed Type</div>
+      </div>
+    </label>
+
+    <label class="mt2" if={!isFloating}>
+      <span class="b mr1">Fixed Rate</span>
+      <input type="number" step="any" placeholder="Rate" class="w3" value={value.fixedRate} onchange={onChange('fixedRate')} />
+    </label>
+
+    <label class="mt2" if={isFloating}>
+      <span class="b mr1">Initial Rate</span>
+      <input type="number" step="any" placeholder="Rate" class="w3" value={value.initialRate} onchange={onChange('initialRate')} />
+    </label>
+
+    <label class="mt2" if={isFloating}>
+      <span class="b mr1">Rate Option</span>
+      <input type="text" placeholder="Rate Option" class="w5" value={value.rateOption} onchange={onChange('rateOption')} />
+    </label>
+
+    <label class="mt2">
+      <span class="b mr1">Dates</span>
+
+      <dates
+        value={value.dates}
+        onValue={onChange('dates', true)} />
+    </label>
+  </frame-box>
+
+  <script>
+    import FrameBox from '../../frame-box/frame-box.riot'
+    import Dates from '../dates/dates.riot'
+    import PartySelect from '../party-select/party-select.riot'
+
+    const emptyState = () => ({
+      payer: '',
+      dates: [],
+    })
+
+    export default {
+      components: {
+        FrameBox,
+        PartySelect,
+        Dates
+      },
+      get value () {
+        const value = this.props.value || {}
+        return { ...emptyState(), ...value }
+      },
+      get isFloating () {
+        const agreement = this.value
+        return ('initialRate' in agreement && 'rateOption' in agreement)
+      },
+      onRateType (event) {
+        const type = event.target.value
+        const agreement = this.value
+
+        if (type === 'floating') {
+          delete agreement.fixedRate
+          agreement.initialRate = 0
+          agreement.rateOption = ''
+        } else {
+          delete agreement.initialRate
+          delete agreement.rateOption
+          agreement.fixedRate = 0
+        }
+
+        this.props.onValue(agreement)
+      },
+      onChange (field, isValue) {
+        return (eventOrValue) => {
+          const value = this.value
+          value[field] = isValue? eventOrValue : eventOrValue.target.value
+          this.props.onValue(value)
+        }
+      }
+    }
+  </script>
+</interest-payment>

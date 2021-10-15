@@ -1,0 +1,61 @@
+<interest-payments>
+  <div>
+    <div each={ (date, index) in value } class="mb2 flex items-center">
+      <interest-payment
+        value={date}
+        parties={props.parties}
+        remove="Remove Interest Payment"
+        onValue={onValue(index)}
+        onRemove={removeItem(index)}
+        class="flex-grow-1" />
+    </div>
+
+    <button
+      title="Add Interest Payment"
+      alt="Add Interest Payment"
+      class="db bg-green br1 pv2 ph3"
+      onclick={addItem}>Add Interest Payment</button>
+  </div>
+
+  <script>
+    import InterestPayment from '../interest-payment/interest-payment.riot'
+
+    const emptyState = () => []
+
+    export default {
+      components: {
+        InterestPayment
+      },
+      get value () {
+        return this.props.value || []
+      },
+      onValue (index) {
+        return (newValue) => {
+          const value = this.value
+          value[index] = newValue
+          this.props.onValue(value)
+        }
+      },
+      addItem (event) {
+        // BUG: triggered every time we click on white space within
+        // the whole interest-payments block.
+        event.preventDefault()
+        event.stopPropagation()
+
+        const value = [...this.value, '']
+        this.props.onValue(value)
+      },
+      removeItem (index) {
+        return (event) => {
+          // BUG: this gets propagated to addItem for no reason.
+          event.preventDefault()
+          event.stopPropagation()
+
+          const value = this.value
+          value.splice(index, 1)
+          this.props.onValue(value)
+        }
+      }
+    }
+  </script>
+</interest-payments>

@@ -28,7 +28,7 @@
     <div class="mv3 pa3 relative ba b--black-20" onchange={onAgreementType}>
       <p class="b mt0 mb3">Agreement Type</p>
       <div each={ (key) in types } class="mt2">
-        <input type="radio" class="mr1" value={key.id} checked={state.type === key.id} name="agreementType" /> {key.title}
+        <input type="radio" class="mr1" value={key.id} checked={state.type === key.id} /> {key.title}
       </div>
 
       <button class="center db bg-green br1 pv2 ph3" onclick={addAgreement}>Add Agreement</button>

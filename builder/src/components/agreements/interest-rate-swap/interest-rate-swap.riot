@@ -18,14 +18,18 @@
     </label>
 
     <label class="mt2">
-      <span class="b mr1">Interest</span>
-      <span>TODO</span>
+      <span class="b mr1">Interest Payments</span>
+      <interest-payments
+        parties={props.parties}
+        value={agreement.interest}
+        onValue={onChange('interest')} />
     </label>
   </frame-box>
 
   <script>
     import Date from '../../primitives/date/date.riot'
     import Money from '../../primitives/money/money.riot'
+    import InterestPayments from '../../primitives/interest-payments/interest-payments.riot'
     import FrameBox from '../../frame-box/frame-box.riot'
 
     const emptyState = () => ({
@@ -39,7 +43,8 @@
       components: {
         Date,
         Money,
-        FrameBox
+        FrameBox,
+        InterestPayments
       },
       get agreement () {
         const agreement = this.props.agreement || {}
