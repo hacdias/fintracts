@@ -77,17 +77,13 @@ func (d *Date) MarshalJSON() ([]byte, error) {
 // only used to semantically validate the English text.
 // The marshalled output is a Date object.
 type Signature struct {
-	Parties []string `parser:"'Signed' 'by'  @Ident (',' @Ident)* 'and' @Ident" json:"parties"`
+	Parties []string `parser:"'Signed' 'by'  @Ident (',' @Ident)* ('and' @Ident)*" json:"parties"`
 	Date    *Date    `parser:"'on' 'the' @@ '.'" json:"date"`
 }
 
 func (s *Signature) validate() error {
 	sort.Strings(s.Parties)
 	return s.Date.validate()
-}
-
-func (s *Signature) MarshalJSON() ([]byte, error) {
-	return s.Date.MarshalJSON()
 }
 
 // Party represents a party and its identifier.
@@ -100,17 +96,12 @@ type Party struct {
 type Contract struct {
 	Parties    []Party      `parser:"'The' 'parties' ':' @@ ';' 'and' (@@ ';' 'and')* @@ '.'" json:"parties"`
 	Agreements []*Agreement `parser:"@@+" json:"agreements"`
-	SignedOn   Signature    `parser:"@@" json:"signedOn"`
+	Signatures []*Signature `parser:"@@+" json:"signatures"`
 }
 
 func (c *Contract) validate() error {
-	err := c.SignedOn.validate()
-	if err != nil {
-		return err
-	}
-
-	parties := getIdentifiers(c.Parties)
-	sigParties := c.SignedOn.Parties
+	parties := getIdentifiersFromParties(c.Parties)
+	sigParties := getIdentifiersFromSignatures(c.Signatures)
 
 	if len(parties) != len(sigParties) {
 		return fmt.Errorf("mentioned parties do not match signature")
@@ -130,11 +121,16 @@ func (c *Contract) validate() error {
 		return fmt.Errorf("party %s not found", v)
 	}
 
+	var err error
+
+	for _, sig := range c.Signatures {
+		err = multierr.Append(err, sig.validate())
+	}
+
 	for _, agreement := range c.Agreements {
 		err = multierr.Append(err, agreement.validate(validateParty))
 	}
 
-	err = multierr.Append(err, c.SignedOn.validate())
 	return err
 }
 
@@ -203,10 +199,19 @@ func (i *InterestPayment) validate(validateParty partyValidator) error {
 	return multierr.Append(err, validateParty(i.Payer))
 }
 
-func getIdentifiers(parties []Party) []string {
+func getIdentifiersFromParties(parties []Party) []string {
 	ids := []string{}
 	for _, party := range parties {
 		ids = append(ids, party.Identifier)
+	}
+	sort.Strings(ids)
+	return ids
+}
+
+func getIdentifiersFromSignatures(signatures []*Signature) []string {
+	ids := []string{}
+	for _, sig := range signatures {
+		ids = append(ids, sig.Parties...)
 	}
 	sort.Strings(ids)
 	return ids

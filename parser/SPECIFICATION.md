@@ -19,7 +19,7 @@ All contracts must be defined as:
 ```
 <Parties>
 <Agreement>+
-<Signature>
+<Signature>+
 ```
 
 ## Parties
