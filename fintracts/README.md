@@ -1,22 +1,29 @@
-# Fintracts English Parser
+# Fintracts CLI Tool
 
 [![Build](https://img.shields.io/github/workflow/status/hacdias/fintracts/ci?style=flat-square)](https://github.com/hacdias/fintracts/actions/workflows/ci.yaml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/hacdias/fintracts/parser?style=flat-square)](https://goreportcard.com/report/github.com/hacdias/fintracts/parser)
-[![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/hacdias/fintracts/parser)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hacdias/fintracts/fintracts?style=flat-square)](https://goreportcard.com/report/github.com/hacdias/fintracts/fintracts)
+[![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://pkg.go.dev/github.com/hacdias/fintracts/fintracts)
 
-Fintracts parser for the english grammar specification. Translates an [english contract](./SPECIFICATION.md) to the common [JSON format](../SPECIFICATION.md).
+Fintracts CLI tool parses English contracts and validates any JSON contract according to the specification.
 
+- [Features](#features)
 - [Install With Go](#install-with-go)
 - [Run Directly](#run-directly)
 - [Run With Docker](#run-with-docker)
+- [Usage](#usage)
 - [License](#license)
+
+## Features
+
+- Translates an [english contract](./english/SPECIFICATION.md) to the common [JSON format](../SPECIFICATION.md).
+- Validates contracts in the common [JSON format](../SPECIFICATION.md).
 
 ## Install With Go
 
 If you have Go installed, you can simply run:
 
 ```bash
-go install github.com/hacdias/fintracts/parser/cmd/fintracts
+go install github.com/hacdias/fintracts/fintracts/cmd/fintracts
 ```
 
 ## Run Directly
@@ -33,11 +40,7 @@ Then, build the executable:
 make build
 ```
 
-An executable can be found on `./parser`, which can be executed:
-
-```
-./parser < ./path/to/contract.txt
-```
+An executable can be found on `./fintracts`.
 
 ## Run With Docker
 
@@ -50,8 +53,12 @@ docker build . -t fintracts/parser
 You can now run the parser inside the docker image:
 
 ```bash
-docker run -i fintracts/parser < ./path/to/contract.txt
+docker run -i fintracts/parser [commands and arguments]
 ```
+
+## Usage
+
+Run `fintracts --help` for more information.
 
 ## License
 

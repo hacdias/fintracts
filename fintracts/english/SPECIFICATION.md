@@ -1,6 +1,6 @@
 # English Contract Specification
 
-This specification implies knowledge from the [JSON contract specification](../SPECIFICATION.md) and the available agreement types.
+This specification implies knowledge from the [JSON contract specification](../../SPECIFICATION.md) and the available agreement types.
 
 - [Format](#format)
 - [Parties](#parties)
