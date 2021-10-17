@@ -10,7 +10,8 @@ type Contract struct {
 	Agreements []Agreement `json:"agreements"`
 	Signatures []Signature `json:"signatures"`
 
-	partiesIds []string
+	partiesIds    []string
+	lastSignature time.Time
 }
 
 // String returns a JSON-string representation of a contract.

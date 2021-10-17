@@ -6,7 +6,7 @@ The parties:
 Hereby enter in a Currency Swap Transaction Agreement defined as follows:
 
   The parties agree on a currency swap transaction effective as of the
-  1st of October 2021 and termination on the 1st of October 2025.
+  1st of October 2021 and termination on the 15th of October 2025.
 
   TB1 will pay a principal amount of USD 10,000,000.00, and the
   TB2 will pay a principal amount of EUR 12,500,000.00. At maturity,

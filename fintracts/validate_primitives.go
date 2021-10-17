@@ -145,6 +145,7 @@ func (i *InterestPayment) validate(c *Contract) error {
 
 	for _, date := range i.Dates {
 		err = multierr.Append(err, date.validate())
+		err = multierr.Append(err, c.validateAfterSignatures(date))
 	}
 
 	err = multierr.Append(err, c.validatePartyExists(i.Payer))

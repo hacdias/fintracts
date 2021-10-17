@@ -23,7 +23,7 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
 
   The parties agree on an interest rate swap transaction over the notational
   principal of USD 10,000,000.00, with an effective date as of the 1st of
-  October 2021 and termination on the 1st of October 2025.
+  October 2021 and termination on the 15th of October 2025.
 
   TB1 will pay a fixed rate interest of 3.5% over the notational amount
   on the following dates: 15th of October 2021, 15th of October 2022, 15th of

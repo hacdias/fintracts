@@ -33,7 +33,7 @@
           "rate": 1.45
         },
         "effectiveDate": "2021-10-01T00:00:00Z",
-        "maturityDate": "2025-10-01T00:00:00Z",
+        "maturityDate": "2025-10-15T00:00:00Z",
         "interest": [
           {
             "payer": "TB2",

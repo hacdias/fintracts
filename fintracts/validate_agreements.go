@@ -2,6 +2,7 @@ package fintracts
 
 import (
 	"fmt"
+	"time"
 
 	"go.uber.org/multierr"
 )
@@ -41,17 +42,22 @@ func (b *BondPurchase) validate(c *Contract, fix bool) error {
 		b.FaceValue.validate(fix),
 		b.IssuePrice.validate(fix),
 		b.MaturityDate.validate(),
+		c.validateAfterSignatures(b.MaturityDate),
 		validateDifferentParties(b.Issuer, b.Underwriter),
 	)
 
 	if b.Coupons != nil {
-		err = multierr.Append(err, b.Coupons.validate())
+		err = multierr.Append(err, b.Coupons.validate(c))
+
+		for _, date := range b.Coupons.Dates {
+			err = multierr.Append(err, validateDateInRange(time.Time(date), time.Time{}, time.Time(b.MaturityDate)))
+		}
 	}
 
 	return err
 }
 
-func (c *Coupons) validate() error {
+func (c *Coupons) validate(co *Contract) error {
 	var err error
 
 	if c.Rate <= 0 {
@@ -60,7 +66,9 @@ func (c *Coupons) validate() error {
 
 	for _, date := range c.Dates {
 		err = multierr.Append(err, date.validate())
+		err = multierr.Append(err, co.validateAfterSignatures(date))
 	}
+
 	return err
 }
 
@@ -69,6 +77,8 @@ func (i *InterestRateSwap) validate(c *Contract, fix bool) error {
 		i.NotationalAmount.validate(fix),
 		i.EffectiveDate.validate(),
 		i.MaturityDate.validate(),
+		c.validateAfterSignatures(i.MaturityDate),
+		c.validateAfterSignatures(i.EffectiveDate),
 	)
 
 	if i.Interest == nil {
@@ -81,6 +91,10 @@ func (i *InterestRateSwap) validate(c *Contract, fix bool) error {
 
 	for _, payment := range i.Interest {
 		err = multierr.Append(err, payment.validate(c))
+
+		for _, date := range payment.Dates {
+			err = multierr.Append(err, validateDateInRange(time.Time(date), time.Time(i.EffectiveDate), time.Time(i.MaturityDate)))
+		}
 	}
 
 	return err
@@ -94,6 +108,8 @@ func (s *CurrencySwap) validate(c *Contract, fix bool) error {
 		s.PrincipalB.validate(fix),
 		s.EffectiveDate.validate(),
 		s.MaturityDate.validate(),
+		c.validateAfterSignatures(s.MaturityDate),
+		c.validateAfterSignatures(s.EffectiveDate),
 		validateDifferentParties(s.PayerA, s.PayerB),
 	)
 
@@ -130,6 +146,10 @@ func (s *CurrencySwap) validate(c *Contract, fix bool) error {
 
 	for _, payment := range s.Interest {
 		err = multierr.Append(err, payment.validate(c))
+
+		for _, date := range payment.Dates {
+			err = multierr.Append(err, validateDateInRange(time.Time(date), time.Time(s.EffectiveDate), time.Time(s.MaturityDate)))
+		}
 	}
 
 	return err

@@ -3,6 +3,9 @@ package fintracts
 import (
 	"fmt"
 	"sort"
+	"time"
+
+	"go.uber.org/multierr"
 )
 
 func Validate(c *Contract, fix bool) error {
@@ -41,12 +44,46 @@ func (c *Contract) validatePartyExists(p string) error {
 	return fmt.Errorf("party %s not found", p)
 }
 
+func (c *Contract) validateAfterSignatures(date Date) error {
+	if c.lastSignature.IsZero() {
+		date := time.Time{}
+
+		for _, sig := range c.Signatures {
+			if time.Time(sig.Date).After(date) {
+				date = time.Time(sig.Date)
+			}
+		}
+
+		c.lastSignature = date
+	}
+
+	if time.Time(date).Before(c.lastSignature) {
+		return fmt.Errorf("date occurs before the last signature of the contract: %s", time.Time(date))
+	}
+
+	return nil
+}
+
 func validateDifferentParties(a, b string) error {
 	if a != b {
 		return nil
 	}
 
 	return fmt.Errorf("expected '%s' and '%s' to be different parties", a, b)
+}
+
+func validateDateInRange(date, start, end time.Time) error {
+	var err error
+
+	if !start.IsZero() && date.After(end) && !date.Equal(end) {
+		err = multierr.Append(err, fmt.Errorf("date %s outside of range: [%s, %s]", date, start, end))
+	}
+
+	if !end.IsZero() && date.Before(start) && !date.Equal(start) {
+		err = multierr.Append(err, fmt.Errorf("date %s outside of range: [%s, %s]", date, start, end))
+	}
+
+	return err
 }
 
 func equal(a, b []string) bool {
