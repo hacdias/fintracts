@@ -53,6 +53,11 @@ func (b *BondPurchase) validate(c *Contract, fix bool) error {
 
 func (c *Coupons) validate() error {
 	var err error
+
+	if c.Rate <= 0 {
+		err = multierr.Append(err, fmt.Errorf("expected coupon rate to be larger than 0: %f", c.Rate))
+	}
+
 	for _, date := range c.Dates {
 		err = multierr.Append(err, date.validate())
 	}
@@ -67,11 +72,11 @@ func (i *InterestRateSwap) validate(c *Contract, fix bool) error {
 	)
 
 	if i.Interest == nil {
-		return fmt.Errorf("interest cannot be non-existent for interest rate swap agreements")
+		err = multierr.Append(err, fmt.Errorf("interest cannot be non-existent for interest rate swap agreements"))
 	}
 
 	if len(i.Interest) < 2 {
-		return fmt.Errorf("interest rate swap agreements must have 2 or more interest payments")
+		err = multierr.Append(err, fmt.Errorf("interest rate swap agreements must have 2 or more interest payments"))
 	}
 
 	for _, payment := range i.Interest {

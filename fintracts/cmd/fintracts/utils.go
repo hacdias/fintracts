@@ -2,11 +2,12 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"io"
-	"log"
 	"os"
 
 	"github.com/spf13/cobra"
+	"go.uber.org/multierr"
 )
 
 func mustGetString(cmd *cobra.Command, flag string) string {
@@ -23,7 +24,11 @@ func mustGetBool(cmd *cobra.Command, flag string) bool {
 
 func checkErr(err error) {
 	if err != nil {
-		log.Fatal(err)
+		errs := multierr.Errors(err)
+		for _, err := range errs {
+			fmt.Println(err)
+		}
+		os.Exit(1)
 	}
 }
 

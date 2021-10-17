@@ -50,23 +50,27 @@ func (d *Date) validate() error {
 }
 
 func (p *Party) validate() error {
+	var err error
+
 	if p.Name == "" {
-		return fmt.Errorf("party name cannot be empty")
+		err = multierr.Append(err, fmt.Errorf("party name cannot be empty"))
 	}
 
 	if p.Identifier == "" {
-		return fmt.Errorf("party name cannot be empty")
+		err = multierr.Append(err, fmt.Errorf("party identifier cannot be empty"))
 	}
 
-	return nil
+	return err
 }
 
 func (s *Signature) validate() error {
+	var err error
+
 	if len(s.Parties) == 0 {
-		return fmt.Errorf("signature must have one or more parties")
+		err = multierr.Append(err, fmt.Errorf("signature must have one or more parties"))
 	}
 
-	return s.Date.validate()
+	return multierr.Append(err, s.Date.validate())
 }
 
 func (c *Currency) validate(fix bool) error {
@@ -85,7 +89,7 @@ func (c *Currency) validate(fix bool) error {
 	}
 
 	if !found {
-		return fmt.Errorf("invalid currency")
+		return fmt.Errorf("unknown currency: %s", cur)
 	}
 
 	return nil
@@ -106,11 +110,13 @@ var currencies = []string{
 }
 
 func (m *Money) validate(fix bool) error {
+	var err error
+
 	if m.Amount <= 0 {
-		return fmt.Errorf("amount must be larger than 0")
+		err = multierr.Append(err, fmt.Errorf("amount must be larger than 0"))
 	}
 
-	return m.Currency.validate(fix)
+	return multierr.Append(err, m.Currency.validate(fix))
 }
 
 func (e *ExchangeRate) validate(fix bool) error {
@@ -127,15 +133,16 @@ func (e *ExchangeRate) validate(fix bool) error {
 }
 
 func (i *InterestPayment) validate(c *Contract) error {
+	var err error
+
 	if i.FixedRate != 0 && i.RateOption != "" {
-		return fmt.Errorf("fixed rate cannot be used with an interest rate option")
+		err = multierr.Append(err, fmt.Errorf("fixed rate cannot be used with an interest rate option"))
 	}
 
 	if i.InitialRate != 0 && i.RateOption == "" {
-		return fmt.Errorf("floating rate must have an interest rate option attached")
+		err = multierr.Append(err, fmt.Errorf("floating rate must have an interest rate option attached"))
 	}
 
-	var err error
 	for _, date := range i.Dates {
 		err = multierr.Append(err, date.validate())
 	}
