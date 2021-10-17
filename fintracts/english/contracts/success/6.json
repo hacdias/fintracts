@@ -12,14 +12,12 @@
   "agreements": [
     {
       "currencySwap": {
-        "effectiveDate": "2021-10-01T00:00:00Z",
-        "maturityDate": "2025-10-01T00:00:00Z",
         "payerA": "TB1",
+        "payerB": "TB2",
         "principalA": {
           "currency": "USD",
           "amount": 10000000
         },
-        "payerB": "TB2",
         "principalB": {
           "currency": "EUR",
           "amount": 12500000
@@ -28,7 +26,9 @@
           "baseCurrency": "USD",
           "counterCurrency": "EUR",
           "rate": 1.25
-        }
+        },
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-01T00:00:00Z"
       }
     }
   ],

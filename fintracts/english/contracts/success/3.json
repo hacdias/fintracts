@@ -21,8 +21,6 @@
         "interest": [
           {
             "payer": "TB1",
-            "fixedRate": 0,
-            "initialRate": 1,
             "dates": [
               "2021-10-15T00:00:00Z",
               "2022-10-15T00:00:00Z",
@@ -30,12 +28,10 @@
               "2024-10-15T00:00:00Z",
               "2025-10-15T00:00:00Z"
             ],
-            "rateOption": "USD LIBOR TEST"
+            "fixedRate": 3.5
           },
           {
             "payer": "TB2",
-            "fixedRate": 0,
-            "initialRate": 2.4,
             "dates": [
               "2021-10-15T00:00:00Z",
               "2022-10-15T00:00:00Z",
@@ -43,6 +39,7 @@
               "2024-10-15T00:00:00Z",
               "2025-10-15T00:00:00Z"
             ],
+            "initialRate": 2.4,
             "rateOption": "USD - LIBOR"
           }
         ]
@@ -52,15 +49,10 @@
   "signatures": [
     {
       "parties": [
-        "TB1"
-      ],
-      "date": "2021-09-15T00:00:00Z"
-    },
-    {
-      "parties": [
+        "TB1",
         "TB2"
       ],
-      "date": "2021-09-19T00:00:00Z"
+      "date": "2021-09-15T00:00:00Z"
     }
   ]
 }

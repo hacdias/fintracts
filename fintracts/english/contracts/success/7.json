@@ -11,18 +11,32 @@
   ],
   "agreements": [
     {
-      "interestRateSwap": {
-        "notationalAmount": {
+      "currencySwap": {
+        "payerA": "TB1",
+        "payerB": "TB2",
+        "principalA": {
           "currency": "USD",
           "amount": 10000000
+        },
+        "principalB": {
+          "currency": "EUR",
+          "amount": 12500000
+        },
+        "impliedExchangeRate": {
+          "baseCurrency": "USD",
+          "counterCurrency": "EUR",
+          "rate": 1.25
+        },
+        "endExchangeRate": {
+          "baseCurrency": "USD",
+          "counterCurrency": "EUR",
+          "rate": 1.45
         },
         "effectiveDate": "2021-10-01T00:00:00Z",
         "maturityDate": "2025-10-01T00:00:00Z",
         "interest": [
           {
-            "payer": "TB1",
-            "fixedRate": 3.5,
-            "initialRate": 0,
+            "payer": "TB2",
             "dates": [
               "2021-10-15T00:00:00Z",
               "2022-10-15T00:00:00Z",
@@ -30,12 +44,10 @@
               "2024-10-15T00:00:00Z",
               "2025-10-15T00:00:00Z"
             ],
-            "rateOption": ""
+            "fixedRate": 3.5
           },
           {
-            "payer": "TB2",
-            "fixedRate": 0,
-            "initialRate": 2.4,
+            "payer": "TB1",
             "dates": [
               "2021-10-15T00:00:00Z",
               "2022-10-15T00:00:00Z",
@@ -43,6 +55,7 @@
               "2024-10-15T00:00:00Z",
               "2025-10-15T00:00:00Z"
             ],
+            "initialRate": 2.4,
             "rateOption": "USD - LIBOR"
           }
         ]

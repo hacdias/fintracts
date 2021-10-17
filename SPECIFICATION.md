@@ -292,6 +292,7 @@ Represents a Currency Swap agreement. More information on the links below:
 | `impliedExchangeRate` | [`Exchange Rate`](#exchange-rate)                          | The implied exchange rate from `principalA` to `principalB`.                                     |
 | `endExchangeRate`     | [`Exchange Rate`](#exchange-rate) \| `null`                | The pre-agreed rate to swap at maturity date. If non-specified, it is the `impliedExchangeRate`. |
 | `maturityDate`        | [`Date`](#date)                                            | The date at which both parties have to swap the principals again at the `endExchangeRate`.       |
+| `effectiveDate`       | [`Date`](#date)                                            | The date at which both parties swap the principals.                                              |
 | `interest`            | Array of [`Interest Payment`](#interest-payment) \| `null` | The agreement may have Interest Payments.                                                        |
 
 **Format Example**

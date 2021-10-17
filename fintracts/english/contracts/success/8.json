@@ -21,11 +21,11 @@
     {
       "bondPurchase": {
         "issuer": "TB",
+        "underwriter": "WS",
         "faceValue": {
           "currency": "EUR",
           "amount": 10000
         },
-        "underwriter": "WS",
         "issuePrice": {
           "currency": "EUR",
           "amount": 9800
@@ -35,14 +35,12 @@
     },
     {
       "currencySwap": {
-        "effectiveDate": "2021-10-01T00:00:00Z",
-        "maturityDate": "2025-10-01T00:00:00Z",
         "payerA": "TB1",
+        "payerB": "TB2",
         "principalA": {
           "currency": "USD",
           "amount": 10000000
         },
-        "payerB": "TB2",
         "principalB": {
           "currency": "EUR",
           "amount": 12500000
@@ -51,7 +49,9 @@
           "baseCurrency": "USD",
           "counterCurrency": "EUR",
           "rate": 1.25
-        }
+        },
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-01T00:00:00Z"
       }
     },
     {
@@ -65,8 +65,6 @@
         "interest": [
           {
             "payer": "TB1",
-            "fixedRate": 3.5,
-            "initialRate": 0,
             "dates": [
               "2021-10-15T00:00:00Z",
               "2022-10-15T00:00:00Z",
@@ -74,12 +72,10 @@
               "2024-10-15T00:00:00Z",
               "2025-10-15T00:00:00Z"
             ],
-            "rateOption": ""
+            "fixedRate": 3.5
           },
           {
             "payer": "TB2",
-            "fixedRate": 4,
-            "initialRate": 0,
             "dates": [
               "2021-10-15T00:00:00Z",
               "2022-10-15T00:00:00Z",
@@ -87,7 +83,7 @@
               "2024-10-15T00:00:00Z",
               "2025-10-15T00:00:00Z"
             ],
-            "rateOption": ""
+            "fixedRate": 4
           }
         ]
       }

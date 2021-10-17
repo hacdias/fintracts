@@ -1,8 +1,9 @@
-package parser
+package english
 
 import (
 	"github.com/alecthomas/participle/v2"
 	"github.com/alecthomas/participle/v2/lexer"
+	fintracts "github.com/hacdias/fintracts/cli"
 )
 
 var basicLexer = lexer.MustSimple([]lexer.Rule{
@@ -22,16 +23,23 @@ var parser = participle.MustBuild(&Contract{},
 	participle.UseLookahead(100),
 )
 
-// Parse parses the contract in English to an internal specification.
-// You can call .String() on the result to get the common JSON spec
-// format.
-func Parse(contract []byte) (*Contract, error) {
+// Parse parses the contract in English to the JSON format.
+func Parse(data []byte) (*fintracts.Contract, error) {
 	ast := &Contract{}
-	err := parser.ParseBytes("", contract, ast)
+	err := parser.ParseBytes("", data, ast)
 	if err != nil {
 		return nil, err
 	}
 
-	err = ast.validate()
-	return ast, err
+	contract, err := ast.convert()
+	if err != nil {
+		return nil, err
+	}
+
+	err = fintracts.Validate(contract, true)
+	if err != nil {
+		return nil, err
+	}
+
+	return contract, err
 }
