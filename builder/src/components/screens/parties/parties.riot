@@ -1,5 +1,5 @@
 <parties>
-  <screen title="Parties and Signature">
+  <screen title="Parties">
     <p class="mt1 mb3 i">The contract can have two or more parties.</p>
 
     <frame-box
@@ -19,10 +19,6 @@
 
     <div class="mv3 pa3 ba b--black-20">
       <button class="center db bg-green br1 pv2 ph3" onclick={addParty}>Add Party</button>
-    </div>
-
-    <div class="mv3 pa3 ba b--black-20">
-      <p class="mv0 b">Signed on: <date class="ml1" value={props.signedOn} onValue={updateSignedOn} /> </p>
     </div>
 
     <div class="flex items-center justify-end" if={canNext}>
@@ -76,16 +72,12 @@
           this.props.onParties(parties)
         } 
       },
-      updateSignedOn (date) {
-        this.props.onSignedOn(date)
-      },
       get canNext () {
-        return this.props.signedOn &&
-          this.props.parties &&
+        return this.props.parties &&
           this.props.parties.reduce((valid, { name, identifier }) => name && identifier && valid, true)
       },
       submit () {
-        this.props.onPartiesSigDone()
+        this.props.onPartiesDone()
       }
     }
   </script>
