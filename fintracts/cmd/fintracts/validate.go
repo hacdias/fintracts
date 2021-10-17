@@ -14,8 +14,8 @@ func init() {
 }
 
 var validateCmd = &cobra.Command{
-	Use:   "validate",
-	Short: "validates a JSON financial contract",
+	Use:   "validate [< file.json]",
+	Short: "Validates a contract in the JSON specification",
 	Run: func(cmd *cobra.Command, args []string) {
 		data := inputFlagOrStdin(cmd)
 		fix := mustGetBool(cmd, "fix")

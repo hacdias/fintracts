@@ -13,8 +13,8 @@ func init() {
 }
 
 var englishCmd = &cobra.Command{
-	Use:   "english",
-	Short: "parses and validates an English financial contract",
+	Use:   "english [< file.txt]",
+	Short: "Parses and validates contracts in the English specification",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		data := inputFlagOrStdin(cmd)
