@@ -37,7 +37,7 @@
       },
       get value () {
         const parties = this.props.parties || []
-        const value = this.props.signatures
+        const value = this.props.value
           || parties.map(({ name, identifier }) => ({
             parties: [identifier],
             date: ''
@@ -49,11 +49,10 @@
         return (date) => {
           const value = this.value
           value[index].date = date
-          this.props.onSignatures(value)
+          this.props.onValue(value)
         } 
       },
       get canNext () {
-        console.log(this.value)
         return this.value
           .map(({ date }) => date)
           .filter(date => date === '')

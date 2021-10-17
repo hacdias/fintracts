@@ -2,23 +2,22 @@
   <div>
     <parties
       if={state.state === 'Parties'}
-      parties={state.parties}
-      onParties={onParties}
-      signedOn={state.signedOn}
-      onPartiesDone={onPartiesDone} />
+      value={state.parties}
+      onValue={onValue('parties')}
+      onDone={onPartiesDone} />
 
     <agreements
       if={state.state === 'Agreements'}
       parties={state.parties}
-      agreements={state.agreements}
-      onAgreements={onAgreements}
-      onAgreementsDone={onAgreementsDone} />
+      value={state.agreements}
+      onValue={onValue('agreements')}
+      onDone={onAgreementsDone} />
 
     <signatures
       if={state.state === 'Signatures'}
       parties={state.parties}
-      signatures={state.signatures}
-      onSignatures={onSignatures}
+      value={state.signatures}
+      onValue={onValue('signatures')}
       onDone={onSignaturesDone} />
   
     <contract
@@ -60,21 +59,18 @@
         Contract
       },
       state: emptyState(),
-      onParties (parties) {
-        this.update({ parties })
+      onValue (field) {
+        return (value) => {
+          this.update({
+            [field]: value
+          })
+        }
       },
       onPartiesDone () {
         this.update({ state: State.Agreements })
       },
-      onAgreements (agreements) {
-        console.log(agreements)
-        this.update({ agreements })
-      },
       onAgreementsDone () {
         this.update({ state: State.Signatures })
-      },
-      onSignatures (signatures) {
-        this.update({ signatures })
       },
       onSignaturesDone () {
         this.update({ state: State.Contract })

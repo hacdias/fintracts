@@ -43,7 +43,7 @@
         FrameBox
       },
       get parties () {
-        const parties = this.props.parties
+        const parties = this.props.value
         if (Array.isArray(parties)) {
           if (parties.length >= 2) return parties
           else if (parties.length >= 1) return [...parties, newParty()]
@@ -55,29 +55,27 @@
         ]
       },
       addParty () {
-        this.props.onParties([...this.parties, newParty()])
+        this.props.onValue([...this.parties, newParty()])
       },
       updateParty (event) {
         const i = event.target.dataset.i
         const key = event.target.dataset.key
         const parties = this.parties
         parties[i][key] = event.target.value
-        this.props.onParties(parties)
+        this.props.onValue(parties)
       },
       deleteParty (index) {
         return () => {
-          console.log(index)
           const parties = this.parties
           parties.splice(index, 1)
-          this.props.onParties(parties)
+          this.props.onValue(parties)
         } 
       },
       get canNext () {
-        return this.props.parties &&
-          this.props.parties.reduce((valid, { name, identifier }) => name && identifier && valid, true)
+        return this.parties.reduce((valid, { name, identifier }) => name && identifier && valid, true)
       },
       submit () {
-        this.props.onPartiesDone()
+        this.props.onDone()
       }
     }
   </script>

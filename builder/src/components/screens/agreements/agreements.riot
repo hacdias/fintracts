@@ -66,27 +66,27 @@
         CurrencySwap
       },
       get agreements () {
-        return this.props.agreements || []
+        return this.props.value || []
       },
       onAgreement (index) {
         return (agreement) => {
           const agreements = this.agreements
           agreements[index] = agreement
-          this.props.onAgreements(agreements)
+          this.props.onValue(agreements)
         }
       },
       onRemoveAgreement (index) {
         return () => {
           const agreements = this.agreements
           agreements.splice(index, 1)
-          this.props.onAgreements(agreements)
+          this.props.onValue(agreements)
         }
       },
       onAgreementType (event) {
         this.update({ type: event.target.value })
       },
       addAgreement () {
-        this.props.onAgreements([
+        this.props.onValue([
           ...this.agreements,
           { [this.state.type]: {} }
         ])
@@ -95,7 +95,7 @@
         return this.agreements.length >= 1
       },
       submit () {
-        this.props.onAgreementsDone()
+        this.props.onDone()
       }
     }
   </script>
