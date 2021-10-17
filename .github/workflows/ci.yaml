@@ -14,13 +14,13 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          context: ./parser
+          context: ./fintracts
       - name: Build Builder
         uses: docker/build-push-action@v2
         with:
           push: false
           context: ./builder
-  test-parser:
+  test-fintracts:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -29,4 +29,4 @@ jobs:
         with:
           go-version: '^1.17.2'
       - run: go test
-        working-directory: ./parser
+        working-directory: ./fintracts
