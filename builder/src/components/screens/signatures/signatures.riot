@@ -1,0 +1,67 @@
+<signatures>
+  <screen title="Signatures">
+    <p class="mt1 mb3 i">Different parties can sign on different dates.</p>
+  
+    <frame-box each={ (sig, index) in value }>
+      <label>
+        <span class="b mr1">Party</span>
+        <input type="text" disabled value={sig.parties[0]} />
+      </label>
+
+      <label class="mt2">
+        <span class="b mr1">Identifier</span>
+        <date value={sig.date} onValue={updateDate(index)} />
+      </label>
+    </frame-box>
+
+    <div class="flex items-center justify-end" if={canNext}>
+      <button class="bg-blue br1 pv2 ph3" onclick={submit}>Next</button>
+    </div>
+  </screen>
+
+  <script>
+    import FrameBox from '../../frame-box/frame-box.riot'
+    import Screen from '../screen/screen.riot'
+    import Date from '../../primitives/date/date.riot'
+
+    const newParty = () => ({
+      name: '',
+      identifier: ''
+    })
+
+    export default {
+      components: {
+        Screen,
+        Date,
+        FrameBox
+      },
+      get value () {
+        const parties = this.props.parties || []
+        const value = this.props.signatures
+          || parties.map(({ name, identifier }) => ({
+            parties: [identifier],
+            date: ''
+          }))
+
+        return value
+      },
+      updateDate (index) {
+        return (date) => {
+          const value = this.value
+          value[index].date = date
+          this.props.onSignatures(value)
+        } 
+      },
+      get canNext () {
+        console.log(this.value)
+        return this.value
+          .map(({ date }) => date)
+          .filter(date => date === '')
+          .length === 0
+      },
+      submit () {
+        this.props.onDone()
+      }
+    }
+  </script>
+</signatures>

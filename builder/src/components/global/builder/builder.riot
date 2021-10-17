@@ -5,8 +5,7 @@
       parties={state.parties}
       onParties={onParties}
       signedOn={state.signedOn}
-      onSignedOn={onSignedOn}
-      onPartiesSigDone={onPartiesSigDone} />
+      onPartiesDone={onPartiesDone} />
 
     <agreements
       if={state.state === 'Agreements'}
@@ -14,6 +13,13 @@
       agreements={state.agreements}
       onAgreements={onAgreements}
       onAgreementsDone={onAgreementsDone} />
+
+    <signatures
+      if={state.state === 'Signatures'}
+      parties={state.parties}
+      signatures={state.signatures}
+      onSignatures={onSignatures}
+      onDone={onSignaturesDone} />
   
     <contract
       if={state.state === 'Contract'}
@@ -30,10 +36,12 @@
     import Parties from '../../screens/parties/parties.riot'
     import Agreements from '../../screens/agreements/agreements.riot'
     import Contract from '../../screens/contract/contract.riot'
+    import Signatures from '../../screens/signatures/signatures.riot'
 
     const State = {
       Parties: 'Parties',
       Agreements: 'Agreements',
+      Signatures: 'Signatures',
       Contract: 'Contract'
     }
 
@@ -41,23 +49,21 @@
       state: State.Parties,
       parties: null,
       agreements: null,
-      signedOn: null
+      signatures: null
     })
 
     export default {
       components: {
         Parties,
         Agreements,
+        Signatures,
         Contract
       },
       state: emptyState(),
-      onSignedOn (signedOn) {
-        this.update({ signedOn })
-      },
       onParties (parties) {
         this.update({ parties })
       },
-      onPartiesSigDone () {
+      onPartiesDone () {
         this.update({ state: State.Agreements })
       },
       onAgreements (agreements) {
@@ -65,13 +71,19 @@
         this.update({ agreements })
       },
       onAgreementsDone () {
+        this.update({ state: State.Signatures })
+      },
+      onSignatures (signatures) {
+        this.update({ signatures })
+      },
+      onSignaturesDone () {
         this.update({ state: State.Contract })
       },
       get contract () {
         return {
           parties: this.state.parties,
           agreements: this.state.agreements,
-          signedOn: this.state.signedOn
+          signatures: this.state.signatures
         }
       },
       reset ()  {
