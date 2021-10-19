@@ -1,14 +1,25 @@
 # Fintracts: Research Notes
 
+- [Problem Statement](#problem-statement)
+- [Motivation](#motivation)
+- [State of the Art](#state-of-the-art)
 - [How the Project Started](#how-the-project-started)
 - [What Is the Current Goal](#what-is-the-current-goal)
-- [State of the Art](#state-of-the-art)
+- [State of the Art](#state-of-the-art-1)
   - [Existent Tools](#existent-tools)
 - [Proposed Solution](#proposed-solution)
 - [Raw Research Notes](#raw-research-notes)
   - [Papers](#papers)
   - [Tools](#tools)
   - [Others](#others)
+
+## Problem Statement
+
+## Motivation
+
+## State of the Art
+
+---
 
 ## How the Project Started
 
