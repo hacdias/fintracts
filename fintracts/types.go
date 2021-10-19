@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+// FromJSON converts a JSON byte array into a contract.
+func FromJSON(data []byte) (*Contract, error) {
+	contract := &Contract{}
+	return contract, json.Unmarshal(data, contract)
+}
+
+// Contract represents a financial contract with its parties, agreements and signatures.
 type Contract struct {
 	Parties    []Party     `json:"parties"`
 	Agreements []Agreement `json:"agreements"`
@@ -14,7 +21,7 @@ type Contract struct {
 	lastSignature time.Time
 }
 
-// String returns a JSON-string representation of a contract.
+// String returns an indented JSON-string representation of a contract.
 func (c *Contract) String() (string, error) {
 	bytes, err := json.MarshalIndent(c, "", "  ")
 	return string(bytes), err
