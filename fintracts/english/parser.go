@@ -3,7 +3,7 @@ package english
 import (
 	"github.com/alecthomas/participle/v2"
 	"github.com/alecthomas/participle/v2/lexer"
-	fintracts "github.com/hacdias/fintracts/cli"
+	"github.com/hacdias/fintracts/fintracts"
 )
 
 var basicLexer = lexer.MustSimple([]lexer.Rule{

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/hacdias/fintracts/cli/english"
+	"github.com/hacdias/fintracts/fintracts/english"
 	"github.com/spf13/cobra"
 )
 

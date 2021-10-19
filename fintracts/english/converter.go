@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	fintracts "github.com/hacdias/fintracts/cli"
+	"github.com/hacdias/fintracts/fintracts"
 )
 
 func (c *Contract) convert() (*fintracts.Contract, error) {
