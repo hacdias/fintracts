@@ -1,4 +1,4 @@
-package english
+package parser
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/hacdias/fintracts/fintracts"
+	"github.com/hacdias/fintracts"
 )
 
 func (c *Contract) convert() (*fintracts.Contract, error) {

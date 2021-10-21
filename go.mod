@@ -1,4 +1,4 @@
-module github.com/hacdias/fintracts/fintracts
+module github.com/hacdias/fintracts
 
 go 1.17
 

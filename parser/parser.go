@@ -1,9 +1,10 @@
-package english
+package parser
 
 import (
 	"github.com/alecthomas/participle/v2"
 	"github.com/alecthomas/participle/v2/lexer"
-	"github.com/hacdias/fintracts/fintracts"
+	"github.com/hacdias/fintracts"
+	"github.com/hacdias/fintracts/validator"
 )
 
 var basicLexer = lexer.MustSimple([]lexer.Rule{
@@ -36,7 +37,7 @@ func Parse(data []byte) (*fintracts.Contract, error) {
 		return nil, err
 	}
 
-	err = fintracts.Validate(contract)
+	err = validator.Validate(contract)
 	if err != nil {
 		return nil, err
 	}

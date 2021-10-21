@@ -16,9 +16,6 @@ type Contract struct {
 	Parties    []Party     `json:"parties"`
 	Agreements []Agreement `json:"agreements"`
 	Signatures []Signature `json:"signatures"`
-
-	partiesIds    []string
-	lastSignature time.Time
 }
 
 // String returns an indented JSON-string representation of a contract.

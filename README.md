@@ -13,8 +13,8 @@ Fintracts aims to be an ecosystem of tools to make it easy to write financial, r
 **Existing tools:**
 
 - [Visual Builder](builder/): uses a web GUI to walk the user through the options to generate a contract.
-- [English Parser](fintracts/): converts a contract written in English to the common specification.
-- [JSON Validator](fintracts/): validates the JSON of a contract. Optionally, can fix auto-fixable errors.
+- [English Parser](parser/): converts a contract written in English to the common specification.
+- [JSON Validator](validator/): validates the JSON of a contract. Optionally, can fix auto-fixable errors.
 
 **Interesting tools** that could be built and use cases:
 
