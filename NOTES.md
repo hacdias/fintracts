@@ -1,26 +1,11 @@
 # Fintracts: Research Notes
 
-- [How the Project Started](#how-the-project-started)
-- [What Is the Current Goal](#what-is-the-current-goal)
 - [State of the Art](#state-of-the-art)
   - [Existent Tools](#existent-tools)
-- [Proposed Solution](#proposed-solution)
 - [Raw Research Notes](#raw-research-notes)
   - [Papers](#papers)
   - [Tools](#tools)
   - [Others](#others)
-
-## How the Project Started
-
-The goal is to design a domain specific language (DSL), targeted into the financial domain, which can be used to write a generic contract to exchange an asset by any other asset. This language must be risk-aware, in the sense that by automatically analyzing a contract and the current blockchain state, we will be able to determine the risk of adding the new contract to the blockchain.
-
-In later stages, the DSL can be compiled to any other language and verified. From there, a compiler to the Ethereum Virtual Machine (EVM) byte code can be built in order to be able to execute the actual contract.
-
-## What Is the Current Goal
-
-The current goal has shifted from the initial goal, but the motivation remains. The current goal is to build an ecosystem of tools surrounding a common JSON contract format. This tools can be used to parse contracts to and from English, or from English to a functional smart contract in Solidity, or, perhaps, in EVM. Read more about it on the [README](./README.md).
-
-Nevertheless, the research done on this file regards the current state of the art of formal verification of smart contracts and the different techniques to achieve such goal.
 
 ## State of the Art
 
@@ -74,21 +59,6 @@ This section will be written in bullet points for briefness:
 ---
 
 More in [Raw Research Notes](#raw-research-notes).
-
-## Proposed Solution
-
-The initial proposed solution was to design a DSL targeted to the financial domain, mainly to exchange of assets by any other assets. This language would be as human readable as possible, while keeping a strict and rigid grammar, allowing it to be processed by a computer easily. A possible use case with this DSL would be:
-
-1. Lawyer writes contract in DSL.
-2. Contract is parsed and validated.
-3. A implicit risk is calculated from the contract.
-4. While adding the contract to the block on the blockchain, verify if adding the new contract does not increase the systematic risk by a pre-defined threshold.
-5. Contract in blockchain!
-
-The proposed solution has evolved into what this repository currently contains: an ecosystem of tools surrounding a common format. With the right tools built, the same goals can be achieved. For the initial steps of this projects, we will build:
-
-1. A tool to parse from an English contract to the common JSON format.
-2. A web GUI generate a contract in the JSON format.
 
 ## Raw Research Notes
 
