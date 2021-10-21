@@ -14,7 +14,14 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          context: ./fintracts
+          context: ./
+          file: parser/Dockerfile
+      - name: Build Validator
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          context: ./
+          file: validator/Dockerfile
       - name: Build Builder
         uses: docker/build-push-action@v2
         with:
@@ -28,5 +35,4 @@ jobs:
       - uses: actions/setup-go@v2
         with:
           go-version: '^1.17.2'
-      - run: go test
-        working-directory: ./fintracts
+      - run: go test ./...

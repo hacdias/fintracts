@@ -1,4 +1,4 @@
-package english
+package parser
 
 import (
 	"strconv"

@@ -6,9 +6,40 @@ import (
 	"io"
 	"os"
 
+	"github.com/hacdias/fintracts"
+	"github.com/hacdias/fintracts/validator"
 	"github.com/spf13/cobra"
 	"go.uber.org/multierr"
 )
+
+var cmd = &cobra.Command{
+	Use:   "validate [< file.json]",
+	Short: "Validates a contract in the JSON specification",
+	Run: func(cmd *cobra.Command, args []string) {
+		data := inputFlagOrStdin(cmd)
+
+		contract, err := fintracts.FromJSON(data)
+		checkErr(err)
+
+		err = validator.Validate(contract)
+		checkErr(err)
+
+		str, err := contract.String()
+		checkErr(err)
+
+		fmt.Println(str)
+	},
+}
+
+func init() {
+	cmd.Flags().StringP("input", "i", "", "indicates the input file")
+}
+
+func main() {
+	cmd.Execute()
+}
+
+// Utils
 
 func mustGetString(cmd *cobra.Command, flag string) string {
 	s, err := cmd.Flags().GetString(flag)

@@ -1,45 +1,15 @@
-package fintracts
+package validator
 
 import (
 	"fmt"
 	"time"
 
+	"github.com/hacdias/fintracts"
 	"go.uber.org/multierr"
 )
 
-func (c *Contract) validate() error {
-	parties := c.getPartiesIds()
-	uniqueIds := unique(parties)
-
-	if len(uniqueIds) != len(parties) {
-		return fmt.Errorf("different parties cannot have the same identifier")
-	}
-
-	sigParties := c.getSigningParties()
-
-	if !equal(parties, sigParties) {
-		return fmt.Errorf("parties do not match signing parties")
-	}
-
-	var err error
-
-	for _, party := range c.Parties {
-		err = multierr.Append(err, party.validate())
-	}
-
-	for _, sig := range c.Signatures {
-		err = multierr.Append(err, sig.validate())
-	}
-
-	for _, agreement := range c.Agreements {
-		err = multierr.Append(err, agreement.validate(c))
-	}
-
-	return err
-}
-
-func (d *Date) validate() error {
-	date := time.Time(*d)
+func (v *validator) validateDate(d fintracts.Date) error {
+	date := time.Time(d)
 
 	if date.IsZero() {
 		return fmt.Errorf("signature has invalid date")
@@ -48,7 +18,7 @@ func (d *Date) validate() error {
 	return nil
 }
 
-func (p *Party) validate() error {
+func (v *validator) validateParty(p fintracts.Party) error {
 	var err error
 
 	if p.Name == "" {
@@ -62,18 +32,18 @@ func (p *Party) validate() error {
 	return err
 }
 
-func (s *Signature) validate() error {
+func (v *validator) validateSignature(s fintracts.Signature) error {
 	var err error
 
 	if len(s.Parties) == 0 {
 		err = multierr.Append(err, fmt.Errorf("signature must have one or more parties"))
 	}
 
-	return multierr.Append(err, s.Date.validate())
+	return multierr.Append(err, v.validateDate(s.Date))
 }
 
-func (c *Currency) validate() error {
-	cur := string(*c)
+func (v *validator) validateCurrency(c fintracts.Currency) error {
+	cur := string(c)
 
 	found := false
 	for _, c := range currencies {
@@ -104,20 +74,20 @@ var currencies = []string{
 	"XOF", "XPD", "XPF", "XPT", "XTS", "YER", "ZAR", "ZAR LSL", "ZAR NAD", "ZMK", "ZWL",
 }
 
-func (m *Money) validate() error {
+func (v *validator) validateMoney(m fintracts.Money) error {
 	var err error
 
 	if m.Amount <= 0 {
 		err = multierr.Append(err, fmt.Errorf("amount must be larger than 0"))
 	}
 
-	return multierr.Append(err, m.Currency.validate())
+	return multierr.Append(err, v.validateCurrency(m.Currency))
 }
 
-func (e *ExchangeRate) validate() error {
+func (v *validator) validateExchangeRate(e fintracts.ExchangeRate) error {
 	err := multierr.Combine(
-		e.BaseCurrency.validate(),
-		e.CounterCurrency.validate(),
+		v.validateCurrency(e.BaseCurrency),
+		v.validateCurrency(e.CounterCurrency),
 	)
 
 	if e.Rate <= 0 {
@@ -127,7 +97,7 @@ func (e *ExchangeRate) validate() error {
 	return err
 }
 
-func (i *InterestPayment) validate(c *Contract) error {
+func (v *validator) validateInterestPayment(i fintracts.InterestPayment) error {
 	var err error
 
 	if i.FixedRate != 0 && i.RateOption != "" {
@@ -139,12 +109,12 @@ func (i *InterestPayment) validate(c *Contract) error {
 	}
 
 	for _, date := range i.Dates {
-		err = multierr.Append(err, date.validate())
-		err = multierr.Append(err, c.validateAfterSignatures(date))
+		err = multierr.Append(err, v.validateDate(date))
+		err = multierr.Append(err, v.validateAfterSignatures(date))
 	}
 
-	err = multierr.Append(err, c.validatePartyExists(i.Payer))
-	err = multierr.Append(err, c.validatePartyExists(i.Receiver))
-	err = multierr.Append(err, validateDifferentParties(i.Payer, i.Receiver))
+	err = multierr.Append(err, v.validatePartyExists(i.Payer))
+	err = multierr.Append(err, v.validatePartyExists(i.Receiver))
+	err = multierr.Append(err, v.validateDifferentParties(i.Payer, i.Receiver))
 	return err
 }
