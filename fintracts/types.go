@@ -67,8 +67,9 @@ type ExchangeRate struct {
 }
 
 type InterestPayment struct {
-	Payer string `json:"payer"`
-	Dates []Date `json:"dates"`
+	Payer    string `json:"payer"`
+	Receiver string `json:"receiver"`
+	Dates    []Date `json:"dates"`
 
 	// Fixed-rate only properties:
 	FixedRate   float64 `json:"fixedRate,omitempty"`

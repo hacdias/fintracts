@@ -144,5 +144,7 @@ func (i *InterestPayment) validate(c *Contract) error {
 	}
 
 	err = multierr.Append(err, c.validatePartyExists(i.Payer))
+	err = multierr.Append(err, c.validatePartyExists(i.Receiver))
+	err = multierr.Append(err, validateDifferentParties(i.Payer, i.Receiver))
 	return err
 }

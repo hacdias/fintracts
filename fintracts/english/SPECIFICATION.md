@@ -113,10 +113,10 @@ The parties agree on an interest rate swap transaction over the notational
 principal of <Money>, with an effective date as of the <Date> and termination
 on the <Date>.
 
-[<Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
+[<Abbreviation> will pay <Abbreviation> a fixed rate interest of <Float>% over the notational amount
 on the following dates: <Date> [, <Date>]* and <Date>.]+
 
-[<Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
+[<Abbreviation> will pay <Abbreviation> a floating rate interest, initially defined as <Float>%, over
 the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
 rate option is <Option>.]+
 ```
@@ -137,11 +137,11 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
   principal of USD 10,000,000.00, with an effective date as of the 1st of
   October 2021 and termination on the 1st of October 2025.
 
-  TB1 will pay a fixed rate interest of 3.5% over the notational amount
+  TB1 will pay TB2 a fixed rate interest of 3.5% over the notational amount
   on the following dates: 15th of October 2021, 15th of October 2022, 15th of
   October 2023, 15th of October 2024 and 15th of October 2025.
 
-  TB2 will pay a floating rate interest, initially defined as 2.4%, over
+  TB2 will pay TB1 a floating rate interest, initially defined as 2.4%, over
   the notational amount on the following dates: 15th of October 2021, 15th
   of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
   October 2025. The floating rate option is USD-LIBOR.
@@ -161,10 +161,10 @@ The parties agree on a currency swap transaction effective as of the
 <Abbreviation> will pay a principal amount of <Money>. [At maturity, the
 principal amounts shall be exchanged back with an interest rate of <Rate>.]
 
-[<Abbreviation> will pay a fixed rate interest of <Float>% over the notational amount
+[<Abbreviation> will pay <Abbreviation> a fixed rate interest of <Float>% over the notational amount
 on the following dates: <Date> [, <Date>]* and <Date>.]*
 
-[<Abbreviation> will pay a floating rate interest, initially defined as <Float>%, over
+[<Abbreviation> will pay <Abbreviation> a floating rate interest, initially defined as <Float>%, over
 the notational amount on the following dates: <Date> [, <Date>]* and <Date>. The floating
 rate option is <Option>.]*
 ```
@@ -184,8 +184,8 @@ Hereby enter in a Currency Swap Transaction Agreement defined as follows:
   The parties agree on a currency swap transaction effective as of the
   1st of October 2021 and termination on the 1st of October 2025.
 
-  TB1 will pay a principal amount of USD 10,000,000.00, and the
-  TB2 will pay a principal amount of EUR 12,500,000.00.
+  TB1 will pay TB2 a principal amount of USD 10,000,000.00, and the
+  TB2 will pay TB1 a principal amount of EUR 12,500,000.00.
 
 Signed by TB1 and TB2 on the 15th of September 2021.
 ```
@@ -208,11 +208,11 @@ Hereby enter in a Currency Swap Transaction Agreement defined as follows:
   the principal amounts shall be exchanged back with an interest
   rate of USD/EUR 1.45.
 
-  TB2 will pay a fixed rate interest of 3.5% over the notational amount
+  TB2 will pay TB1 a fixed rate interest of 3.5% over the notational amount
   on the following dates: 15th of October 2021, 15th of October 2022, 15th of
   October 2023, 15th of October 2024 and 15th of October 2025.
 
-  TB1 will pay a floating rate interest, initially defined as 2.4%, over
+  TB1 will pay TB2 a floating rate interest, initially defined as 2.4%, over
   the notational amount on the following dates: 15th of October 2021, 15th
   of October 2022, 15th of October 2023, 15th of October 2024 and 15th of
   October 2025. The floating rate option is USD-LIBOR.
