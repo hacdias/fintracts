@@ -37,10 +37,10 @@ Run `./validator --help` for more information.
 
 ## Docker
 
-Please note that to build this with Docker, we will need the entire repository. As such, you need to execute the following command to build:
+To build the Docker image:
 
 ```bash
-docker build .. -t validator -f Dockerfile
+make docker
 ```
 
 You can now run the validator inside the docker image:
