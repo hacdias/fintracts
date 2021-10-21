@@ -106,13 +106,22 @@ type InterestRateSwap struct {
 }
 
 type CurrencySwap struct {
-	PayerA              string            `json:"payerA"`
-	PayerB              string            `json:"payerB"`
-	PrincipalA          Money             `json:"principalA"`
-	PrincipalB          Money             `json:"principalB"`
-	ImpliedExchangeRate ExchangeRate      `json:"impliedExchangeRate"`
-	EndExchangeRate     *ExchangeRate     `json:"endExchangeRate,omitempty"`
-	EffectiveDate       Date              `json:"effectiveDate"`
-	MaturityDate        Date              `json:"maturityDate"`
-	Interest            []InterestPayment `json:"interest,omitempty"`
+	PayerA          string            `json:"payerA"`
+	PayerB          string            `json:"payerB"`
+	PrincipalA      Money             `json:"principalA"`
+	PrincipalB      Money             `json:"principalB"`
+	EndExchangeRate *ExchangeRate     `json:"endExchangeRate,omitempty"`
+	EffectiveDate   Date              `json:"effectiveDate"`
+	MaturityDate    Date              `json:"maturityDate"`
+	Interest        []InterestPayment `json:"interest,omitempty"`
+}
+
+// ImpliedExchangeRate returns the implied exchange rate
+// of the currency swap transaction.
+func (cs *CurrencySwap) ImpliedExchangeRate() ExchangeRate {
+	return ExchangeRate{
+		BaseCurrency:    cs.PrincipalA.Currency,
+		CounterCurrency: cs.PrincipalB.Currency,
+		Rate:            cs.PrincipalB.Amount / cs.PrincipalA.Amount,
+	}
 }

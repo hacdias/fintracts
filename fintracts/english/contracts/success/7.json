@@ -22,11 +22,6 @@
           "currency": "EUR",
           "amount": 12500000
         },
-        "impliedExchangeRate": {
-          "baseCurrency": "USD",
-          "counterCurrency": "EUR",
-          "rate": 1.25
-        },
         "endExchangeRate": {
           "baseCurrency": "USD",
           "counterCurrency": "EUR",

@@ -283,17 +283,16 @@ Represents a Currency Swap agreement. More information on the links below:
 
 **Properties**
 
-| Name                  | Type                                                       | Description                                                                                      |
-|-----------------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| `payerA`              | `string`                                                   | The identifier of the party A.                                                                   |
-| `principalA`          | [`Money`](#money)                                          | The principal provided by `payerA`.                                                              |
-| `payerB`              | `string`                                                   | The identifier of the party B.                                                                   |
-| `principalB`          | [`Money`](#money)                                          | The principal provided by `payerB`.                                                              |
-| `impliedExchangeRate` | [`Exchange Rate`](#exchange-rate)                          | The implied exchange rate from `principalA` to `principalB`.                                     |
-| `endExchangeRate`     | [`Exchange Rate`](#exchange-rate) \| `null`                | The pre-agreed rate to swap at maturity date. If non-specified, it is the `impliedExchangeRate`. |
-| `maturityDate`        | [`Date`](#date)                                            | The date at which both parties have to swap the principals again at the `endExchangeRate`.       |
-| `effectiveDate`       | [`Date`](#date)                                            | The date at which both parties swap the principals.                                              |
-| `interest`            | Array of [`Interest Payment`](#interest-payment) \| `null` | The agreement may have Interest Payments.                                                        |
+| Name              | Type                                                       | Description                                                                                                          |
+|-------------------|------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `payerA`          | `string`                                                   | The identifier of the party A.                                                                                       |
+| `principalA`      | [`Money`](#money)                                          | The principal provided by `payerA`.                                                                                  |
+| `payerB`          | `string`                                                   | The identifier of the party B.                                                                                       |
+| `principalB`      | [`Money`](#money)                                          | The principal provided by `payerB`.                                                                                  |
+| `endExchangeRate` | [`Exchange Rate`](#exchange-rate) \| `null`                | The pre-agreed rate to swap at maturity date. If non-specified, it is the implied exchange rate of the initial swap. |
+| `maturityDate`    | [`Date`](#date)                                            | The date at which both parties have to swap the principals again at the `endExchangeRate`.                           |
+| `effectiveDate`   | [`Date`](#date)                                            | The date at which both parties swap the principals.                                                                  |
+| `interest`        | Array of [`Interest Payment`](#interest-payment) \| `null` | The agreement may have Interest Payments.                                                                            |
 
 **Format Example**
 
@@ -303,7 +302,6 @@ Represents a Currency Swap agreement. More information on the links below:
   "principalA": Money,
   "payerB": "IDB",
   "principalB": Money,
-  "impliedExchangeRate": ExchangeRate,
   "endExchangeRate": ExchangeRate | null,
   "interest": [ Interest Payment... ] | null,
   "effectiveDate": Date,
