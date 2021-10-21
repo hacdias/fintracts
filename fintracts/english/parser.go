@@ -36,7 +36,7 @@ func Parse(data []byte) (*fintracts.Contract, error) {
 		return nil, err
 	}
 
-	err = fintracts.Validate(contract, true)
+	err = fintracts.Validate(contract)
 	if err != nil {
 		return nil, err
 	}

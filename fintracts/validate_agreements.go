@@ -7,7 +7,7 @@ import (
 	"go.uber.org/multierr"
 )
 
-func (a *Agreement) validate(c *Contract, fix bool) error {
+func (a *Agreement) validate(c *Contract) error {
 	var (
 		err    error
 		nonNil = 0
@@ -15,17 +15,17 @@ func (a *Agreement) validate(c *Contract, fix bool) error {
 
 	if a.BondPurchase != nil {
 		nonNil++
-		err = multierr.Append(err, a.BondPurchase.validate(c, fix))
+		err = multierr.Append(err, a.BondPurchase.validate(c))
 	}
 
 	if a.InterestRateSwap != nil {
 		nonNil++
-		err = multierr.Append(err, a.InterestRateSwap.validate(c, fix))
+		err = multierr.Append(err, a.InterestRateSwap.validate(c))
 	}
 
 	if a.CurrencySwap != nil {
 		nonNil++
-		err = multierr.Append(err, a.CurrencySwap.validate(c, fix))
+		err = multierr.Append(err, a.CurrencySwap.validate(c))
 	}
 
 	if nonNil != 1 {
@@ -35,12 +35,12 @@ func (a *Agreement) validate(c *Contract, fix bool) error {
 	return err
 }
 
-func (b *BondPurchase) validate(c *Contract, fix bool) error {
+func (b *BondPurchase) validate(c *Contract) error {
 	err := multierr.Combine(
 		c.validatePartyExists(b.Issuer),
 		c.validatePartyExists(b.Underwriter),
-		b.FaceValue.validate(fix),
-		b.IssuePrice.validate(fix),
+		b.FaceValue.validate(),
+		b.IssuePrice.validate(),
 		b.MaturityDate.validate(),
 		c.validateAfterSignatures(b.MaturityDate),
 		validateDifferentParties(b.Issuer, b.Underwriter),
@@ -72,9 +72,9 @@ func (c *Coupons) validate(co *Contract) error {
 	return err
 }
 
-func (i *InterestRateSwap) validate(c *Contract, fix bool) error {
+func (i *InterestRateSwap) validate(c *Contract) error {
 	err := multierr.Combine(
-		i.NotationalAmount.validate(fix),
+		i.NotationalAmount.validate(),
 		i.EffectiveDate.validate(),
 		i.MaturityDate.validate(),
 		c.validateAfterSignatures(i.MaturityDate),
@@ -100,12 +100,12 @@ func (i *InterestRateSwap) validate(c *Contract, fix bool) error {
 	return err
 }
 
-func (s *CurrencySwap) validate(c *Contract, fix bool) error {
+func (s *CurrencySwap) validate(c *Contract) error {
 	err := multierr.Combine(
 		c.validatePartyExists(s.PayerA),
 		c.validatePartyExists(s.PayerB),
-		s.PrincipalA.validate(fix),
-		s.PrincipalB.validate(fix),
+		s.PrincipalA.validate(),
+		s.PrincipalB.validate(),
 		s.EffectiveDate.validate(),
 		s.MaturityDate.validate(),
 		c.validateAfterSignatures(s.MaturityDate),
@@ -114,34 +114,22 @@ func (s *CurrencySwap) validate(c *Contract, fix bool) error {
 	)
 
 	if s.ImpliedExchangeRate.BaseCurrency != s.PrincipalA.Currency {
-		if fix {
-			s.ImpliedExchangeRate.BaseCurrency = s.PrincipalA.Currency
-		} else {
-			err = multierr.Append(err, fmt.Errorf("implied exchange rate base currency should be %s", s.PrincipalA.Currency))
-		}
+		err = multierr.Append(err, fmt.Errorf("implied exchange rate base currency should be %s", s.PrincipalA.Currency))
 	}
 
 	if s.ImpliedExchangeRate.CounterCurrency != s.PrincipalB.Currency {
-		if fix {
-			s.ImpliedExchangeRate.CounterCurrency = s.PrincipalB.Currency
-		} else {
-			err = multierr.Append(err, fmt.Errorf("implied exchange rate counter currency should be %s", s.PrincipalB.Currency))
-		}
+		err = multierr.Append(err, fmt.Errorf("implied exchange rate counter currency should be %s", s.PrincipalB.Currency))
 	}
 
 	rate := s.PrincipalB.Amount / s.PrincipalA.Amount
 	if s.ImpliedExchangeRate.Rate != rate {
-		if fix {
-			s.ImpliedExchangeRate.Rate = rate
-		} else {
-			err = multierr.Append(err, fmt.Errorf("implied exchange rate should be %f", rate))
-		}
+		err = multierr.Append(err, fmt.Errorf("implied exchange rate should be %f", rate))
 	}
 
-	err = multierr.Append(err, s.ImpliedExchangeRate.validate(fix))
+	err = multierr.Append(err, s.ImpliedExchangeRate.validate())
 
 	if s.EndExchangeRate != nil {
-		err = multierr.Append(err, s.EndExchangeRate.validate(fix))
+		err = multierr.Append(err, s.EndExchangeRate.validate())
 	}
 
 	for _, payment := range s.Interest {
