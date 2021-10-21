@@ -207,16 +207,6 @@ func (a CurrencySwap) convert() (*fintracts.CurrencySwap, error) {
 	}
 	fa.EffectiveDate = ed
 
-	if a.Interest != nil {
-		for _, ip := range a.Interest {
-			fip, err := ip.convert()
-			if err != nil {
-				return nil, err
-			}
-			fa.Interest = append(fa.Interest, *fip)
-		}
-	}
-
 	return fa, nil
 }
 

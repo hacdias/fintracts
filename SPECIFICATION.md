@@ -9,7 +9,6 @@ This is the specification of the common JSON contract format. All the tools that
   - [Signature](#signature)
   - [Money](#money)
   - [Exchange Rate](#exchange-rate)
-  - [Interest Payment](#interest-payment)
 - [Agreements](#agreements)
   - [Bond Purchase](#bond-purchase)
   - [Interest Rate Swap](#interest-rate-swap)
@@ -124,59 +123,6 @@ Represents an [exchange rate](https://en.wikipedia.org/wiki/Exchange_rate) betwe
 }
 ```
 
-### Interest Payment
-
-Represents an interest payment. Can be either a floating rate interest, or a fixed rate interest.
-
-**Common Properties**
-
-| Name       | Type                     | Description                                                                        |
-|------------|--------------------------|------------------------------------------------------------------------------------|
-| `payer`    | `string`                 | The identifier of the party that will pay the interest rate. E.g. `TPN`.           |
-| `receiver` | `string`                 | The identifier of the party that will receive the interest payments. E.g. `TPN`.   |
-| `dates`    | Array of [`Date`](#date) | The dates in which the payer pays out the interest rate over the principal amount. |
-
-
-**Floating Rate Properties**
-
-| Name          | Type     | Description                                                                   |
-|---------------|----------|-------------------------------------------------------------------------------|
-| `initialRate` | `float`  | The interest rate used during the initial calculation period.                 |
-| `rateOption`  | `string` | The derivative that tracks the exchange rate over time. E.g. `usd-libor-bba`. |
-
-
-**Fixed Rate Properties**
-
-| Name        | Type    | Description            |
-|-------------|---------|------------------------|
-| `fixedRate` | `float` | The agreed fixed rate. |
-
-
-**Format Example**
-
-For floating rate interest:
-
-```
-{
-  "payer": "ID1",
-  "receiver": "ID2",
-  "dates": [ Date... ],
-  "initialRate": 1.2,
-  "rateOption": "usd-libor"
-}
-```
-
-For fixed rate interest:
-
-```
-{
-  "payer": "ID1",
-  "receiver": "ID2",
-  "dates": [ Date... ],
-  "fixedRate": 1.2
-}
-```
-
 ## Agreements
 
 An **agreement** has a key indicating the type of the agreement and its object as value. Only one type of agreement is permitted per agreement object. Other keys can be omitted or have `null` values.
@@ -276,6 +222,59 @@ Represents an Interest Rate Swap agreement. More information on the links below:
 }
 ```
 
+#### Interest Payment
+
+Represents an interest payment. Can be either a floating rate interest, or a fixed rate interest.
+
+**Common Properties**
+
+| Name       | Type                     | Description                                                                        |
+|------------|--------------------------|------------------------------------------------------------------------------------|
+| `payer`    | `string`                 | The identifier of the party that will pay the interest rate. E.g. `TPN`.           |
+| `receiver` | `string`                 | The identifier of the party that will receive the interest payments. E.g. `TPN`.   |
+| `dates`    | Array of [`Date`](#date) | The dates in which the payer pays out the interest rate over the principal amount. |
+
+
+**Floating Rate Properties**
+
+| Name          | Type     | Description                                                                   |
+|---------------|----------|-------------------------------------------------------------------------------|
+| `initialRate` | `float`  | The interest rate used during the initial calculation period.                 |
+| `rateOption`  | `string` | The derivative that tracks the exchange rate over time. E.g. `usd-libor-bba`. |
+
+
+**Fixed Rate Properties**
+
+| Name        | Type    | Description            |
+|-------------|---------|------------------------|
+| `fixedRate` | `float` | The agreed fixed rate. |
+
+
+**Format Example**
+
+For floating rate interest:
+
+```
+{
+  "payer": "ID1",
+  "receiver": "ID2",
+  "dates": [ Date... ],
+  "initialRate": 1.2,
+  "rateOption": "usd-libor"
+}
+```
+
+For fixed rate interest:
+
+```
+{
+  "payer": "ID1",
+  "receiver": "ID2",
+  "dates": [ Date... ],
+  "fixedRate": 1.2
+}
+```
+
 ### Currency Swap
 
 Represents a Currency Swap agreement. More information on the links below:
@@ -294,7 +293,6 @@ Represents a Currency Swap agreement. More information on the links below:
 | `endExchangeRate` | [`Exchange Rate`](#exchange-rate) \| `null`                | The pre-agreed rate to swap at maturity date. If non-specified, it is the implied exchange rate of the initial swap. |
 | `maturityDate`    | [`Date`](#date)                                            | The date at which both parties have to swap the principals again at the `endExchangeRate`.                           |
 | `effectiveDate`   | [`Date`](#date)                                            | The date at which both parties swap the principals.                                                                  |
-| `interest`        | Array of [`Interest Payment`](#interest-payment) \| `null` | The agreement may have Interest Payments.                                                                            |
 
 **Format Example**
 
@@ -305,7 +303,6 @@ Represents a Currency Swap agreement. More information on the links below:
   "payerB": "IDB",
   "principalB": Money,
   "endExchangeRate": ExchangeRate | null,
-  "interest": [ Interest Payment... ] | null,
   "effectiveDate": Date,
   "maturityDate": Date
 }
