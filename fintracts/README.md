@@ -47,13 +47,13 @@ An executable can be found on `./fintracts`.
 To build:
 
 ```bash
-docker build . -t fintracts/parser
+docker build . -t fintracts
 ```
 
 You can now run the parser inside the docker image:
 
 ```bash
-docker run -i fintracts/parser [commands and arguments]
+docker run -i fintracts [commands and arguments]
 ```
 
 ## Usage
