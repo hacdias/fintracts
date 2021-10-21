@@ -118,13 +118,5 @@ func (v *validator) validateCurrencySwap(s *fintracts.CurrencySwap) error {
 		err = multierr.Append(err, v.validateExchangeRate(*s.EndExchangeRate))
 	}
 
-	for _, payment := range s.Interest {
-		err = multierr.Append(err, v.validateInterestPayment(payment))
-
-		for _, date := range payment.Dates {
-			err = multierr.Append(err, v.validateDateInRange(time.Time(date), time.Time(s.EffectiveDate), time.Time(s.MaturityDate)))
-		}
-	}
-
 	return err
 }

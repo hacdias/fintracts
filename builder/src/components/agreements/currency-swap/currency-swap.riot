@@ -58,31 +58,6 @@
       alt="Add End Exchange Rate"
       class="db bg-green br1 pv2 ph3 mt2"
       onclick={addEndExchangeRate}>Add End Exchange Rate</button>
-
-    <label class="mt2" if={agreement.interest}>
-      <span class="b mr1">Interest Payments</span>
-      <span>
-        <interest-payments
-          parties={props.parties}
-          value={agreement.interest}
-          onValue={onChange('interest')} />
-
-        <button
-          id="remove-end-exchange-rate"
-          onclick={removeInterestPayments}
-          title="Remove Interest Payments"
-          alt="Remove Interest Payments"
-          class="db bg-green br1 pv2 ph3 mt2">Remove Interest Payments</button>
-      </span>
-    </label>
-
-    <button
-      if={!agreement.interest}
-      id="add-interest-payments"
-      title="Add Interest Payments"
-      alt="Add Interest Payments"
-      class="db bg-green br1 pv2 ph3 mt2"
-      onclick={addInterestPayments}>Add Interest Payments</button>
   </frame-box>
 
   <script>
@@ -90,7 +65,6 @@
     import Date from '../../primitives/date/date.riot'
     import Money from '../../primitives/money/money.riot'
     import ExchangeRate from '../../primitives/exchange-rate/exchange-rate.riot'
-    import InterestPayments from '../../primitives/interest-payments/interest-payments.riot'
     import FrameBox from '../../frame-box/frame-box.riot'
 
     const emptyState = () => ({
@@ -98,8 +72,7 @@
       principalA: null,
       payerB: null,
       principalB: null,
-      endExchangeRate: null, // TODO: can be optional
-      interest: null, // TODO: can be optional
+      endExchangeRate: null,
       effectiveDate: null,
       maturityDate: null
     })
@@ -110,8 +83,7 @@
         Date,
         Money,
         ExchangeRate,
-        FrameBox,
-        InterestPayments
+        FrameBox
       },
       get agreement () {
         const agreement = this.props.agreement || {}
@@ -127,12 +99,6 @@
       },
       removeEndExchageRate () {
         this.onChange('endExchangeRate')(null)
-      },
-      addInterestPayments () {
-        this.onChange('interest')([])
-      },
-      removeInterestPayments () {
-        this.onChange('interest')(null)
       },
       onChange (field) {
         return (value) => {
