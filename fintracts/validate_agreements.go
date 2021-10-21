@@ -113,21 +113,6 @@ func (s *CurrencySwap) validate(c *Contract) error {
 		validateDifferentParties(s.PayerA, s.PayerB),
 	)
 
-	if s.ImpliedExchangeRate.BaseCurrency != s.PrincipalA.Currency {
-		err = multierr.Append(err, fmt.Errorf("implied exchange rate base currency should be %s", s.PrincipalA.Currency))
-	}
-
-	if s.ImpliedExchangeRate.CounterCurrency != s.PrincipalB.Currency {
-		err = multierr.Append(err, fmt.Errorf("implied exchange rate counter currency should be %s", s.PrincipalB.Currency))
-	}
-
-	rate := s.PrincipalB.Amount / s.PrincipalA.Amount
-	if s.ImpliedExchangeRate.Rate != rate {
-		err = multierr.Append(err, fmt.Errorf("implied exchange rate should be %f", rate))
-	}
-
-	err = multierr.Append(err, s.ImpliedExchangeRate.validate())
-
 	if s.EndExchangeRate != nil {
 		err = multierr.Append(err, s.EndExchangeRate.validate())
 	}

@@ -8,9 +8,7 @@ import (
 	"go.uber.org/multierr"
 )
 
-// Validate validates a contract. Optionally, it can fix easy to fix errors, such as:
-// 	- Convert currency names to upper case. E.g. 'eur' to 'EUR'.
-// 	- Fill the implied exchange rate in currency swap agreements.
+// Validate validates a contract.
 func Validate(c *Contract) error {
 	return c.validate()
 }

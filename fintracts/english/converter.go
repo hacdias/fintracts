@@ -183,11 +183,10 @@ func (a InterestRateSwap) convert() (*fintracts.InterestRateSwap, error) {
 
 func (a CurrencySwap) convert() (*fintracts.CurrencySwap, error) {
 	fa := &fintracts.CurrencySwap{
-		PayerA:              a.PayerA,
-		PayerB:              a.PayerB,
-		PrincipalA:          a.PrincipalA.convert(),
-		PrincipalB:          a.PrincipalB.convert(),
-		ImpliedExchangeRate: a.ImpliedExchangeRate.convert(),
+		PayerA:     a.PayerA,
+		PayerB:     a.PayerB,
+		PrincipalA: a.PrincipalA.convert(),
+		PrincipalB: a.PrincipalB.convert(),
 	}
 
 	if a.EndExchangeRate != nil {
