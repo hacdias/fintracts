@@ -9,6 +9,14 @@
     </label>
 
     <label class="mt2">
+      <span class="b mr1">Receiver</span>
+      <party-select
+        parties={props.parties}
+        onValue={onChange('receiver', true)}
+        selected={value.receiver} />
+    </label>
+
+    <label class="mt2">
       <span class="b mr1">Type</span>
       <div onchange={onRateType}>
         <div><input type="radio" class="mr1" value="floating" checked={isFloating} /> Floating Type</div>
@@ -47,6 +55,7 @@
 
     const emptyState = () => ({
       payer: '',
+      receiver: '',
       dates: [],
     })
 
