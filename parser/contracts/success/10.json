@@ -1,0 +1,88 @@
+{
+  "parties": [
+    {
+      "name": "The Bank 1",
+      "identifier": "TB1"
+    },
+    {
+      "name": "The Bank 2",
+      "identifier": "TB2"
+    }
+  ],
+  "agreements": [
+    {
+      "currencySwap": {
+        "payerA": "TB1",
+        "payerB": "TB2",
+        "principalA": {
+          "currency": "USD",
+          "amount": 10000000
+        },
+        "principalB": {
+          "currency": "EUR",
+          "amount": 12500000
+        },
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-15T00:00:00Z"
+      }
+    },
+    {
+      "interestRateSwap": {
+        "notationalAmount": {
+          "currency": "EUR",
+          "amount": 12500000
+        },
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-15T00:00:00Z",
+        "interest": [
+          {
+            "payer": "TB1",
+            "receiver": "TB2",
+            "dates": [
+              "2021-10-15T00:00:00Z",
+              "2022-10-15T00:00:00Z",
+              "2023-10-15T00:00:00Z",
+              "2024-10-15T00:00:00Z",
+              "2025-10-15T00:00:00Z"
+            ],
+            "fixedRate": 3.5
+          }
+        ]
+      }
+    },
+    {
+      "interestRateSwap": {
+        "notationalAmount": {
+          "currency": "USD",
+          "amount": 10000000
+        },
+        "effectiveDate": "2021-10-01T00:00:00Z",
+        "maturityDate": "2025-10-15T00:00:00Z",
+        "interest": [
+          {
+            "payer": "TB2",
+            "receiver": "TB1",
+            "dates": [
+              "2021-10-15T00:00:00Z",
+              "2022-10-15T00:00:00Z",
+              "2023-10-15T00:00:00Z",
+              "2024-10-15T00:00:00Z",
+              "2025-10-15T00:00:00Z"
+            ],
+            "initialRate": 2.4,
+            "rateOption": "USD - LIBOR"
+          }
+        ]
+      }
+    }
+  ],
+  "signatures": [
+    {
+      "parties": [
+        "TB1",
+        "TB2"
+      ],
+      "date": "2021-09-15T00:00:00Z"
+    }
+  ]
+}
