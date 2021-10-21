@@ -2,13 +2,12 @@ package fintracts
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"go.uber.org/multierr"
 )
 
-func (c *Contract) validate(fix bool) error {
+func (c *Contract) validate() error {
 	parties := c.getPartiesIds()
 	uniqueIds := unique(parties)
 
@@ -33,7 +32,7 @@ func (c *Contract) validate(fix bool) error {
 	}
 
 	for _, agreement := range c.Agreements {
-		err = multierr.Append(err, agreement.validate(c, fix))
+		err = multierr.Append(err, agreement.validate(c))
 	}
 
 	return err
@@ -73,12 +72,8 @@ func (s *Signature) validate() error {
 	return multierr.Append(err, s.Date.validate())
 }
 
-func (c *Currency) validate(fix bool) error {
+func (c *Currency) validate() error {
 	cur := string(*c)
-	if fix {
-		cur = strings.ToUpper(cur)
-		*c = Currency(cur)
-	}
 
 	found := false
 	for _, c := range currencies {
@@ -109,20 +104,20 @@ var currencies = []string{
 	"XOF", "XPD", "XPF", "XPT", "XTS", "YER", "ZAR", "ZAR LSL", "ZAR NAD", "ZMK", "ZWL",
 }
 
-func (m *Money) validate(fix bool) error {
+func (m *Money) validate() error {
 	var err error
 
 	if m.Amount <= 0 {
 		err = multierr.Append(err, fmt.Errorf("amount must be larger than 0"))
 	}
 
-	return multierr.Append(err, m.Currency.validate(fix))
+	return multierr.Append(err, m.Currency.validate())
 }
 
-func (e *ExchangeRate) validate(fix bool) error {
+func (e *ExchangeRate) validate() error {
 	err := multierr.Combine(
-		e.BaseCurrency.validate(fix),
-		e.CounterCurrency.validate(fix),
+		e.BaseCurrency.validate(),
+		e.CounterCurrency.validate(),
 	)
 
 	if e.Rate <= 0 {

@@ -16,12 +16,6 @@ func mustGetString(cmd *cobra.Command, flag string) string {
 	return s
 }
 
-func mustGetBool(cmd *cobra.Command, flag string) bool {
-	s, err := cmd.Flags().GetBool(flag)
-	checkErr(err)
-	return s
-}
-
 func checkErr(err error) {
 	if err != nil {
 		errs := multierr.Errors(err)

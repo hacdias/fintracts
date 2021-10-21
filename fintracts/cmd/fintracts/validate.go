@@ -10,7 +10,6 @@ import (
 func init() {
 	rootCmd.AddCommand(validateCmd)
 	validateCmd.Flags().StringP("input", "i", "", "indicates the input file")
-	validateCmd.Flags().BoolP("fix", "f", false, "fix auto-fixable errors")
 }
 
 var validateCmd = &cobra.Command{
@@ -18,12 +17,11 @@ var validateCmd = &cobra.Command{
 	Short: "Validates a contract in the JSON specification",
 	Run: func(cmd *cobra.Command, args []string) {
 		data := inputFlagOrStdin(cmd)
-		fix := mustGetBool(cmd, "fix")
 
 		contract, err := fintracts.FromJSON(data)
 		checkErr(err)
 
-		err = fintracts.Validate(contract, fix)
+		err = fintracts.Validate(contract)
 		checkErr(err)
 
 		str, err := contract.String()
