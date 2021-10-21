@@ -25,7 +25,7 @@ Fintracts aims to be an ecosystem of tools to make it easy to write financial, r
 
 ## Research Notes
 
-This project was started at [TU Eindhoven](https://tue.nl/). Read more about the motivation and research notes [here](NOTES.md).
+This project was started at [TU Eindhoven](https://tue.nl/). Read more about the motivation and research notes [here](RESEARCH.md).
 
 ## License
 
