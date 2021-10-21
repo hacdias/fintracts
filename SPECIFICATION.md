@@ -254,8 +254,7 @@ The bond may pay coupons periodically.
 
 Represents an Interest Rate Swap agreement. More information on the links below:
 
-- [https://www.investopedia.com/terms/b/bond.asp](https://www.investopedia.com/terms/b/bond.asp)
-- [https://www.investopedia.com/terms/b/bond-purchase-agreement.asp](https://www.investopedia.com/terms/b/bond-purchase-agreement.asp)
+- [https://www.investopedia.com/terms/i/interestrateswap.asp](https://www.investopedia.com/terms/i/interestrateswap.asp)
 
 **Properties**
 
