@@ -130,10 +130,11 @@ Represents an interest payment. Can be either a floating rate interest, or a fix
 
 **Common Properties**
 
-| Name    | Type                     | Description                                                                        |
-|---------|--------------------------|------------------------------------------------------------------------------------|
-| `payer` | `string`                 | The identifier of the party that will pay the interest rate. E.g. `TPN`.           |
-| `dates` | Array of [`Date`](#date) | The dates in which the payer pays out the interest rate over the principal amount. |
+| Name       | Type                     | Description                                                                        |
+|------------|--------------------------|------------------------------------------------------------------------------------|
+| `payer`    | `string`                 | The identifier of the party that will pay the interest rate. E.g. `TPN`.           |
+| `receiver` | `string`                 | The identifier of the party that will receive the interest payments. E.g. `TPN`.   |
+| `dates`    | Array of [`Date`](#date) | The dates in which the payer pays out the interest rate over the principal amount. |
 
 
 **Floating Rate Properties**
@@ -158,6 +159,7 @@ For floating rate interest:
 ```
 {
   "payer": "ID1",
+  "receiver": "ID2",
   "dates": [ Date... ],
   "initialRate": 1.2,
   "rateOption": "usd-libor"
@@ -169,6 +171,7 @@ For fixed rate interest:
 ```
 {
   "payer": "ID1",
+  "receiver": "ID2",
   "dates": [ Date... ],
   "fixedRate": 1.2
 }

@@ -25,11 +25,11 @@ Hereby enter in an Interest Rate Swap Transaction Agreement defined as follows:
   principal of USD 10,000,000.00, with an effective date as of the 1st of
   October 2021 and termination on the 15th of October 2025.
 
-  TB1 will pay a fixed rate interest of 3.5% over the notational amount
+  TB1 will pay TB2 a fixed rate interest of 3.5% over the notational amount
   on the following dates: 15th of October 2021, 15th of October 2022, 15th of
   October 2023, 15th of October 2024 and 15th of October 2025.
 
-  TB2 will pay a fixed rate interest of 4% over the notational amount
+  TB2 will pay TB1 a fixed rate interest of 4% over the notational amount
   on the following dates: 15th of October 2021, 15th of October 2022, 15th of
   October 2023, 15th of October 2024 and 15th of October 2025.
 

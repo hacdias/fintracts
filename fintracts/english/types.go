@@ -83,7 +83,8 @@ type Agreement struct {
 }
 
 type InterestPayment struct {
-	Payer       string    `parser:"@Ident 'will' 'pay' 'a'"`
+	Payer       string    `parser:"@Ident 'will' 'pay'"`
+	Receiver    string    `parser:"@Ident 'a'"`
 	FixedRate   float64   `parser:"( 'fixed' 'rate' 'interest' 'of' (@Float | @Integer) '%' "`
 	InitialRate float64   `parser:"| 'floating' 'rate' 'interest' ',' 'initially' 'defined' 'as' (@Float | @Integer) '%' ',' ) "`
 	Dates       []*Date   `parser:"'over' 'the' 'notational' 'amount' 'on' 'the' 'following' 'dates' ':' (@@ ',' | @@ | 'and' @@)+ '.'"`

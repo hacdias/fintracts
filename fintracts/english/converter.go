@@ -64,6 +64,7 @@ func (e ExchangeRate) convert() fintracts.ExchangeRate {
 func (i InterestPayment) convert() (*fintracts.InterestPayment, error) {
 	fi := &fintracts.InterestPayment{
 		Payer:       i.Payer,
+		Receiver:    i.Receiver,
 		FixedRate:   i.FixedRate,
 		InitialRate: i.InitialRate,
 		RateOption:  string(i.RateOption),
