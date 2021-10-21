@@ -1,0 +1,60 @@
+{
+  "parties": [
+    {
+      "name": "The Bank 1",
+      "identifier": "TB1"
+    },
+    {
+      "name": "The Bank 2",
+      "identifier": "TB2"
+    }
+  ],
+  "agreements": [
+    {
+      "interestRateSwap": {
+        "notationalAmount": {
+          "currency": "USD",
+          "amount": 10000000
+        },
+        "effectiveDate": "2021-09-23T00:00:00Z",
+        "maturityDate": "2025-10-15T00:00:00Z",
+        "interest": [
+          {
+            "payer": "TB1",
+            "receiver": "TB2",
+            "dates": [
+              "2021-10-15T00:00:00Z",
+              "2022-10-15T00:00:00Z",
+              "2023-10-15T00:00:00Z",
+              "2024-10-15T00:00:00Z",
+              "2025-10-15T00:00:00Z"
+            ],
+            "fixedRate": 3.5
+          },
+          {
+            "payer": "TB2",
+            "receiver": "TB1",
+            "dates": [
+              "2021-09-23T00:00:00Z",
+              "2022-09-23T00:00:00Z",
+              "2023-09-23T00:00:00Z",
+              "2024-09-23T00:00:00Z",
+              "2025-09-23T00:00:00Z"
+            ],
+            "initialRate": 2.4,
+            "rateOption": "USD - LIBOR"
+          }
+        ]
+      }
+    }
+  ],
+  "signatures": [
+    {
+      "parties": [
+        "TB1",
+        "TB2"
+      ],
+      "date": "2021-09-15T00:00:00Z"
+    }
+  ]
+}
