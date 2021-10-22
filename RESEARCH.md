@@ -28,13 +28,15 @@ Over the last years, there have been many attacks to specific, well-known, smart
 
 ### 3.1. Common Vulnerabilities
 
-According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy and access control. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail into those.
+According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy, access control and call stack depth vulnerability. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail into those.
 
 **Integer Underflow and Overflow**, also known as Arithmetic Bug, happen when the underflow or overflow of an integer variable is not taken into account and leads to unwanted behavior. When writing a contract, one must be sure to ensure that integers stay within the limits provided by the language.
 
 **Reentrancy**, also known as recursive call vulnerability, occurs when external calls to a contract are allowed to make new calls to the calling contract even though the initial execution did not finish yet. This means that the contract will be in the middle of execution while executing other calls, leading to an unexpected state. The already mentioned DAO smart contract is the most well-known case of this attack[^dao-attack].
 
 **Access Control** is a type of issue that is common in almost all programs. Issues can arise when the access control is not properly handled, i.e., when users can change or access the smart contracts' functionality without having the right access. A common case here is not protect the initialization function against multiple calls, letting the contract owner be overwritten by someone else.
+
+**Call Stack Depth Vulnerability** occurs when a contract invokes other contracts and the depth of the call stack goes beyond a certain threshold. Some of the instructions, instead of throwing an error, will simply return false. If the contracts do not check for this, the caller does not know that there is an underlying error. To solve this, all contracts must check the return values of the instruction to determine whether or not they were executed successfully.
 
 ### 3.2. Existing Tools
 
