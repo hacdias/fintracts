@@ -28,13 +28,13 @@ Over the last years, there have been many attacks to specific, well-known, smart
 
 ### 3.1. Common Vulnerabilities
 
-According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy, access control and call stack depth vulnerability. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail into those.
+According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy, access control and call stack depth vulnerabilities. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail in those.
 
-**Integer Underflow and Overflow**, also known as Arithmetic Bug, happen when the underflow or overflow of an integer variable is not taken into account and leads to unwanted behavior. When writing a contract, one must be sure to ensure that integers stay within the limits provided by the language.
+**Integer Underflow and Overflow**, also known as arithmetic bug, happens when the underflow or overflow of an integer variable is not taken into account and leads to unwanted behavior. When writing a contract, one must ensure that integers stay within the limits provided by the language and correctly handle the cases where a certain operation would cause underflow or overflow.
 
 **Reentrancy**, also known as recursive call vulnerability, occurs when external calls to a contract are allowed to make new calls to the calling contract even though the initial execution did not finish yet. This means that the contract will be in the middle of execution while executing other calls, leading to an unexpected state. The already mentioned DAO smart contract is the most well-known case of this attack[^dao-attack].
 
-**Access Control** is a type of issue that is common in almost all programs. Issues can arise when the access control is not properly handled, i.e., when users can change or access the smart contracts' functionality without having the right access. A common case here is not protect the initialization function against multiple calls, letting the contract owner be overwritten by someone else.
+**Access Control** is a type of issue that is common in almost all programs. Issues can arise when the access control is not properly handled, i.e., when users can change or access the smart contracts' functionality without having the right access. A common cause here is when the initialization function is not protected against multiple calls, letting the contract owner be overwritten by someone else.
 
 **Call Stack Depth Vulnerability** occurs when a contract invokes other contracts and the depth of the call stack goes beyond a certain threshold. Some of the instructions, instead of throwing an error, will simply return false. If the contracts do not check for this, the caller does not know that there is an underlying error. To solve this, all contracts must check the return values of the instruction to determine whether or not they were executed successfully.
 
@@ -74,7 +74,7 @@ On the legal and financial domain, there are also some interesting tools. **Cata
 
 The initial assignment proposed the use of the language F* to tackle this [problem](#problem-statement). F*[^fstar] is a language that combines general-purpose programming with a proof assistant, being based on dependent types. F* can be compiled to OCaml, F#, or even to C. There is some research done in F* aimed at verification of smart contracts in the Ethereum network.
 
-In 2016, Bhargavan et al.[^10.1145/2993600.2993611] introduce a framework to analyze and verify runtime safety and functional correctness of Ethereum smart contracts. To do this, they built two tools, Solidity* and EVM*, which convert Solidity and EVM bytecode to F*, respectively. The idea is to then verify the resulting F* code. However, it is noted[^10.1145/3437378.3437879] that this tools do not proide fully automatic verification since the users are required to manually define the effects in F*.
+In 2016, Bhargavan et al.[^10.1145/2993600.2993611] introduce a framework to analyze and verify runtime safety and functional correctness of Ethereum smart contracts. To do this, they built two tools, Solidity* and EVM*, which convert Solidity and EVM bytecode to F*, respectively. The idea is to then verify the resulting F* code. However, it is noted[^10.1145/3437378.3437879] that this tools do not provide fully automatic verification since the users are required to manually define the effects in F*.
 
 In 2018, Grishchenko et al.[^10.1007/978-3-319-89722-6_10] introduce a formalization of the EVM bytecode in F*. Among the verified properties, we can find call integrity, atomicity and independence from miner controller parameters. This tool is mostly compared to Oyente, which is neither complete nor sound. The code is open source[^ethsemantics].
 
