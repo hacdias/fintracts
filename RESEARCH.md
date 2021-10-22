@@ -70,6 +70,8 @@ Other tools that also target a specific small amount of vulnerabilities are **My
 
 There is also a small set of tools surround Coq[^coq], a proof assistant, that are worth mention. Firstly, there is ConCert[^10.1145/3372885.3373829], a smart contract certification framework, not targeted at a particular blockchain. On top of ConCert, a tool was built[^10.1145/3437992.3439934] to extract smart contracts written in Liquidity, Midland and Elm. There's also a hybrid formal verification system in Coq that uses static analysis to scan for vulnerabilities and symbolic execution for verification[^10.1109/ACCESS.2020.2969437].
 
+On the legal and financial domain, there are also some interesting tools. **Catala**[^2106.04826] is an open-source[^catala] domain-specific language that can be used to derive algorithms for legislative texts. There is also **Findel**[^10.1016/j.jlamp.2021.100665], which is a composable domain specific language for financial derivatives that can be executed in the blockchain. However, it is limited by supporting only two parties, no loops and there is no guarantee the contracts are executed.
+
 ### 3.3. State of F*
 
 The initial assignment proposed the use of the language F* to tackle this [problem](#problem-statement). F*[^fstar] is a language that combines general-purpose programming with a proof assistant, being based on dependent types. F* can be compiled to OCaml, F#, or even to C. There is some research done in F* aimed at verification of smart contracts in the Ethereum network.
@@ -172,26 +174,18 @@ Our contribution focuses on writing the [common specification](SPECIFICATION.md)
 
 [^10.1007/978-981-15-3418-8_5]: https://doi.org/10.1007/978-981-15-3418-8_5
 
+[^2106.04826]: https://arxiv.org/abs/2106.04826
+
+[^catala]: https://github.com/CatalaLang/catala
+
+[^10.1016/j.jlamp.2021.100665]: https://doi.org/10.1016/j.jlamp.2021.100665
+
 <!-- 
 
 ## Smart Contracts, Real-Virtual World Convergence and Economic Implications
 
 - **Date**: Aug 3, 2021
 - **URL**: https://dx.doi.org/10.2139/ssrn.3898144
-
-## Catala: A Programming Language for the Law
-
-- **Date**: Jun 9, 2021
-- **URL**: https://arxiv.org/abs/2106.04826
-
-Catala is a DSL and a compiler for programming law specification.
-
-## Certifying Findel derivatives for blockchain
-
-- **Date**: Jun 1, 2021
-- **URL**: https://doi.org/10.1016/j.jlamp.2021.100665
-
-Findel is a composable DSL for dinancial derivatives that can be executed in the blockchain. Limitations: no more than two parties, no loops, no default refund mechanism, contract execution not guaranteed.
 
 ## Blockchain-Based Business Processes: A Solidity-to-CPN Formal Verification Approach
 
@@ -307,6 +301,5 @@ Verification of Ethereum smart contracts at the EVM byte code level. They built 
 - [Marlowe: financial contracts on blockchain](https://iohk.io/en/research/library/papers/marlowefinancial-contracts-on-blockchain/)
 - [The Extended UTXO Model](https://iohk.io/en/research/library/papers/the-extended-utxo-model/)
 - [Rabobank executes real-time commercial paper transaction using blockchain technology](https://www.finextra.com/newsarticle/37389/rabobank-executes-real-time-commercial-paper-transaction-using-blockchain-technology)
-
 
 -->
