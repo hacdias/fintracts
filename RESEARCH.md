@@ -45,9 +45,9 @@ All the tools follow a slightly different strategy. However, we can divide them 
 
 #### Vulnerability Pattern-Based Approaches
 
-In this category, we start with **Oyente**[^oyente], which is a symbolic execution tool that checks for various patterns, such as: transaction ordering dependency, timestamp dependency, mishandled exceptions and reentrancy. Even though it verifies against important bugs, it is incomplete[^10.1145/3437378.3437879] and throws too many false positives[^10.1145/3377811.3380364].
+**Oyente**[^oyente] is a symbolic execution tool that checks for various patterns, such as: transaction ordering dependency, timestamp dependency, mishandled exceptions and reentrancy. Even though it verifies against important bugs, it is incomplete[^10.1145/3437378.3437879] and throws too many false positives[^10.1145/3377811.3380364].
 
-The second tool is **Maian**[^maian], which, similarly to Oyente, does symbolic analysis. This tool is highly specific and validates sequence of invocations to detect fund locking and leaking, as well as to detect whether or not a contract can be killed.
+**Maian**[^maian], similarly to Oyente, does symbolic analysis. This tool is highly specific and validates sequence of invocations to detect fund locking and leaking, as well as to detect whether or not a contract can be killed.
 
 We also have **Mythril**[^mythril], that does symbolic analysis, and **Slither**[^slither], which does static analysis. Both of them try to detect a certain set of security vulnerabilities.
 
@@ -71,10 +71,11 @@ We also have **Mythril**[^mythril], that does symbolic analysis, and **Slither**
 
 There are some other tools that do not necessarily fit the previous categories, but are worth mentioning.
 
-- **Eth2Vec** is a static analysis tool based on ML that identifies vulnerabilities in smart contracts by learning smart contract code via their EVM bytecode, assembly code and AST. Seems to have high throughput and accuracy, resistant to code rewrites.[^10.1145/3457337.3457841]
-- Solidifier: No F*. Encodes Solidity using Boogie for verification. Captures Solidity's memory model, lazy blockchain exploration and memory-precise verification harnesses. The author's evaluation shows that Solidifier provides a better speed-precision compromise than similar tools. https://doi.org/10.1145/3412841.3442051
--  Propose a new algorithm and tool (VeriSmart) to ensure arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process. https://doi.org/10.1109/SP40000.2020.00032
+**Eth2Vec**[^10.1145/3457337.3457841] is a static analysis tool based on Machine Learning techniques that identifies vulnerabilities in smart contracts. This tool is trained on learning smart contract code via their EVM bytecode, Assembly code and abstract syntax tree (AST). According to research, it has high throughput and accuracy, being also quite resistant to code rewrites and refactoring.
 
+**Solidifier**[^10.1145/3412841.3442051] encodes Solidity using Boogie for verification. It captures Solidity's memory model and uses lazy blockchain exploration and memory-precise verification harnesses. The author's evaluation shows that Solidifier provides a better speed-precision compromise than similar tools. 
+
+**VeriSmart**[^10.1109/SP40000.2020.00032] is a tool that ensures arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process.
 
 ### State of F*
 
@@ -157,3 +158,7 @@ Our contribution focuses on writing the [common specification](SPECIFICATION.md)
 [^maian]: https://github.com/ivicanikolicsg/MAIAN
 
 [^oyente]: https://oyente.tech/
+
+[^10.1145/3412841.3442051]: https://doi.org/10.1145/3412841.3442051
+
+[^10.1109/SP40000.2020.00032]: https://doi.org/10.1109/SP40000.2020.00032
