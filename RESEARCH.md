@@ -3,7 +3,7 @@
 - [Problem Statement](#problem-statement)
 - [Motivation](#motivation)
 - [State of The Art](#state-of-the-art)
-  - [Most Common Vulnerabilities](#most-common-vulnerabilities)
+  - [Common Vulnerabilities](#common-vulnerabilities)
   - [Existing Tools](#existing-tools)
   - [State of F*](#state-of-f)
 - [Proposed Solution](#proposed-solution)
@@ -26,9 +26,7 @@ Over the last years, there have been many attacks to specific, well-known, smart
 
 ## State of The Art
 
-There are numerous surveys analyzing the existing tools to formally verify and validate smart contracts[^10.1145/3464421][^10.1016/j.pmcj.2020.101227][^10.1016/j.patter.2020.100179][^10.1145/3437378.3437879][^10.1007/978-3-030-78621-2_14] and to evaluate them, whether by testing against real life smart contracts[^10.1145/3377811.3380364], or by injecting bugs on contracts' code[^10.1145/3395363.3397385].
-
-### Most Common Vulnerabilities
+### Common Vulnerabilities
 
 According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy and access control. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail into those.
 
@@ -39,7 +37,44 @@ According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most co
 **Access Control** *TODO*
 ### Existing Tools
 
+There are numerous surveys analyzing the existing tools to formally verify and validate smart contracts[^10.1145/3464421][^10.1016/j.pmcj.2020.101227][^10.1016/j.patter.2020.100179][^10.1145/3437378.3437879][^10.1007/978-3-030-78621-2_14][^tools-overview] and to evaluate them, whether by testing against real life smart contracts[^10.1145/3377811.3380364], or by injecting bugs on contracts' code[^10.1145/3395363.3397385].
+
+All the tools follow a slightly different strategy. However, we can divide them into four main categories[^10.1007/978-3-030-41600-3_11]: vulnerability pattern-based approaches, theorem prover-based approaches, automata-based approaches and SMT-based approaches.
+
 *TODO*
+
+#### Vulnerability Pattern-Based Approaches
+
+In this category, we start with **Oyente**[^oyente], which is a symbolic execution tool that checks for various patterns, such as: transaction ordering dependency, timestamp dependency, mishandled exceptions and reentrancy. Even though it verifies against important bugs, it is incomplete[^10.1145/3437378.3437879] and throws too many false positives[^10.1145/3377811.3380364].
+
+The second tool is **Maian**[^maian], which, similarly to Oyente, does symbolic analysis. This tool is highly specific and validates sequence of invocations to detect fund locking and leaking, as well as to detect whether or not a contract can be killed.
+
+We also have **Mythril**[^mythril], that does symbolic analysis, and **Slither**[^slither], which does static analysis. Both of them try to detect a certain set of security vulnerabilities.
+
+#### Theorem Prover-Based Approaches
+
+- **Kevm**: "is an executable formal semantics of EVM based on the K framework including a deductive program verifier to check contracts against given specifications".
+- **Hirai**: formalization of the EVM in Lem.
+- **Scilla**: intermediate language between smart contracts and bytecode which uses Coq.
+
+#### Automata-Based Approaches
+
+- **FSolidM**: specific targeted vulnerabilities.
+
+#### SMT-Based Approaches (Satisfiability Modulo Theories)
+
+- **Zeus**: translates Solidity to LLVM bytecode. Requires user specified policy in XACML-like file[^10.1145/3437378.3437879].
+- **VeriSol**: targets a limited amount of vulnerabilities and supports limited functionality[^10.1145/3437378.3437879].
+- **solc-verify**[^10.1007/978-3-030-41600-3_11]: verified smart contracts given written in Solidity annotated with their specifications. Does not need specifications, but then verification is limited. Checks common vulnerabilities. solc-verify verifies smart contracts given written in Solidity annotated with  their specification. Uses Boogie as intermediate language. Seems like a nice tool to verify the contract against some common vulnerabilities. It uses a formalization of Solidity's memory-model[^10.1007/978-3-030-44914-8_9].
+
+#### Others
+
+There are some other tools that do not necessarily fit the previous categories, but are worth mentioning.
+
+- **Eth2Vec** is a static analysis tool based on ML that identifies vulnerabilities in smart contracts by learning smart contract code via their EVM bytecode, assembly code and AST. Seems to have high throughput and accuracy, resistant to code rewrites.[^10.1145/3457337.3457841]
+- Solidifier: No F*. Encodes Solidity using Boogie for verification. Captures Solidity's memory model, lazy blockchain exploration and memory-precise verification harnesses. The author's evaluation shows that Solidifier provides a better speed-precision compromise than similar tools. https://doi.org/10.1145/3412841.3442051
+-  Propose a new algorithm and tool (VeriSmart) to ensure arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process. https://doi.org/10.1109/SP40000.2020.00032
+
 
 ### State of F*
 
@@ -106,3 +141,19 @@ Our contribution focuses on writing the [common specification](SPECIFICATION.md)
 [^ethsemantics]: https://secpriv.wien/ethsemantics/
 
 [^10.1145/2993600.2993611]: https://doi.org/10.1145/2993600.2993611
+
+[^10.1007/978-3-030-41600-3_11]: https://doi.org/10.1007/978-3-030-41600-3_11
+
+[^tools-overview]: https://github.com/leonardoalt/ethereum_formal_verification_overview
+
+[^10.1145/3457337.3457841]: https://doi.org/10.1145/3457337.3457841
+
+[^10.1007/978-3-030-44914-8_9]: https://doi.org/10.1007/978-3-030-44914-8_9
+
+[^mythril]: https://github.com/ConsenSys/mythril
+
+[^slither]: https://github.com/crytic/slither
+
+[^maian]: https://github.com/ivicanikolicsg/MAIAN
+
+[^oyente]: https://oyente.tech/

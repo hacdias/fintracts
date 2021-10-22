@@ -1,235 +1,92 @@
-# Fintracts: Research Notes
 
-- [State of the Art](#state-of-the-art)
-  - [Existent Tools](#existent-tools)
-- [Raw Research Notes](#raw-research-notes)
-  - [Papers](#papers)
-  - [Tools](#tools)
-  - [Others](#others)
-
-## State of the Art
-
-This section will be written in bullet points for briefness:
-
-- Most contracts are written in [specific languages](https://ethereum.org/en/developers/docs/smart-contracts/languages/), being the most popular Solidity, which compiles down to EVM byte code.
-- Existing tools:
-  - See table in ["A comprehensive survey on smart contract construction and execution: paradigms, tools, and systems"](#a-comprehensive-survey-on-smart-contract-construction-and-execution-paradigms-tools-and-systems)
-  - Section 6 of ["solc-verify: A Modular Verifier for Solidity Smart Contracts"](#solc-verify-a-modular-verifier-for-solidity-smart-contracts)
-  - See https://github.com/leonardoalt/ethereum_formal_verification_overview
-
-### Existent Tools
-
-#### Vulnerability Pattern-Based Approaches
-
-- **Oyente**: symbolic execution tool, checks for various patterns (incl. transaction ordering dependency, timestamp dependency, mishandled exceptions and reentrancy). Verifies important bugs, incomplete, may contain false-positives.
-- **Maian**: "symbolic analysis with concrete validation over a sequence of invocations to detect fund locking, fund leaking and contracts that can be killed.".
-- **Mythril**: "symbolic analysis to detect a variety of security vulnerabilities".
-- **Slyther**: "static analysis framework with dedicated vulnerability checkers".
-- **Solidity, EVM**: type and effect system to check for vulnerable patterns and gas boundedness.
-
-#### Theorem Prover-Based Approaches
-
-- **Kevm**: "is an executable formal semantics of EVM based on the K framework including a deductive program verifier to check contracts against given specifications".
-- **Hirai**: formalization of the EVM in Lem.
-- **Scilla**: intermediate language between smart contracts and bytecode which uses Coq.
-
-#### Automata-Based Approaches
-
-- **FSolidM**: specific targeted vulnerabilities.
-
-#### SMT-Based Approaches (Satisfiability Modulo Theories)
-
-- **Zeus**: translates Solidity to LLVM bytecode. Requires user specified policy in XACML-like file.
-- **VeriSol**: targets a limited amount of vulnerabilities and supports limited functionality.
-- **solc-verify**: verified smart contracts given written in Solidity annotated with their specifications. Does not need specifications, but then verification is limited. Checks common vulnerabilities.
-
-#### Other Tools
+## Other Tools
 
 - SmartBugs: aggregator of many other Solidity verification tools through Docker images: [https://github.com/smartbugs/smartbugs](https://github.com/smartbugs/smartbugs)
 
----
 
-More in [Raw Research Notes](#raw-research-notes).
-
-## Raw Research Notes
-
-### Papers
-
-#### Smart Contracts, Real-Virtual World Convergence and Economic Implications
+## Smart Contracts, Real-Virtual World Convergence and Economic Implications
 
 - **Date**: Aug 3, 2021
 - **URL**: https://dx.doi.org/10.2139/ssrn.3898144
 
-#### A Survey of Smart Contract Formal Specification and Verification
-
-- **Date**: Jul 18, 2021
-- **URL**: https://doi.org/10.1145/3464421
-
-Review of State of the Art in July 2021.
-
-Section 4.4 is program verification (F* for example). Issues with program verification: need to include precisely abstract components of the smart contract execution and the memory model; no gas mechanism consideration (there are other tools for this).
-
-Usually, what's done is Solidity (or another smart contract lang) to verification language (F*) and not the opposite.
-
-Conclusion: combo of contract-level models and specifications with model checking are the most common strategies; usually program-level representations only analyse security properties through symbolic execution, theorem proving,
-
-#### The Vulnerabilities in Smart Contracts: A Survey
-
-- **Date**: Jun 29, 2021
-- **URL**: https://doi.org/10.1007/978-3-030-78621-2_14
-
-Explains most common smart contract vulnerabilities and how the referenced tools act in such environments. However, they don't seem to actually experiment, but only to see what other papers say.
-
-#### Catala: A Programming Language for the Law
+## Catala: A Programming Language for the Law
 
 - **Date**: Jun 9, 2021
 - **URL**: https://arxiv.org/abs/2106.04826
 
 Catala is a DSL and a compiler for programming law specification.
 
-#### Certifying Findel derivatives for blockchain
+## Certifying Findel derivatives for blockchain
 
 - **Date**: Jun 1, 2021
 - **URL**: https://doi.org/10.1016/j.jlamp.2021.100665
 
 Findel is a composable DSL for dinancial derivatives that can be executed in the blockchain. Limitations: no more than two parties, no loops, no default refund mechanism, contract execution not guaranteed.
 
-#### Blockchain-Based Business Processes: A Solidity-to-CPN Formal Verification Approach
+## Blockchain-Based Business Processes: A Solidity-to-CPN Formal Verification Approach
 
 - **Date**: May 30, 2021
 - **URL**: https://doi.org/10.1007/978-3-030-76352-7_7
 
 Proposes a translation algorithm of Solidity contracts into colored petri nets for verification. Concluded as not good.
 
-#### Eth2Vec: Learning Contract-Wide Code Representations for Vulnerability Detection on Ethereum Smart Contracts
-
-- **Date**: May 24, 2021
-- **URL**: https://doi.org/10.1145/3457337.3457841
-
-Eth2Vec is a static analysis tool based on ML that identifies vulnerabilities in smart contracts by learning smart contract code via their EVM bytecode, assembly code and AST. Seems to have high throughput and accuracy, resistant to code rewrites.
-
-Quite interesting, but not formal verification.
-
-#### Solidifier: bounded model checking solidity using lazy contract deployment and precise memory modeling
-
-- **Date**: Mar 22, 2021
-- **URL**: https://doi.org/10.1145/3412841.3442051
-
-No F*. Encodes Solidity using Boogie for verification. Captures Solidity's memory model, lazy blockchain exploration and memory-precise verification harnesses. The author's evaluation shows that Solidifier provides a better speed-precision compromise than similar tools.
-
-#### A comprehensive survey on smart contract construction and execution: paradigms, tools, and systems
-
-- **Date**: Feb 12, 2021
-- **URL**: https://doi.org/10.1016/j.patter.2020.100179
-
-Analyse the state of art in February 2021. Table 5 compares existing tools to verify smart contracts with different methods.
-
-#### A Survey on Formal Verification for Solidity Smart Contracts
-
-- **Date**: Feb 1, 2021
-- **URL**: https://doi.org/10.1145/3437378.3437879
-
-Analyses state of the art in February 2021 for verifying Solidity smart contracts through some selected formal approaches.
-
-- FSolidM and VeriSolid: specific targeted vulnerabilities. VeriSolid extends FSolidM but not same vulnerabilities. Formal verification done by NuXmv symbolic checker. Does not take into account variables.
-- Zeus: requires user specified policy in XACML-like file.
-- Oyente: verifies important bugs, incomplete, may contain false-positives.
-- Osiris: targets integer vulnerabilities.
-
-#### Extracting smart contracts tested and verified in Coq
+## Extracting smart contracts tested and verified in Coq
 
 - **Date**: Jan 17, 2021
 - **URL**: https://doi.org/10.1145/3437992.3439934
 
 They use ConCert to extract smart contracts written in Liquidity, Midlang and Elm and verify them in Coq.
 
-#### Towards automated verification of smart contract fairness
+## Towards automated verification of smart contract fairness
 
 - **Date**: Nov 8, 2020
 - **URL**: https://doi.org/10.1145/3368089.3409740
 
-#### eThor: Practical and Provably Sound Static Analysis of Ethereum Smart Contracts
+## eThor: Practical and Provably Sound Static Analysis of Ethereum Smart Contracts
 
 - **Date**: Oct 30, 2020
 - **URL**: https://doi.org/10.1145/3372297.3417250
 
-#### Formal Verification of Ethereum Smart Contracts Using Isabelle/HOL
+## Formal Verification of Ethereum Smart Contracts Using Isabelle/HOL
 
 - **Date**: Oct 28, 2020
 - **URL**: https://doi.org/10.1007/978-3-030-62077-6_7
 
-#### The Good, The Bad and The Ugly: Pitfalls and Best Practices in Automated Sound Static Analysis of Ethereum Smart Contracts
+## The Good, The Bad and The Ugly: Pitfalls and Best Practices in Automated Sound Static Analysis of Ethereum Smart Contracts
 
 - **Date**: Oct 27, 2020
 - **URL**: https://doi.org/10.1007/978-3-030-61467-6_14
 
-#### Accurate Smart Contract Verification Through Direct Modeling
+## Accurate Smart Contract Verification Through Direct Modeling
 
 - **Date**: Oct 27, 2020
 - **URL**: https://doi.org/10.1007/978-3-030-61467-6_12
 
-#### ÆGIS: Shielding Vulnerable Smart Contracts Against Attacks
+## ÆGIS: Shielding Vulnerable Smart Contracts Against Attacks
 
 - **Date**: Oct 5, 2020
 - **URL**: https://doi.org/10.1145/3320269.3384756
 
-#### Verification of smart contracts: A survey
-
-- **Date**: Sep 1, 2020
-- **URL**: https://doi.org/10.1016/j.pmcj.2020.101227
-
-They compare and review different papers/tools for verification of smart contracts, whether by formal verification or runtime verification. There is also a good list of common vulnerabilities on section 4.
-
-Similar to (by same authors): On the Verification of Smart Contracts: A Systematic Review, https://doi.org/10.1007/978-3-030-59638-5_7
-
-#### Verified Development and Deployment of Multiple Interacting Smart Contracts with VeriSolid
+## Verified Development and Deployment of Multiple Interacting Smart Contracts with VeriSolid
 
 - **Date**: Aug 17, 2020
 - **URL**: https://doi.org/10.1109/ICBC48266.2020.9169428
 
-#### Deductive Proof of Industrial Smart Contracts Using Why3
+## Deductive Proof of Industrial Smart Contracts Using Why3
 
 - **Date**: Aug 13, 2020
 - **URL**: https://doi.org/10.1007/978-3-030-54994-7_22
 
 Show that Why3 is suitable for writing and verifying smart contract programs by reproducing the behavior of Solidity functions with Why3.
 
-#### Verifying Smart Contracts with Cubicle
+## Verifying Smart Contracts with Cubicle
 
 - **Date**: Aug 13, 2020
 - **URL**: https://doi.org/10.1007/978-3-030-54994-7_23
 
 Presents Cubicle: a model checker for smart contracts. It implements the model of the smart contract itself and the blockchain transaction mechanism behind it.
 
-#### VERISMART: A Highly Precise Safety Verifier for Ethereum Smart Contracts
-
-- **Date**: Jul 30, 2020
-- **URL**: https://doi.org/10.1109/SP40000.2020.00032
-
-Propose a new algorithm and tool (VeriSmart) to ensure arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process.
-
-#### How effective are smart contract analysis tools? evaluating smart contract static analysis tools using bug injection
-
-- **Date**: Jul 18, 2020
-- **URL**: https://doi.org/10.1145/3395363.3397385
-
-Introduces a tool to evaluate static smart contract analysis tools by injecting bugs on the contract's AST.
-
-#### End-to-End Formal Verification of Ethereum 2.0 Deposit Smart Contract
-
-- **Date**: Jul 14, 2020
-- **URL**: https://doi.org/10.1007/978-3-030-53288-8_8
-
-Not 100% related to the topic. Interesting. They show how they did a E2E formal verification of the new deposit contract. They used the K framework and its verification infrastructure. Verifying this single contract took 7+2+5 person-weeks excluding discussions, reporting bugs and follow ups.
-
-#### Empirical review of automated analysis tools on 47,587 Ethereum smart contracts
-
-- **Date**: Jun 27, 2020
-- **URL**: https://doi.org/10.1145/3377811.3380364
-
-Evaluated many contracts using common tools. Not all vulnerabilities were found and some tools threw too many false positives (Oyente). Bad Randomness and Short Addresses vulnerabilities are not found. See DASP10.
-
-#### Securing smart contract with runtime validation
+## Securing smart contract with runtime validation
 
 - **Date**: Jun 11, 2020
 - **URL**: https://doi.org/10.1145/3385412.3385982
@@ -240,87 +97,69 @@ The authors mention that there's new languages being designed that can eliminate
 
 Conclude that runtime validation is effective and efficient for smart contracts as it doesn't add a lot of overhead.
 
-#### Towards a Formally Verified EVM in Production Environment
+## Towards a Formally Verified EVM in Production Environment
 
 - **Date**: Jun 10, 2020
 - **URL**: https://doi.org/10.1007/978-3-030-50029-0_21
 
 Define/formalize the EVM behavior in Why3. Later translated to OCaml, and interfaced with Rust in order to execute smart contracts on it.
 
-#### SMT-Friendly Formalization of the Solidity Memory Model
-
-- **Date**: Apr 18, 2020
-- **URL**: https://doi.org/10.1007/978-3-030-44914-8_9
-
-Presents the formalization of Solidity's memory model used in the tool solc-verify
-
-#### PASO: A Web-Based Parser for Solidity Language Analysis
+## PASO: A Web-Based Parser for Solidity Language Analysis
 
 - **Date**: Mar 30, 2020
 - **URL**: https://doi.org/10.1109/IWBOSE50093.2020.9050263
 
 Present PASO, a web-based tool able to compute smart contract metrics (payable, mappings, modifiers, addresses, events, contracts, ABI and Bytecode size). First web-based tool of the kind.
 
-#### solc-verify: A Modular Verifier for Solidity Smart Contracts
-
-- **Date**: Mar 14, 2020
-- **URL**: https://doi.org/10.1007/978-3-030-41600-3_11
-
-solc-verify verifies smart contracts given written in Solidity annotated with  their specification. Uses Boogie as intermediate language. Seems like a nice tool to verify the contract against some common vulnerabilities.
-
-Very good Related Work section (6).
-
-#### ReJection: A AST-Based Reentrancy Vulnerability Detection Method
+## ReJection: A AST-Based Reentrancy Vulnerability Detection Method
 
 - **Date**: Feb 20, 2020
 - **URL**: https://doi.org/10.1007/978-981-15-3418-8_5
 
 Propose ReJection: tool that inputs Solidity and detects reentrancy vulnerabilities on contract's AST. Implemented on Slither, an open-source vulnerability detection tool.
 
-#### A Hybrid Formal Verification System in Coq for Ensuring the Reliability and Security of Ethereum-Based Service Smart Contracts
+## A Hybrid Formal Verification System in Coq for Ensuring the Reliability and Security of Ethereum-Based Service Smart Contracts
 
 - **Date**: Jan 27, 2020
 - **URL**: https://doi.org/10.1109/ACCESS.2020.2969437
 
 Use a hybrid system for verification: static analysis to scan for vulnerabilities, symbolic execution for verification and debugging mechanisms. Table 5 contains good properties of existent tools. Does not support all Solidity features.
 
-#### ContractWard: Automated Vulnerability Detection Models for Ethereum Smart Contracts
+## ContractWard: Automated Vulnerability Detection Models for Ethereum Smart Contracts
 
 - **Date**: Jan 23, 2020
 - **URL**: https://doi.org/10.1109/TNSE.2020.2968505
 
 Targets specific vulnerabilities (6). Good accuracy.
 
-#### ConCert: a smart contract certification framework in Coq
+## ConCert: a smart contract certification framework in Coq
 
 - **Date**: Jan 20, 2020
 - **URL**: https://doi.org/10.1145/3372885.3373829
 
 They introduce ConCert, which is a smart contract verification framework in Coq. Seems to be a general tool, not targeted to any specific smart contract language.
 
-#### Securify: Practical Security Analysis of Smart Contracts
+## Securify: Practical Security Analysis of Smart Contracts
 
 - **Date**: Oct 15, 2018
 - **URL**: https://doi.org/10.1145/3243734.3243780
 
 Very well cited.
 
-#### Towards Verifying Ethereum Smart Contract Bytecode in Isabelle/HOL
+## Towards Verifying Ethereum Smart Contract Bytecode in Isabelle/HOL
 
 - **Date**: Jan 8, 2018
 - **URL**: https://doi.org/10.1145/3167084
 
 Verification of Ethereum smart contracts at the EVM byte code level. They built a formal EVM model in Isabelle/HOL. Smart contracts need to be manually written in Isabel/HOL (I think).
 
-### Tools
-
-#### Kind
+## Kind
 
 - **URL**: https://github.com/uwu-tech/kind
 
 "Modern proof language". Aim to support writing smart contracts soon.
 
-### Others
+## Others
 
 - [Bond issues: step-by-step guide by Practical Law Finance](https://uk.practicallaw.thomsonreuters.com/1-505-0428)
 - [Marlowe: financial contracts on blockchain](https://iohk.io/en/research/library/papers/marlowefinancial-contracts-on-blockchain/)
