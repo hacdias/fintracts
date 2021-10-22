@@ -30,13 +30,6 @@ Findel is a composable DSL for dinancial derivatives that can be executed in the
 
 Proposes a translation algorithm of Solidity contracts into colored petri nets for verification. Concluded as not good.
 
-## Extracting smart contracts tested and verified in Coq
-
-- **Date**: Jan 17, 2021
-- **URL**: https://doi.org/10.1145/3437992.3439934
-
-They use ConCert to extract smart contracts written in Liquidity, Midlang and Elm and verify them in Coq.
-
 ## Towards automated verification of smart contract fairness
 
 - **Date**: Nov 8, 2020
@@ -118,26 +111,12 @@ Present PASO, a web-based tool able to compute smart contract metrics (payable, 
 
 Propose ReJection: tool that inputs Solidity and detects reentrancy vulnerabilities on contract's AST. Implemented on Slither, an open-source vulnerability detection tool.
 
-## A Hybrid Formal Verification System in Coq for Ensuring the Reliability and Security of Ethereum-Based Service Smart Contracts
-
-- **Date**: Jan 27, 2020
-- **URL**: https://doi.org/10.1109/ACCESS.2020.2969437
-
-Use a hybrid system for verification: static analysis to scan for vulnerabilities, symbolic execution for verification and debugging mechanisms. Table 5 contains good properties of existent tools. Does not support all Solidity features.
-
 ## ContractWard: Automated Vulnerability Detection Models for Ethereum Smart Contracts
 
 - **Date**: Jan 23, 2020
 - **URL**: https://doi.org/10.1109/TNSE.2020.2968505
 
 Targets specific vulnerabilities (6). Good accuracy.
-
-## ConCert: a smart contract certification framework in Coq
-
-- **Date**: Jan 20, 2020
-- **URL**: https://doi.org/10.1145/3372885.3373829
-
-They introduce ConCert, which is a smart contract verification framework in Coq. Seems to be a general tool, not targeted to any specific smart contract language.
 
 ## Securify: Practical Security Analysis of Smart Contracts
 

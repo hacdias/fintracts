@@ -13,7 +13,6 @@ TODO:
 - [3. State of The Art](#3-state-of-the-art)
   - [3.1. Common Vulnerabilities *TODO*](#31-common-vulnerabilities-todo)
   - [3.2. Existing Tools](#32-existing-tools)
-  - [3.3. State of Coq *TODO*](#33-state-of-coq-todo)
   - [3.4. State of F*](#34-state-of-f)
 - [4. Proposed Solution](#4-proposed-solution)
   - [4.1. Initial Solution](#41-initial-solution)
@@ -66,7 +65,7 @@ Other tools that also target a specific small amount of vulnerabilities are **My
 
 **VeriSmart**[^10.1109/SP40000.2020.00032] is a tool that ensures arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process.
 
-### 3.3. State of Coq *TODO*
+There is also a small set of tools surround Coq[^coq], a proof assistant, that are worth mention. Firstly, there is ConCert[^10.1145/3372885.3373829], a smart contract certification framework, not targeted at a particular blockchain. On top of ConCert, a tool was built[^10.1145/3437992.3439934] to extract smart contracts written in Liquidity, Midland and Elm. There's also a hybrid formal verification system in Coq that uses static analysis to scan for vulnerabilities and symbolic execution for verification[^10.1109/ACCESS.2020.2969437].
 
 ### 3.4. State of F*
 
@@ -159,3 +158,11 @@ Our contribution focuses on writing the [common specification](SPECIFICATION.md)
 [^verisol]: https://github.com/microsoft/verisol
 
 [^fsolidm]: https://github.com/anmavrid/smart-contracts
+
+[^coq]: https://coq.inria.fr/
+
+[^10.1145/3372885.3373829]: https://doi.org/10.1145/3372885.3373829
+
+[^10.1109/ACCESS.2020.2969437]: https://doi.org/10.1109/ACCESS.2020.2969437
+
+[^10.1145/3437992.3439934]: https://doi.org/10.1145/3437992.3439934
