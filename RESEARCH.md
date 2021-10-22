@@ -11,9 +11,10 @@ TODO:
 - [1. Problem Statement](#1-problem-statement)
 - [2. Motivation](#2-motivation)
 - [3. State of The Art](#3-state-of-the-art)
-  - [3.1. Common Vulnerabilities](#31-common-vulnerabilities)
+  - [3.1. Common Vulnerabilities *TODO*](#31-common-vulnerabilities-todo)
   - [3.2. Existing Tools](#32-existing-tools)
-  - [3.3. State of F*](#33-state-of-f)
+  - [3.3. State of Coq *TODO*](#33-state-of-coq-todo)
+  - [3.4. State of F*](#34-state-of-f)
 - [4. Proposed Solution](#4-proposed-solution)
   - [4.1. Initial Solution](#41-initial-solution)
   - [4.2. Current Solution](#42-current-solution)
@@ -34,7 +35,7 @@ Over the last years, there have been many attacks to specific, well-known, smart
 
 ## 3. State of The Art
 
-### 3.1. Common Vulnerabilities
+### 3.1. Common Vulnerabilities *TODO*
 
 According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy and access control. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail into those.
 
@@ -42,42 +43,22 @@ According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most co
 
 **Reentrancy**, also known as recursive call vulnerability, occurs when external calls to a contract are allowed to make new calls to the calling contract even though the initial execution did not finish yet. This means that the contract will be in the middle of execution while executing other calls, leading to an unexpected state. The already mentioned DAO smart contract is the most well-known case of this attack[^dao-attack].
 
-**Access Control** *TODO*
+**Access Control**
 ### 3.2. Existing Tools
 
-There are numerous surveys analyzing the existing tools to formally verify and validate smart contracts[^10.1145/3464421][^10.1016/j.pmcj.2020.101227][^10.1016/j.patter.2020.100179][^10.1145/3437378.3437879][^10.1007/978-3-030-78621-2_14][^tools-overview] and to evaluate them, whether by testing against real life smart contracts[^10.1145/3377811.3380364], or by injecting bugs on contracts' code[^10.1145/3395363.3397385].
-
-All the tools follow a slightly different strategy. However, we can divide them into four main categories[^10.1007/978-3-030-41600-3_11]: vulnerability pattern-based approaches, theorem prover-based approaches, automata-based approaches and SMT-based approaches.
-
-*TODO*
-
-#### 3.2.1. Vulnerability Pattern-Based Approaches
+There are numerous surveys analyzing the existing tools to formally verify and validate smart contracts[^10.1145/3464421][^10.1016/j.pmcj.2020.101227][^10.1016/j.patter.2020.100179][^10.1145/3437378.3437879][^10.1007/978-3-030-78621-2_14][^tools-overview] and to evaluate them, whether by testing against real life smart contracts[^10.1145/3377811.3380364], or by injecting bugs on contracts' code[^10.1145/3395363.3397385]. Some of this tools are briefly explained below.
 
 **Oyente**[^oyente] is a symbolic execution tool that checks for various patterns, such as: transaction ordering dependency, timestamp dependency, mishandled exceptions and reentrancy. Even though it verifies against important bugs, it is incomplete[^10.1145/3437378.3437879] and throws too many false positives[^10.1145/3377811.3380364].
 
 **Maian**[^maian], similarly to Oyente, does symbolic analysis. This tool is highly specific and validates sequence of invocations to detect fund locking and leaking, as well as to detect whether or not a contract can be killed.
 
-We also have **Mythril**[^mythril], that does symbolic analysis, and **Slither**[^slither], which does static analysis. Both of them try to detect a certain set of security vulnerabilities.
+Other tools that also target a specific small amount of vulnerabilities are **Mythril**[^mythril], **Slither**[^slither] and **FSolidM**[^fsolidm]. Mythril uses symoblic analysis, Slither static analysis, and FSolidM uses an automata-based approach with finite state machines..
 
-#### 3.2.2. Theorem Prover-Based Approaches
+**Zeus**[^10.14722/ndss.2018.23082] translates Solidity to LLVM bytecode. It checks for certain types of safety vulnerabilities, mentioned in the paper. The authors indicate that this tool has zero false negatives and a low positive rate. It is not fully automatic as it requires a XACML-like file to be provided[^10.1145/3437378.3437879].
 
-- **Kevm**: "is an executable formal semantics of EVM based on the K framework including a deductive program verifier to check contracts against given specifications".
-- **Hirai**: formalization of the EVM in Lem.
-- **Scilla**: intermediate language between smart contracts and bytecode which uses Coq.
+**VeriSol**[^verisol] targets a limited amount of vulnerabilities and supports limited functionality[^10.1145/3437378.3437879].
 
-#### 3.2.3. Automata-Based Approaches
-
-- **FSolidM**: specific targeted vulnerabilities.
-
-#### 3.2.4. SMT-Based Approaches (Satisfiability Modulo Theories)
-
-- **Zeus**: translates Solidity to LLVM bytecode. Requires user specified policy in XACML-like file[^10.1145/3437378.3437879].
-- **VeriSol**: targets a limited amount of vulnerabilities and supports limited functionality[^10.1145/3437378.3437879].
-- **solc-verify**[^10.1007/978-3-030-41600-3_11]: verified smart contracts given written in Solidity annotated with their specifications. Does not need specifications, but then verification is limited. Checks common vulnerabilities. solc-verify verifies smart contracts given written in Solidity annotated with  their specification. Uses Boogie as intermediate language. Seems like a nice tool to verify the contract against some common vulnerabilities. It uses a formalization of Solidity's memory-model[^10.1007/978-3-030-44914-8_9].
-
-#### 3.2.5. Others
-
-There are some other tools that do not necessarily fit the previous categories, but are worth mentioning.
+**solc-verify**[^10.1007/978-3-030-41600-3_11] verifies smart contracts against common vulnerabilities given their Solidity code and a formalization of Solidity's memory model[^10.1007/978-3-030-44914-8_9]. This could should be annotated with their specification. Otherwise, the verification is limited.
 
 **Eth2Vec**[^10.1145/3457337.3457841] is a static analysis tool based on Machine Learning techniques that identifies vulnerabilities in smart contracts. This tool is trained on learning smart contract code via their EVM bytecode, Assembly code and abstract syntax tree (AST). According to research, it has high throughput and accuracy, being also quite resistant to code rewrites and refactoring.
 
@@ -85,15 +66,17 @@ There are some other tools that do not necessarily fit the previous categories, 
 
 **VeriSmart**[^10.1109/SP40000.2020.00032] is a tool that ensures arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process.
 
-### 3.3. State of F*
+### 3.3. State of Coq *TODO*
+
+### 3.4. State of F*
 
 The initial assignment proposed the use of the language F* to tackle this [problem](#problem-statement). F*[^fstar] is a language that combines general-purpose programming with a proof assistant, being based on dependent types. F* can be compiled to OCaml, F#, or even to C. There is some research done in F* aimed at verification of smart contracts in the Ethereum network.
 
-**Formal Verification of Smart Contracts: Short Paper**[^10.1145/2993600.2993611]: in 2016, Bhargavan et al. introduce a framework to analyze and verify runtime safety and functional correctness of Ethereum smart contracts. To do this, they built two tools, Solidity* and EVM*, which convert Solidity and EVM bytecode to F*, respectively. The idea is to then verify the resulting F* code. However, it is noted[^10.1145/3437378.3437879] that this tools do not proide fully automatic verification since the users are required to manually define the effects in F*.
+In 2016, Bhargavan et al.[^10.1145/2993600.2993611] introduce a framework to analyze and verify runtime safety and functional correctness of Ethereum smart contracts. To do this, they built two tools, Solidity* and EVM*, which convert Solidity and EVM bytecode to F*, respectively. The idea is to then verify the resulting F* code. However, it is noted[^10.1145/3437378.3437879] that this tools do not proide fully automatic verification since the users are required to manually define the effects in F*.
 
-**A Semantic Framework for the Security Analysis of Ethereum Smart Contracts**[^10.1007/978-3-319-89722-6_10]: in 2018, Grishchenko et al. introduce a formalization of the EVM bytecode in F*. Among the verified properties, we can find call integrity, atomicity and independence from miner controller parameters. This tool is mostly compared to Oyente, which is neither complete nor sound. The code is open source[^ethsemantics].
+In 2018, Grishchenko et al.[^10.1007/978-3-319-89722-6_10] introduce a formalization of the EVM bytecode in F*. Among the verified properties, we can find call integrity, atomicity and independence from miner controller parameters. This tool is mostly compared to Oyente, which is neither complete nor sound. The code is open source[^ethsemantics].
 
-**Celestial: A Smart Contracts Verification Framework**[^celestial]: in 2020, Dharanikota et al. introduce Celestial, a tool to convert contracts with functional annotated-specifications written in Solidity to F*, and verify those. After verification, the tool removes the specification to generate the Solidity code and add it to the blockchain. Unfortunately, the tool is no longer maintained, it only supported a subset of Solidity and Solidity has also had major releases since this tool was built.
+In 2020, Dharanikota et al.[^celestial] introduce Celestial, a tool to convert contracts with functional annotated-specifications written in Solidity to F*, and verify those. After verification, the tool removes the specification to generate the Solidity code and add it to the blockchain. Unfortunately, the tool is no longer maintained, it only supported a subset of Solidity and Solidity has also had major releases since this tool was built.
 
 We can see that most of the existing tools in F* are either outdated, or not complete. Besides, the lack of documentation[^fstar-docs] led us to remove the usage of F* as a requirement.
 
@@ -170,3 +153,9 @@ Our contribution focuses on writing the [common specification](SPECIFICATION.md)
 [^10.1145/3412841.3442051]: https://doi.org/10.1145/3412841.3442051
 
 [^10.1109/SP40000.2020.00032]: https://doi.org/10.1109/SP40000.2020.00032
+
+[^10.14722/ndss.2018.23082]: https://dx.doi.org/10.14722/ndss.2018.23082
+
+[^verisol]: https://github.com/microsoft/verisol
+
+[^fsolidm]: https://github.com/anmavrid/smart-contracts
