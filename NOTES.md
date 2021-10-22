@@ -12,15 +12,6 @@
 This section will be written in bullet points for briefness:
 
 - Most contracts are written in [specific languages](https://ethereum.org/en/developers/docs/smart-contracts/languages/), being the most popular Solidity, which compiles down to EVM byte code.
-- Regarding F*:
-  - F* is a prominent language to verify Solidity smart contracts and there's some research done. However, the tools from the research are mostly closed source and not maintained; and F* is not yet mature enough to be considered as a real solution. It is currently lacking documentation and a manual.
-  - Most of the tools presented in the papers are outdated because they were strictly built for the research of those papers and never updated afterwards.
-- Most common smart contract vulnerabilities:
-  - Integer Underflow and Overflow
-  - Reentrancy Attacks
-  - Greedy Contracts
-  - More in https://dasp.co/
-  - More in [The Vulnerabilities in Smart Contracts: A Survey](#the-vulnerabilities-in-smart-contracts-a-survey)
 - Existing tools:
   - See table in ["A comprehensive survey on smart contract construction and execution: paradigms, tools, and systems"](#a-comprehensive-survey-on-smart-contract-construction-and-execution-paradigms-tools-and-systems)
   - Section 6 of ["solc-verify: A Modular Verifier for Solidity Smart Contracts"](#solc-verify-a-modular-verifier-for-solidity-smart-contracts)
@@ -138,7 +129,7 @@ Analyse the state of art in February 2021. Table 5 compares existing tools to ve
 - **Date**: Feb 1, 2021
 - **URL**: https://doi.org/10.1145/3437378.3437879
 
-Analyses state of the art in February 2021 for verifying Solidity smart contracts through some selected formal approaches. They note that Solidity* and EVM* do not provide automatic verification since it requires the user to define the effects in F*.
+Analyses state of the art in February 2021 for verifying Solidity smart contracts through some selected formal approaches.
 
 - FSolidM and VeriSolid: specific targeted vulnerabilities. VeriSolid extends FSolidM but not same vulnerabilities. Formal verification done by NuXmv symbolic checker. Does not take into account variables.
 - Zeus: requires user specified policy in XACML-like file.
@@ -151,15 +142,6 @@ Analyses state of the art in February 2021 for verifying Solidity smart contract
 - **URL**: https://doi.org/10.1145/3437992.3439934
 
 They use ConCert to extract smart contracts written in Liquidity, Midlang and Elm and verify them in Coq.
-
-#### Celestial: A Smart Contracts Verification Framework
-
-- **Date**: Dec 1, 2020
-- **URL**: https://www.microsoft.com/en-us/research/publication/celestial-a-smart-contracts-verification-framework/
-
-Celestial converts contracts with functional annotated-specifications written in Solidity to F* and verify the code. After verification, the tool performs erasure of the specification to generate Solidity code ready to execute on the blockchain. Does not take into account gas.
-
-It would be great if I had access to the code.
 
 #### Towards automated verification of smart contract fairness
 
@@ -323,31 +305,12 @@ They introduce ConCert, which is a smart contract verification framework in Coq.
 
 Very well cited.
 
-#### A Semantic Framework for the Security Analysis of Ethereum Smart Contracts
-
-- **Date**: Apr 14, 2018
-- **URL**: https://doi.org/10.1007/978-3-319-89722-6_10
-
-Formalizes EVM byte code in F*. Properties verified of smart contracts: call integrity, atomicity, independence from miner controlled params.
-
-Compared to Oyente, whose verification conditions: not complete nor sound.
-Solidity code nor formalized, only EVM.
-
-Code: https://secpriv.wien/ethsemantics/
-
 #### Towards Verifying Ethereum Smart Contract Bytecode in Isabelle/HOL
 
 - **Date**: Jan 8, 2018
 - **URL**: https://doi.org/10.1145/3167084
 
 Verification of Ethereum smart contracts at the EVM byte code level. They built a formal EVM model in Isabelle/HOL. Smart contracts need to be manually written in Isabel/HOL (I think).
-
-#### Formal Verification of Smart Contracts: Short Paper
-
-- **Date**: Oct 24, 2016
-- **URL**: https://doi.org/10.1145/2993600.2993611
-
-Implemented Solidity* (Solidity to F*) and EVM* (EVM byte code to F*) in OCaml. Not fully automatic, requires user to define effects in F* (perhaps not a problem within a closed domain as ours as they can be pre-defined?). Probably tools not up to date as Solidity has changed a lot since 2016.
 
 ### Tools
 
@@ -363,5 +326,3 @@ Implemented Solidity* (Solidity to F*) and EVM* (EVM byte code to F*) in OCaml. 
 - [Marlowe: financial contracts on blockchain](https://iohk.io/en/research/library/papers/marlowefinancial-contracts-on-blockchain/)
 - [The Extended UTXO Model](https://iohk.io/en/research/library/papers/the-extended-utxo-model/)
 - [Rabobank executes real-time commercial paper transaction using blockchain technology](https://www.finextra.com/newsarticle/37389/rabobank-executes-real-time-commercial-paper-transaction-using-blockchain-technology)
-- [Program verification with F*](https://danel.ahman.ee/teaching/eutypes2018/index.html)
-- [Verified programming in F*](https://fstar-lang.org/tutorial/tutorial.html)
