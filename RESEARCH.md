@@ -56,9 +56,13 @@ Other tools that also target a specific small amount of vulnerabilities are **My
 
 **Eth2Vec**[^10.1145/3457337.3457841] is a static analysis tool based on Machine Learning techniques that identifies vulnerabilities in smart contracts. This tool is trained on learning smart contract code via their EVM bytecode, Assembly code and AST. According to research, it has high throughput and accuracy, being also quite resistant to code rewrites and refactoring.
 
-**Solidifier**[^10.1145/3412841.3442051] encodes Solidity using Boogie for verification. It captures Solidity's memory model and uses lazy blockchain exploration and memory-precise verification harnesses. The author's evaluation shows that Solidifier provides a better speed-precision compromise than similar tools. 
+**Solidifier**[^10.1145/3412841.3442051] encodes Solidity using Boogie for verification. It captures Solidity's memory model and uses lazy blockchain exploration and memory-precise verification harnesses. The author's evaluation shows that Solidifier provides a better speed-precision compromise than similar tools.
 
 **VeriSmart**[^10.1109/SP40000.2020.00032] is a tool that ensures arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process.
+
+**PASO**[^10.1109/IWBOSE50093.2020.9050263] is a web-based parser for Solidity language analysis that is able to computer metrics, such as payables, mappings, modifiers, addresses, events, contracts and bytecode size. This is the first web-based tool of the kind.
+
+**ContractWard**[^10.1109/TNSE.2020.2968505] is an automated tool to detect vulnerabilities in Ethereum smart contracts. It targets integer overflow and underflows, transaction-ordering dependencies, call stack depth attacks, timestamp dependencies and reentrancy vulnerabilities. The authors claim good accuracy comparatively to other tools.
 
 There is also a small set of tools surround Coq[^coq], a proof assistant, that are worth mention. Firstly, there is **ConCert**[^10.1145/3372885.3373829], a smart contract certification framework, not targeted at a particular blockchain. On top of ConCert, a tool was built[^10.1145/3437992.3439934] to extract smart contracts written in Liquidity, Midland and Elm. There's also a hybrid formal verification system in Coq that uses static analysis to scan for vulnerabilities and symbolic execution for verification[^10.1109/ACCESS.2020.2969437].
 
@@ -171,3 +175,7 @@ Our contribution focuses on writing the [common specification](SPECIFICATION.md)
 [^catala]: https://github.com/CatalaLang/catala
 
 [^10.1016/j.jlamp.2021.100665]: https://doi.org/10.1016/j.jlamp.2021.100665
+
+[^10.1109/TNSE.2020.2968505]: https://doi.org/10.1109/TNSE.2020.2968505
+
+[^10.1109/IWBOSE50093.2020.9050263]: https://doi.org/10.1109/IWBOSE50093.2020.9050263
