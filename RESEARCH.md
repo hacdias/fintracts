@@ -52,7 +52,9 @@ There are numerous surveys analyzing the existing tools to formally verify and v
 
 **Maian**[^maian], similarly to Oyente, does symbolic analysis. This tool is highly specific and validates sequence of invocations to detect fund locking and leaking, as well as to detect whether or not a contract can be killed.
 
-Other tools that also target a specific small amount of vulnerabilities are **Mythril**[^mythril], **Slither**[^slither] and **FSolidM**[^fsolidm]. Mythril uses symoblic analysis, Slither static analysis, and FSolidM uses an automata-based approach with finite state machines..
+Other tools that also target a specific small amount of vulnerabilities are **Mythril**[^mythril], **Slither**[^slither] and **FSolidM**[^fsolidm]. Mythril uses symoblic analysis, Slither static analysis, and FSolidM uses an automata-based approach with finite state machines.
+
+**ReJection**[^10.1007/978-981-15-3418-8_5] is a tool that detects reentrancy vulnerabilities on a given Solidity smart contract through its abstract syntax tree (AST). This tool is implemented on top of Slither, mention above, by adding more functionality.
 
 **Zeus**[^10.14722/ndss.2018.23082] translates Solidity to LLVM bytecode. It checks for certain types of safety vulnerabilities, mentioned in the paper. The authors indicate that this tool has zero false negatives and a low positive rate. It is not fully automatic as it requires a XACML-like file to be provided[^10.1145/3437378.3437879].
 
@@ -60,7 +62,7 @@ Other tools that also target a specific small amount of vulnerabilities are **My
 
 **solc-verify**[^10.1007/978-3-030-41600-3_11] verifies smart contracts against common vulnerabilities given their Solidity code and a formalization of Solidity's memory model[^10.1007/978-3-030-44914-8_9]. This could should be annotated with their specification. Otherwise, the verification is limited.
 
-**Eth2Vec**[^10.1145/3457337.3457841] is a static analysis tool based on Machine Learning techniques that identifies vulnerabilities in smart contracts. This tool is trained on learning smart contract code via their EVM bytecode, Assembly code and abstract syntax tree (AST). According to research, it has high throughput and accuracy, being also quite resistant to code rewrites and refactoring.
+**Eth2Vec**[^10.1145/3457337.3457841] is a static analysis tool based on Machine Learning techniques that identifies vulnerabilities in smart contracts. This tool is trained on learning smart contract code via their EVM bytecode, Assembly code and AST. According to research, it has high throughput and accuracy, being also quite resistant to code rewrites and refactoring.
 
 **Solidifier**[^10.1145/3412841.3442051] encodes Solidity using Boogie for verification. It captures Solidity's memory model and uses lazy blockchain exploration and memory-precise verification harnesses. The author's evaluation shows that Solidifier provides a better speed-precision compromise than similar tools. 
 
@@ -168,6 +170,7 @@ Our contribution focuses on writing the [common specification](SPECIFICATION.md)
 
 [^10.1145/3437992.3439934]: https://doi.org/10.1145/3437992.3439934
 
+[^10.1007/978-981-15-3418-8_5]: https://doi.org/10.1007/978-981-15-3418-8_5
 
 <!-- 
 
@@ -271,13 +274,6 @@ Define/formalize the EVM behavior in Why3. Later translated to OCaml, and interf
 
 Present PASO, a web-based tool able to compute smart contract metrics (payable, mappings, modifiers, addresses, events, contracts, ABI and Bytecode size). First web-based tool of the kind.
 
-## ReJection: A AST-Based Reentrancy Vulnerability Detection Method
-
-- **Date**: Feb 20, 2020
-- **URL**: https://doi.org/10.1007/978-981-15-3418-8_5
-
-Propose ReJection: tool that inputs Solidity and detects reentrancy vulnerabilities on contract's AST. Implemented on Slither, an open-source vulnerability detection tool.
-
 ## ContractWard: Automated Vulnerability Detection Models for Ethereum Smart Contracts
 
 - **Date**: Jan 23, 2020
@@ -311,5 +307,6 @@ Verification of Ethereum smart contracts at the EVM byte code level. They built 
 - [Marlowe: financial contracts on blockchain](https://iohk.io/en/research/library/papers/marlowefinancial-contracts-on-blockchain/)
 - [The Extended UTXO Model](https://iohk.io/en/research/library/papers/the-extended-utxo-model/)
 - [Rabobank executes real-time commercial paper transaction using blockchain technology](https://www.finextra.com/newsarticle/37389/rabobank-executes-real-time-commercial-paper-transaction-using-blockchain-technology)
+
 
 -->
