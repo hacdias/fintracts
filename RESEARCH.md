@@ -1,20 +1,28 @@
 # Verification Financial Smart Contracts
 
-- [Problem Statement](#problem-statement)
-- [Motivation](#motivation)
-- [State of The Art](#state-of-the-art)
-  - [Common Vulnerabilities](#common-vulnerabilities)
-  - [Existing Tools](#existing-tools)
-  - [State of F*](#state-of-f)
-- [Proposed Solution](#proposed-solution)
-  - [Initial Solution](#initial-solution)
-  - [Current Solution](#current-solution)
+<!-- 
 
-## Problem Statement
+TODO:
+  - Refresh section numbers
+  - Refresh TOC
+  - Proof read
+-->
+
+- [1. Problem Statement](#1-problem-statement)
+- [2. Motivation](#2-motivation)
+- [3. State of The Art](#3-state-of-the-art)
+  - [3.1. Common Vulnerabilities](#31-common-vulnerabilities)
+  - [3.2. Existing Tools](#32-existing-tools)
+  - [3.3. State of F*](#33-state-of-f)
+- [4. Proposed Solution](#4-proposed-solution)
+  - [4.1. Initial Solution](#41-initial-solution)
+  - [4.2. Current Solution](#42-current-solution)
+
+## 1. Problem Statement
 
 The goal of this project is to investigate how we can build verified financial risk-aware smart contracts that can be deployed to the blockchain. This verification should lead to less error-prone contracts, whose financial properties are verified and ensured before being added to the blockchain.
 
-## Motivation
+## 2. Motivation
 
 Advances in economy and society have led to more complex transactions and contracts. Contracts which are often not easily understood, or that leave room for different interpretations. It is important to find a secure and verifiable way of designing such contracts. To do so, we can use distributed ledger technologies.
 
@@ -24,9 +32,9 @@ One of the most known blockchains is Ethereum, which is a public blockchain. By 
 
 Over the last years, there have been many attacks to specific, well-known, smart contracts. For instance, in June 2016, the DAO smart contract suffered an attack that led to $60 million of ether to be stolen[^dao-attack]; in August 2021, the Poly network lost $600 million[^poly-attack]; among others. The impact of bugs like this in big economies can lead to massive losses and market disruptions. Then, it is important that we can deploy contracts where we have a certain degree of certainty that they are **(1)** bug free; and **(2)** do not pose a large financial risk to network as a whole.
 
-## State of The Art
+## 3. State of The Art
 
-### Common Vulnerabilities
+### 3.1. Common Vulnerabilities
 
 According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy and access control. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail into those.
 
@@ -35,7 +43,7 @@ According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most co
 **Reentrancy**, also known as recursive call vulnerability, occurs when external calls to a contract are allowed to make new calls to the calling contract even though the initial execution did not finish yet. This means that the contract will be in the middle of execution while executing other calls, leading to an unexpected state. The already mentioned DAO smart contract is the most well-known case of this attack[^dao-attack].
 
 **Access Control** *TODO*
-### Existing Tools
+### 3.2. Existing Tools
 
 There are numerous surveys analyzing the existing tools to formally verify and validate smart contracts[^10.1145/3464421][^10.1016/j.pmcj.2020.101227][^10.1016/j.patter.2020.100179][^10.1145/3437378.3437879][^10.1007/978-3-030-78621-2_14][^tools-overview] and to evaluate them, whether by testing against real life smart contracts[^10.1145/3377811.3380364], or by injecting bugs on contracts' code[^10.1145/3395363.3397385].
 
@@ -43,7 +51,7 @@ All the tools follow a slightly different strategy. However, we can divide them 
 
 *TODO*
 
-#### Vulnerability Pattern-Based Approaches
+#### 3.2.1. Vulnerability Pattern-Based Approaches
 
 **Oyente**[^oyente] is a symbolic execution tool that checks for various patterns, such as: transaction ordering dependency, timestamp dependency, mishandled exceptions and reentrancy. Even though it verifies against important bugs, it is incomplete[^10.1145/3437378.3437879] and throws too many false positives[^10.1145/3377811.3380364].
 
@@ -51,23 +59,23 @@ All the tools follow a slightly different strategy. However, we can divide them 
 
 We also have **Mythril**[^mythril], that does symbolic analysis, and **Slither**[^slither], which does static analysis. Both of them try to detect a certain set of security vulnerabilities.
 
-#### Theorem Prover-Based Approaches
+#### 3.2.2. Theorem Prover-Based Approaches
 
 - **Kevm**: "is an executable formal semantics of EVM based on the K framework including a deductive program verifier to check contracts against given specifications".
 - **Hirai**: formalization of the EVM in Lem.
 - **Scilla**: intermediate language between smart contracts and bytecode which uses Coq.
 
-#### Automata-Based Approaches
+#### 3.2.3. Automata-Based Approaches
 
 - **FSolidM**: specific targeted vulnerabilities.
 
-#### SMT-Based Approaches (Satisfiability Modulo Theories)
+#### 3.2.4. SMT-Based Approaches (Satisfiability Modulo Theories)
 
 - **Zeus**: translates Solidity to LLVM bytecode. Requires user specified policy in XACML-like file[^10.1145/3437378.3437879].
 - **VeriSol**: targets a limited amount of vulnerabilities and supports limited functionality[^10.1145/3437378.3437879].
 - **solc-verify**[^10.1007/978-3-030-41600-3_11]: verified smart contracts given written in Solidity annotated with their specifications. Does not need specifications, but then verification is limited. Checks common vulnerabilities. solc-verify verifies smart contracts given written in Solidity annotated with  their specification. Uses Boogie as intermediate language. Seems like a nice tool to verify the contract against some common vulnerabilities. It uses a formalization of Solidity's memory-model[^10.1007/978-3-030-44914-8_9].
 
-#### Others
+#### 3.2.5. Others
 
 There are some other tools that do not necessarily fit the previous categories, but are worth mentioning.
 
@@ -77,7 +85,7 @@ There are some other tools that do not necessarily fit the previous categories, 
 
 **VeriSmart**[^10.1109/SP40000.2020.00032] is a tool that ensures arithmetic safety of smart contracts written in Solidity. This algorithm can infer hidden transaction invariants and leverage them during the verification process.
 
-### State of F*
+### 3.3. State of F*
 
 The initial assignment proposed the use of the language F* to tackle this [problem](#problem-statement). F*[^fstar] is a language that combines general-purpose programming with a proof assistant, being based on dependent types. F* can be compiled to OCaml, F#, or even to C. There is some research done in F* aimed at verification of smart contracts in the Ethereum network.
 
@@ -89,15 +97,15 @@ The initial assignment proposed the use of the language F* to tackle this [probl
 
 We can see that most of the existing tools in F* are either outdated, or not complete. Besides, the lack of documentation[^fstar-docs] led us to remove the usage of F* as a requirement.
 
-## Proposed Solution
+## 4. Proposed Solution
 
-### Initial Solution
+### 4.1. Initial Solution
 
 Our initial proposed solution was to design a domain specific language (DSL) targeted to the financial domain, mainly to exchange any assets by other assets. This language would be human readable, while keeping a strict grammar, in order to be easily processed by a parser. In addition, each primitive of the contract would encode, in some way, an intrinsic risk that, in later stages, would be used to calculate how much risk the contract imposes to the financial system.
 
 A simple use case for this DSL could be simply described as: **(1)** a lawyer writes a contract between Firm A and Firm B. Then, **(2)**, the contract is parsed and validated by the software and compiled into the blockchain's bytecode. Afterwards, **(3)** it would be submitted to the blockchain and there would be a validation that checks whether or not adding this contract increases the systemic risk by a certain threshold. In case it passes the checks, **(4a)** the contract is added to the blockchain and can be executed. Otherwise, **(4b)** the contract is rejected.
 
-### Current Solution
+### 4.2. Current Solution
 
 The current solution has slightly deviated from the initial proposal, while still keeping its roots. Instead of designing a single DSL language, our solution is to create an ecosystem of tools that surround a single, common, format that represents a financial contract composed by one or more agreements.
 
