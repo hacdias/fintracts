@@ -86,10 +86,6 @@ func (v *validator) validateInterestRateSwap(i *fintracts.InterestRateSwap) erro
 		err = multierr.Append(err, fmt.Errorf("interest cannot be non-existent for interest rate swap agreements"))
 	}
 
-	if len(i.Interest) < 2 {
-		err = multierr.Append(err, fmt.Errorf("interest rate swap agreements must have 2 or more interest payments"))
-	}
-
 	for _, payment := range i.Interest {
 		err = multierr.Append(err, v.validateInterestPayment(payment))
 

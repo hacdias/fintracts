@@ -113,11 +113,12 @@ type InterestRateSwap struct {
 }
 
 type CurrencySwap struct {
-	EffectiveDate   *Date         `parser:"'The' 'parties' 'agree' 'on' 'a' 'currency' 'swap' 'transaction' 'effective' 'as' 'of' 'the' @@"`
-	MaturityDate    *Date         `parser:"'and' 'termination' 'on' 'the' @@ '.'"`
-	PayerA          string        `parser:"@Ident 'will' 'pay' 'a'"`
-	PrincipalA      Money         `parser:"'principal' 'amount' 'of' @@ ','"`
-	PayerB          string        `parser:"'and' 'the' @Ident 'will' 'pay' 'a'"`
-	PrincipalB      Money         `parser:"'principal' 'amount' 'of' @@ '.'"`
-	EndExchangeRate *ExchangeRate `parser:"('At' 'maturity' ',' 'the' 'principal' 'amounts' 'shall' 'be' 'exchanged' 'back' 'with' 'an' 'interest' 'rate' 'of' @@ '.')?"`
+	EffectiveDate   *Date              `parser:"'The' 'parties' 'agree' 'on' 'a' 'currency' 'swap' 'transaction' 'effective' 'as' 'of' 'the' @@"`
+	MaturityDate    *Date              `parser:"'and' 'termination' 'on' 'the' @@ '.'"`
+	PayerA          string             `parser:"@Ident 'will' 'pay' 'a'"`
+	PrincipalA      Money              `parser:"'principal' 'amount' 'of' @@ ','"`
+	PayerB          string             `parser:"'and' 'the' @Ident 'will' 'pay' 'a'"`
+	PrincipalB      Money              `parser:"'principal' 'amount' 'of' @@ '.'"`
+	EndExchangeRate *ExchangeRate      `parser:"('At' 'maturity' ',' 'the' 'principal' 'amounts' 'shall' 'be' 'exchanged' 'back' 'with' 'an' 'interest' 'rate' 'of' @@ '.')?"`
+	Interest        []*InterestPayment `parser:"@@*"`
 }

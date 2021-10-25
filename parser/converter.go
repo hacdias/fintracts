@@ -25,7 +25,7 @@ func (c *Contract) convert() (*fintracts.Contract, error) {
 		if err != nil {
 			return nil, err
 		}
-		fc.Agreements = append(fc.Agreements, *fa)
+		fc.Agreements = append(fc.Agreements, fa...)
 	}
 
 	for _, sig := range c.Signatures {
@@ -82,23 +82,27 @@ func (i InterestPayment) convert() (*fintracts.InterestPayment, error) {
 	return fi, nil
 }
 
-func (a Agreement) convert() (*fintracts.Agreement, error) {
-	fa := &fintracts.Agreement{}
+func (a Agreement) convert() ([]fintracts.Agreement, error) {
+	agreements := []fintracts.Agreement{}
 
 	if a.BondPurchase != nil {
+		fa := fintracts.Agreement{}
 		bp, err := a.BondPurchase.convert()
 		if err != nil {
 			return nil, err
 		}
 		fa.BondPurchase = bp
+		agreements = append(agreements, fa)
 	}
 
 	if a.InterestRateSwap != nil {
+		fa := fintracts.Agreement{}
 		irs, err := a.InterestRateSwap.convert()
 		if err != nil {
 			return nil, err
 		}
 		fa.InterestRateSwap = irs
+		agreements = append(agreements, fa)
 	}
 
 	if a.CurrencySwap != nil {
@@ -106,10 +110,10 @@ func (a Agreement) convert() (*fintracts.Agreement, error) {
 		if err != nil {
 			return nil, err
 		}
-		fa.CurrencySwap = cs
+		agreements = append(agreements, cs...)
 	}
 
-	return fa, nil
+	return agreements, nil
 }
 
 func (a BondPurchase) convert() (*fintracts.BondPurchase, error) {
@@ -182,7 +186,7 @@ func (a InterestRateSwap) convert() (*fintracts.InterestRateSwap, error) {
 	return fa, nil
 }
 
-func (a CurrencySwap) convert() (*fintracts.CurrencySwap, error) {
+func (a CurrencySwap) convert() ([]fintracts.Agreement, error) {
 	fa := &fintracts.CurrencySwap{
 		PayerA:     a.PayerA,
 		PayerB:     a.PayerB,
@@ -207,7 +211,56 @@ func (a CurrencySwap) convert() (*fintracts.CurrencySwap, error) {
 	}
 	fa.EffectiveDate = ed
 
-	return fa, nil
+	agreements := []fintracts.Agreement{
+		{
+			CurrencySwap: fa,
+		},
+	}
+
+	if a.Interest == nil {
+		return agreements, nil
+	}
+
+	// Handle the composite contract with interest payments.
+	interestA := []fintracts.InterestPayment{}
+	interestB := []fintracts.InterestPayment{}
+
+	for _, interest := range a.Interest {
+		i, err := interest.convert()
+		if err != nil {
+			return nil, err
+		}
+
+		if i.Payer == fa.PayerA {
+			interestA = append(interestA, *i)
+		} else {
+			interestB = append(interestB, *i)
+		}
+	}
+
+	if len(interestA) >= 1 {
+		agreements = append(agreements, fintracts.Agreement{
+			InterestRateSwap: &fintracts.InterestRateSwap{
+				NotationalAmount: fa.PrincipalB,
+				Interest:         interestA,
+				MaturityDate:     fa.MaturityDate,
+				EffectiveDate:    fa.EffectiveDate,
+			},
+		})
+	}
+
+	if len(interestB) >= 1 {
+		agreements = append(agreements, fintracts.Agreement{
+			InterestRateSwap: &fintracts.InterestRateSwap{
+				NotationalAmount: fa.PrincipalA,
+				Interest:         interestB,
+				MaturityDate:     fa.MaturityDate,
+				EffectiveDate:    fa.EffectiveDate,
+			},
+		})
+	}
+
+	return agreements, nil
 }
 
 func (d Date) convert() (fintracts.Date, error) {
