@@ -12,7 +12,7 @@
 
 ## 1. Problem Statement
 
-The goal of this project is to investigate how we can build verified financial risk-aware smart contracts that can be deployed to the blockchain. This verification should lead to less error-prone contracts, whose financial properties are verified and ensured before being added to the blockchain.
+The goal of this project is to investigate how we can build verified financial risk-aware smart contracts that can be deployed to the blockchain. On one hand, the verification should lead to less error-prone contracts, whose financial properties are verified and ensured before being added to the blockchain. On the other hand, adding the contract to the blockchain should not increase the systemic risk of the financial system.
 
 ## 2. Motivation
 
@@ -22,13 +22,13 @@ Distributed ledger technologies have become more popular over the last years, su
 
 One of the most known blockchains is Ethereum, which is a public blockchain. By being public, it can be inspected and used by anyone. At its core, there are smart contracts. A smart contract is a program, usually written using a high-level language such as Solidity[^solidity], and then compiled into bytecode to be executed by the blockchain. Due to its immutable nature, a smart contract should work as expected. Any bugs or errors will be permanent once a smart contract is deployed.
 
-Over the last years, there have been many attacks to specific, well-known, smart contracts. For instance, in June 2016, the DAO smart contract suffered an attack that led to $60 million of ether to be stolen[^dao-attack]; in August 2021, the Poly network lost $600 million[^poly-attack]; among others. The impact of bugs like this in big economies can lead to massive losses and market disruptions. Then, it is important that we can deploy contracts where we have a certain degree of certainty that they are **(1)** bug free; and **(2)** do not pose a large financial risk to network as a whole.
+Over the last years, there have been many attacks to specific, well-known, smart contracts. For instance, in June 2016, the DAO smart contract suffered an attack that led to $60 million of ether to be stolen[^dao-attack]; in August 2021, the Poly network lost $600 million[^poly-attack]; among others. The impact of bugs like this in big economies can lead to massive losses and market disruptions. Thus, it is important that we can deploy contracts where we have a certain degree of certainty that they are **(1)** bug free; and **(2)** do not pose a large financial risk to network as a whole.
 
 ## 3. State of The Art
 
 ### 3.1. Common Vulnerabilities
 
-According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy, access control and call stack depth vulnerabilities. There are others, such as denial of services, bad randomness, time manipulation, among others, but I will not be going into detail in those.
+According to current research[^10.1007/978-3-030-78621-2_14][^dasp], the most common smart contract vulnerabilities are: integer underflow and overflow, reentrancy, access control and call stack depth vulnerabilities. There are others, such as denial of services, bad randomness, time manipulation, but I will not be going into detail in those.
 
 **Integer Underflow and Overflow**, also known as arithmetic bug, happens when the underflow or overflow of an integer variable is not taken into account and leads to unwanted behavior. When writing a contract, one must ensure that integers stay within the limits provided by the language and correctly handle the cases where a certain operation would cause underflow or overflow.
 
@@ -54,7 +54,7 @@ Other tools that also target a specific small amount of vulnerabilities are **My
 
 **VeriSol**[^verisol] targets a limited amount of vulnerabilities and supports limited functionality[^10.1145/3437378.3437879].
 
-**solc-verify**[^10.1007/978-3-030-41600-3_11] verifies smart contracts against common vulnerabilities given their Solidity code and a formalization of Solidity's memory model[^10.1007/978-3-030-44914-8_9]. This could should be annotated with their specification. Otherwise, the verification is limited.
+**solc-verify**[^10.1007/978-3-030-41600-3_11] verifies smart contracts against common vulnerabilities given their Solidity code and a formalization of Solidity's memory model[^10.1007/978-3-030-44914-8_9]. This could should be annotated with a specification. Otherwise, the verification is limited.
 
 **Eth2Vec**[^10.1145/3457337.3457841] is a static analysis tool based on Machine Learning techniques that identifies vulnerabilities in smart contracts. This tool is trained on learning smart contract code via their EVM bytecode, Assembly code and AST. According to research, it has high throughput and accuracy, being also quite resistant to code rewrites and refactoring.
 
